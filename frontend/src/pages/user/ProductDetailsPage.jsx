@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Row, Col, Image, Button, Table, ButtonGroup } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";
 import { getProduct } from "../../redux/thunk/productThunk";
 import { addToCart } from "../../redux/thunk/cartThunk";

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Form, ButtonGroup, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../redux/thunk/userThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";

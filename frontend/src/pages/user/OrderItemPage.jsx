@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -8,10 +8,11 @@ import {
   ListGroup,
 } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { createOrder } from "../../redux/thunk/orderThunk";
+import { deleteUserCart } from "../../redux/thunk/cartThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -34,17 +35,10 @@ function OrderItemPage() {
     : initalState;
 
   const [order, setOrder] = useState(state);
+  const [buttonPressed, setButtonPressed] = useState(false);
 
-  function Reset() {
-    if (success)
-      setTimeout(() => {
-        setOrder(initalState);
-        dispatch(Initial());
-      }, 1000);
-  }
-
-  const handleOrder = async () => {
-    if (order.price !== 0) {
+  function handleOrder() {
+    if (order.price) {
       dispatch(
         createOrder({
           ...order,
@@ -53,12 +47,23 @@ function OrderItemPage() {
           method: "bkash",
         })
       );
-      return Reset();
+      setButtonPressed(true);
     }
-  };
+  }
+
+  useEffect(() => {
+    if (buttonPressed && success) {
+      setTimeout(() => {
+        setOrder(initalState);
+        dispatch(Initial());
+        dispatch(deleteUserCart(current_user.Id));
+      }, 1500);
+    }
+  }, [buttonPressed, success]);
 
   return (
     <Row className="p-3">
+      <h1>{"state " + success}</h1>
       <h1 className="py-3 text-center">ORDER</h1>
       <Col md={8}>
         <ListGroup>
@@ -111,7 +116,7 @@ function OrderItemPage() {
             <tr>
               <td colSpan={2}>
                 <ButtonGroup className="d-flex">
-                  <Button variant="dark" onClick={handleOrder}>
+                  <Button variant="dark" onClick={() => handleOrder()}>
                     Payment
                   </Button>
                 </ButtonGroup>

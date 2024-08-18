@@ -32,14 +32,6 @@ class OrderDetail(APIView):
 		serializer = OrderSerializer(orders, many=True)
 		return Response(serializer.data) 
 
-	def put(self, request, pk, format=None):
-		order = self.get_order(pk)
-		serializer = OrderSerializer(order, data=request.data) 
-		if serializer.is_valid():
-			serializer.save() 
-			return Response(serializer.data) 
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
 	def patch(self, request, pk, format=None):
 		order = self.get_order(pk) 
 		serializer = OrderSerializer(order, data=request.data, partial=True) 

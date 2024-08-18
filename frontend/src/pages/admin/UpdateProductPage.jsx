@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateProduct } from "../../redux/thunk/productThunk";
 import { Initial } from "../../redux/slice/productSlice";
+import { updateProduct } from "../../redux/thunk/productThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 

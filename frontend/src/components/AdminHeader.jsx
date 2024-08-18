@@ -8,8 +8,8 @@ import {
   Col,
   Button,
 } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { getAllUsersWithSearch } from "../redux/thunk/userThunk";
 import { getAllProductsWithSearch } from "../redux/thunk/productThunk";
 

@@ -42,14 +42,6 @@ class ProductDetail(APIView):
 		serializer = ProductSerializer(product)
 		return Response(serializer.data) 
 
-	def put(self, request, pk, format=None):
-		product = self.get_product(pk)
-		serializer = ProductSerializer(product, data=request.data) 
-		if serializer.is_valid():
-			serializer.save() 
-			return Response(serializer.data) 
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
-
 	def patch(self, request, pk, format=None):
 		product = self.get_product(pk) 
 		serializer = ProductSerializer(product, data=request.data, partial=True) 

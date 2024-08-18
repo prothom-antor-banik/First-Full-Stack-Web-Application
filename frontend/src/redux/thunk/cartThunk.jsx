@@ -1,10 +1,4 @@
-import {
-  Initial,
-  Loading,
-  Success,
-  ListProducts,
-  Error,
-} from "../slice/cartSlice";
+import { Loading, Success, ListProducts, Error } from "../slice/cartSlice";
 import axios from "axios";
 
 export const addToCart = (entry) => async (dispatch) => {
@@ -77,6 +71,18 @@ export const deleteCartItem = (productId, userId) => async (dispatch) => {
         )
       );
     }
+  } catch (error) {
+    dispatch(Error());
+  }
+};
+
+export const deleteUserCart = (userId) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/cart-delete/${userId}/`;
+  try {
+    dispatch(Loading());
+    const res = await axios.delete(url);
+    if (res.status === 200) dispatch(Success());
+    else dispatch(Error());
   } catch (error) {
     dispatch(Error());
   }
