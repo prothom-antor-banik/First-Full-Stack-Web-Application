@@ -63,7 +63,6 @@ function OrderItemPage() {
 
   return (
     <Row className="p-3">
-      <h1>{"state " + success}</h1>
       <h1 className="py-3 text-center">ORDER</h1>
       <Col md={8}>
         <ListGroup>

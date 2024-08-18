@@ -53,3 +53,10 @@ class CartDetail(APIView):
 		serializer = CartSerializer(cart_objects, many=True)
 		return Response(serializer.data)
 
+class CartDelete(APIView):
+    def delete(self, request, pk, format=None):
+        try:
+            Cart.objects.filter(userId=pk).delete()
+            return Response(status=status.HTTP_200_OK)
+        except:
+            return Response(status=status.HTTP_204_NO_CONTENT)
