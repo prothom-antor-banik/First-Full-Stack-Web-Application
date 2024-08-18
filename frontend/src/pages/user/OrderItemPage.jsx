@@ -7,8 +7,7 @@ import {
   Button,
   ListGroup,
 } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { Navigate } from "react-router-dom";
+import { useLocation, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { createOrder } from "../../redux/thunk/orderThunk";
