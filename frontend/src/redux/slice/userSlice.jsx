@@ -33,6 +33,7 @@ export const userSlice = createSlice({
     },
 
     RemoveUser: (state) => {
+      localStorage.removeItem("current_user");
       state.current_user = {};
     },
 
