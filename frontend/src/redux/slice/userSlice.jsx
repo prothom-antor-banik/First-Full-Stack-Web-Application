@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    current_user: {},
+    current_user: localStorage.getItem("current_user")
+      ? JSON.parse(localStorage.getItem("current_user"))
+      : {},
     users: [],
     loading: false,
     success: false,
@@ -23,10 +25,15 @@ export const userSlice = createSlice({
     },
 
     CurrentUser: (state, action) => {
+      localStorage.setItem("current_user", JSON.stringify(action.payload));
       state.current_user = action.payload;
       state.loading = false;
       state.success = true;
       state.error = false;
+    },
+
+    RemoveUser: (state) => {
+      state.current_user = {};
     },
 
     ListUser: (state, action) => {
@@ -44,7 +51,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { Loading, Success, CurrentUser, ListUser, Error } =
+export const { Loading, Success, CurrentUser, RemoveUser, ListUser, Error } =
   userSlice.actions;
 
 export default userSlice.reducer;

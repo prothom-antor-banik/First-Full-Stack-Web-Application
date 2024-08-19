@@ -63,7 +63,7 @@ function CreatProductPage() {
 
   return (
     <Row className="justify-content-center px-5 py-3">
-      <div className="py-3 d-flex flex-row justify-content-between align-items-center">
+      <section className="py-3 d-flex flex-row justify-content-between align-items-center">
         <h1>Create Product</h1>
         <span>
           <Button
@@ -74,7 +74,7 @@ function CreatProductPage() {
             Products
           </Button>
         </span>
-      </div>
+      </section>
       <Col md={6}>
         <Form onSubmit={(e) => e.preventDefault()}>
           <Form.Group className="p-2" controlId="name">

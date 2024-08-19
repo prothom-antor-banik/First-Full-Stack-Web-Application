@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Table, Button, ButtonGroup } from "react-bootstrap";
-import { Navigate } from "react-router-dom";
+import { Row, Col, Form, Table, ButtonGroup, Button } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { RemoveUser } from "../../redux/slice/userSlice";
 import { Initial } from "../../redux/slice/orderSlice";
 import { updateUserDetails } from "../../redux/thunk/userThunk";
 import { getUserOrders } from "../../redux/thunk/orderThunk";
@@ -10,6 +11,7 @@ import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
 
 function UserProfilePage() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
   const { orders, loading, error } = useSelector((state) => state.order);
@@ -56,7 +58,20 @@ function UserProfilePage() {
   return (
     <Row className="p-3">
       <Col md={4}>
-        <h1 className="p-2">User Profile</h1>
+        <section className="p-2 d-flex flex-row justify-content-between">
+          <h1>User Profile</h1>
+          <span>
+            <Button
+              variant="dark"
+              onClick={() => {
+                dispatch(RemoveUser());
+                navigate("/");
+              }}
+            >
+              Logout
+            </Button>
+          </span>
+        </section>
         <Form
           className="p-3 bg-light text-secondary"
           onSubmit={(e) => e.preventDefault()}
