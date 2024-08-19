@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Table, Row, Col, Button } from "react-bootstrap";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Row, Col, Table, Button } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/productSlice";
 import { getAllProducts, deleteProduct } from "../../redux/thunk/productThunk";
@@ -8,8 +8,8 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 
 function ProductsPage() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
   const { products, loading, error } = useSelector((state) => state.product);
 

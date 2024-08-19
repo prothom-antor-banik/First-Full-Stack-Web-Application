@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Row, Col, Image, Button, Table, ButtonGroup } from "react-bootstrap";
+import { Row, Col, Table, Image, ButtonGroup, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";

@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   Row,
   Col,
+  ListGroup,
   Table,
   ButtonGroup,
   Button,
-  ListGroup,
 } from "react-bootstrap";
-import { useLocation, Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { createOrder } from "../../redux/thunk/orderThunk";

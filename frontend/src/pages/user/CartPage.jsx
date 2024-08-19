@@ -4,18 +4,18 @@ import {
   Col,
   ListGroup,
   Form,
+  Table,
   Image,
   ButtonGroup,
   Button,
-  Table,
 } from "react-bootstrap";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";
 import {
-  deleteCartItem,
   getUserCart,
   updataCartItem,
+  deleteCartItem,
 } from "../../redux/thunk/cartThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -24,7 +24,6 @@ import Footer from "../../components/Footer";
 function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const { current_user } = useSelector((state) => state.user);
   const { product_list, products, items, price, loading, error } = useSelector(
     (state) => state.cart

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Row, Col, Button, Form } from "react-bootstrap";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/productSlice";
@@ -8,12 +8,12 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 
 function UpdateProductPage() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.product);
   const { current_user } = useSelector((state) => state.user);
-  const location = useLocation();
   const product = location.state;
-  const navigate = useNavigate();
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   if (!current_user.is_admin) return <Navigate to="/" />;
