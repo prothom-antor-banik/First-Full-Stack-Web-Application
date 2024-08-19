@@ -28,12 +28,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f"{str(self.Id)} {self.name} {self.email}"
     
-    
+
 class Products(models.Model):
     Id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=256, blank=False)
     description = models.CharField(max_length=1024, blank=False)
-    image = models.ImageField(upload_to='images/', blank=True, default='default.png')
+    image = models.ImageField(upload_to='', blank=True, default='default.png')
     brand = models.CharField(max_length=128, blank=False)
     category = models.CharField(max_length=128, blank=False)
     price = models.FloatField(blank=False)
