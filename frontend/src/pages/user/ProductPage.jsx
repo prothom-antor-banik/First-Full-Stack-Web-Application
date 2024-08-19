@@ -29,11 +29,19 @@ function ProductPage() {
       ) : loading ? (
         <Loader />
       ) : success ? (
-        products.map((product) => (
-          <Col className="p-3 d-flex" sm={3} md={2} key={product.Id}>
-            <Product product={product} />
-          </Col>
-        ))
+        Object.keys(products).length ? (
+          products.map((product) => (
+            <Col className="p-3 d-flex" sm={3} md={2} key={product.Id}>
+              <Product product={product} />
+            </Col>
+          ))
+        ) : (
+          <Message
+            className="p-3"
+            variant={"warning"}
+            message={"No products to show"}
+          />
+        )
       ) : (
         <></>
       )}

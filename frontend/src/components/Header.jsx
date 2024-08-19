@@ -51,7 +51,7 @@ function Header() {
           <Nav className="ml-auto">
             <Form
               className={
-                location.pathname === "/" ? "px-3 visible" : "px-3 invisible"
+                location.pathname === "/" ? "px-2 visible" : "px-2 invisible"
               }
               onSubmit={(e) => e.preventDefault()}
             >
