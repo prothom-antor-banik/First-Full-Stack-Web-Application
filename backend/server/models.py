@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from PIL import Image
 
 from .manager import UserManager
 
@@ -41,6 +42,15 @@ class Products(models.Model):
 
     class Meta:
         verbose_name = "Product"
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        image = Image.open(self.image.path)
+
+        (height, width) = (600, 600)
+        if image.height > height or image.width > width:
+            image.thumbnail((height, width))
+            image.save(self.image.path)
 
     def __str__(self):
         return f"{str(self.Id)} {self.name}"

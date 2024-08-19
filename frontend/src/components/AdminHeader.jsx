@@ -49,8 +49,8 @@ function AdminHeader() {
               className={
                 location.pathname === "/admin/products" ||
                 location.pathname === "/admin/users"
-                  ? "visible"
-                  : "invisible"
+                  ? "px-3 visible"
+                  : "px-3 invisible"
               }
               onSubmit={(e) => e.preventDefault()}
             >
