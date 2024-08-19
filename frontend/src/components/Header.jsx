@@ -76,18 +76,22 @@ function Header() {
                 </Col>
               </Row>
             </Form>
-            {current_user.is_admin ? (
-              <NavLink
-                className={"text-decoration-none align-self-center"}
-                to="/admin"
-                style={({ isActive }) => {
-                  return {
-                    color: isActive ? "white" : "gray",
-                  };
-                }}
-              >
-                Admin
-              </NavLink>
+            {Object.keys(current_user).length ? (
+              current_user.is_admin ? (
+                <NavLink
+                  className={"text-decoration-none align-self-center"}
+                  to="/admin"
+                  style={({ isActive }) => {
+                    return {
+                      color: isActive ? "white" : "gray",
+                    };
+                  }}
+                >
+                  Admin
+                </NavLink>
+              ) : (
+                <></>
+              )
             ) : (
               <></>
             )}

@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/thunk/userThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import md5 from "md5";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -20,6 +21,15 @@ function RegisterPage() {
     password: "",
   };
   const [state, setState] = useState(initialState);
+
+  function handleRegister() {
+    dispatch(
+      registerUser({
+        ...state,
+        password: md5(state.password),
+      })
+    );
+  }
 
   useEffect(() => {
     if (success) {
@@ -80,9 +90,7 @@ function RegisterPage() {
             <Button
               variant="dark"
               type="submit"
-              onClick={() => {
-                dispatch(registerUser(state));
-              }}
+              onClick={() => handleRegister()}
             >
               Submit
             </Button>

@@ -13,23 +13,90 @@ function ProductsPage() {
   const { current_user } = useSelector((state) => state.user);
   const { products, loading, error } = useSelector((state) => state.product);
 
-  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
-  if (!current_user.is_admin) return <Navigate to="/" />;
-
   useEffect(() => {
     dispatch(getAllProducts());
     return () => dispatch(Initial());
   }, []);
 
-  return (
-    <Row className="justify-content-center">
-      {products.length ? (
-        error ? (
-          <Message variant={"danger"} message={"Error loading products"} />
-        ) : loading ? (
-          <Loader />
+  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
+  else if (!current_user.is_admin) return <Navigate to="/" />;
+  else {
+    return (
+      <Row className="justify-content-center">
+        {products.length ? (
+          error ? (
+            <Message variant={"danger"} message={"Error loading products"} />
+          ) : loading ? (
+            <Loader />
+          ) : (
+            <Col md={10}>
+              <div className="py-3 d-flex flex-row justify-content-between">
+                <h1>Products</h1>
+                <div className="p-2">
+                  <Button
+                    type="submit"
+                    variant="dark"
+                    onClick={() => navigate("/admin/create-product")}
+                  >
+                    Create Product
+                  </Button>
+                </div>
+              </div>
+              <Table striped responsive>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>In Stock</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {products.map((product) => (
+                    <tr key={product.Id}>
+                      <td>{product.Id}</td>
+                      <td>
+                        <strong>{product.name}</strong>
+                      </td>
+                      <td>{product.price}</td>
+                      <td>{product.category}</td>
+                      <td>{product.brand}</td>
+                      <td>{product.countInStock}</td>
+                      <td>
+                        <Button
+                          type="submit"
+                          variant="secondary"
+                          onClick={() =>
+                            navigate("/admin/update-product/", {
+                              state: product,
+                            })
+                          }
+                        >
+                          Update
+                        </Button>
+                      </td>
+                      <td>
+                        <Button
+                          type="submit"
+                          variant="danger"
+                          onClick={() => dispatch(deleteProduct(product.Id))}
+                        >
+                          Delete
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Col>
+          )
         ) : (
-          <Col md={10}>
+          <Col md={10} className="py-3">
             <div className="py-3 d-flex flex-row justify-content-between">
               <h1>Products</h1>
               <div className="p-2">
@@ -42,78 +109,12 @@ function ProductsPage() {
                 </Button>
               </div>
             </div>
-            <Table striped responsive>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Category</th>
-                  <th>Brand</th>
-                  <th>In Stock</th>
-                  <th>Update</th>
-                  <th>Delete</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product.Id}>
-                    <td>{product.Id}</td>
-                    <td>
-                      <strong>{product.name}</strong>
-                    </td>
-                    <td>{product.price}</td>
-                    <td>{product.category}</td>
-                    <td>{product.brand}</td>
-                    <td>{product.countInStock}</td>
-                    <td>
-                      <Button
-                        type="submit"
-                        variant="secondary"
-                        onClick={() =>
-                          navigate("/admin/update-product/", {
-                            state: product,
-                          })
-                        }
-                      >
-                        Update
-                      </Button>
-                    </td>
-                    <td>
-                      <Button
-                        type="submit"
-                        variant="danger"
-                        onClick={() => dispatch(deleteProduct(product.Id))}
-                      >
-                        Delete
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+            <Message variant={"warning"} message={"No products to show"} />
           </Col>
-        )
-      ) : (
-        <Col md={10} className="py-3">
-          <div className="py-3 d-flex flex-row justify-content-between">
-            <h1>Products</h1>
-            <div className="p-2">
-              <Button
-                type="submit"
-                variant="dark"
-                onClick={() => navigate("/admin/create-product")}
-              >
-                Create Product
-              </Button>
-            </div>
-          </div>
-          <Message variant={"warning"} message={"No products to show"} />
-        </Col>
-      )}
-    </Row>
-  );
+        )}
+      </Row>
+    );
+  }
 }
 
 export default ProductsPage;

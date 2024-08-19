@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../../redux/thunk/userThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import md5 from "md5";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -21,7 +22,12 @@ function LoginPage() {
   const [state, setState] = useState(initialState);
 
   function handleLogin() {
-    dispatch(loginUser(state));
+    dispatch(
+      loginUser({
+        ...state,
+        password: md5(state.password),
+      })
+    );
   }
 
   useEffect(() => {

@@ -13,9 +13,6 @@ function CreatProductPage() {
   const { loading, success, error } = useSelector((state) => state.product);
   const { current_user } = useSelector((state) => state.user);
 
-  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
-  if (!current_user.is_admin) return <Navigate to="/" />;
-
   const initialState = {
     name: "",
     description: "",
@@ -61,122 +58,130 @@ function CreatProductPage() {
     };
   }, [success, buttonPressed]);
 
-  return (
-    <Row className="justify-content-center px-5 py-3">
-      <section className="py-3 d-flex flex-row justify-content-between align-items-center">
-        <h1>Create Product</h1>
-        <span>
-          <Button
-            variant="dark"
-            size="lg"
-            onClick={() => navigate("/admin/products")}
-          >
-            Products
+  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
+  else if (!current_user.is_admin) return <Navigate to="/" />;
+  else {
+    return (
+      <Row className="justify-content-center px-5 py-3">
+        <section className="py-3 d-flex flex-row justify-content-between align-items-center">
+          <h1>Create Product</h1>
+          <span>
+            <Button
+              variant="dark"
+              size="lg"
+              onClick={() => navigate("/admin/products")}
+            >
+              Products
+            </Button>
+          </span>
+        </section>
+        <Col md={6}>
+          <Form onSubmit={(e) => e.preventDefault()}>
+            <Form.Group className="p-2" controlId="name">
+              <Form.Label className="fw-bold">Name</Form.Label>
+              <Form.Control
+                type="name"
+                placeholder="Enter name"
+                value={state.name}
+                onChange={(e) => setState({ ...state, name: e.target.value })}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="p-2" controlId="price">
+              <Form.Label className="fw-bold">Price</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter price"
+                value={state.price}
+                onChange={(e) => setState({ ...state, price: e.target.value })}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="p-2" controlId="brand">
+              <Form.Label className="fw-bold">Brand</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter brand"
+                value={state.brand}
+                onChange={(e) => setState({ ...state, brand: e.target.value })}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="p-2" controlId="countinstock">
+              <Form.Label className="fw-bold">Stock</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter stock"
+                value={state.countInStock}
+                onChange={(e) =>
+                  setState({ ...state, countInStock: e.target.value })
+                }
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group className="p-2" controlId="category">
+              <Form.Label className="fw-bold">Category</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter category"
+                value={state.category}
+                onChange={(e) =>
+                  setState({ ...state, category: e.target.value })
+                }
+              ></Form.Control>
+            </Form.Group>
+          </Form>
+        </Col>
+        <Col md={6}>
+          <Form onSubmit={(e) => e.preventDefault()}>
+            <Form.Group className="p-2" controlId="image">
+              <Form.Label className="fw-bold">Image</Form.Label>
+              <Form.Control
+                type="file"
+                placeholder="Enter image"
+                onChange={(e) =>
+                  setState({ ...state, image: e.target.files[0] })
+                }
+              ></Form.Control>
+            </Form.Group>
+            <Form.Group className="p-2" controlId="description">
+              <Form.Label className="fw-bold">Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={5}
+                placeholder="Enter description"
+                value={state.description}
+                onChange={(e) =>
+                  setState({ ...state, description: e.target.value })
+                }
+              ></Form.Control>
+            </Form.Group>
+          </Form>
+        </Col>
+        {error ? (
+          <div className="pt-2">
+            <Message variant={"danger"} message={"Could not create product"} />
+          </div>
+        ) : loading ? (
+          <Loader />
+        ) : success ? (
+          <div className="pt-2">
+            <Message
+              variant={"success"}
+              message={"Successfully created product"}
+            />
+          </div>
+        ) : (
+          <></>
+        )}
+        <center className="py-3">
+          <Button onClick={() => handleSubmit()} type="submit" variant="dark">
+            Create
           </Button>
-        </span>
-      </section>
-      <Col md={6}>
-        <Form onSubmit={(e) => e.preventDefault()}>
-          <Form.Group className="p-2" controlId="name">
-            <Form.Label className="fw-bold">Name</Form.Label>
-            <Form.Control
-              type="name"
-              placeholder="Enter name"
-              value={state.name}
-              onChange={(e) => setState({ ...state, name: e.target.value })}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group className="p-2" controlId="price">
-            <Form.Label className="fw-bold">Price</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter price"
-              value={state.price}
-              onChange={(e) => setState({ ...state, price: e.target.value })}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group className="p-2" controlId="brand">
-            <Form.Label className="fw-bold">Brand</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter brand"
-              value={state.brand}
-              onChange={(e) => setState({ ...state, brand: e.target.value })}
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group className="p-2" controlId="countinstock">
-            <Form.Label className="fw-bold">Stock</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter stock"
-              value={state.countInStock}
-              onChange={(e) =>
-                setState({ ...state, countInStock: e.target.value })
-              }
-            ></Form.Control>
-          </Form.Group>
-
-          <Form.Group className="p-2" controlId="category">
-            <Form.Label className="fw-bold">Category</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter category"
-              value={state.category}
-              onChange={(e) => setState({ ...state, category: e.target.value })}
-            ></Form.Control>
-          </Form.Group>
-        </Form>
-      </Col>
-      <Col md={6}>
-        <Form onSubmit={(e) => e.preventDefault()}>
-          <Form.Group className="p-2" controlId="image">
-            <Form.Label className="fw-bold">Image</Form.Label>
-            <Form.Control
-              type="file"
-              placeholder="Enter image"
-              onChange={(e) => setState({ ...state, image: e.target.files[0] })}
-            ></Form.Control>
-          </Form.Group>
-          <Form.Group className="p-2" controlId="description">
-            <Form.Label className="fw-bold">Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              rows={5}
-              placeholder="Enter description"
-              value={state.description}
-              onChange={(e) =>
-                setState({ ...state, description: e.target.value })
-              }
-            ></Form.Control>
-          </Form.Group>
-        </Form>
-      </Col>
-      {error ? (
-        <div className="pt-2">
-          <Message variant={"danger"} message={"Could not create product"} />
-        </div>
-      ) : loading ? (
-        <Loader />
-      ) : success ? (
-        <div className="pt-2">
-          <Message
-            variant={"success"}
-            message={"Successfully created product"}
-          />
-        </div>
-      ) : (
-        <></>
-      )}
-      <center className="py-3">
-        <Button onClick={() => handleSubmit()} type="submit" variant="dark">
-          Create
-        </Button>
-      </center>
-    </Row>
-  );
+        </center>
+      </Row>
+    );
+  }
 }
 
 export default CreatProductPage;

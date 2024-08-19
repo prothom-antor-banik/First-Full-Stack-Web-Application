@@ -35,6 +35,9 @@ export const userSlice = createSlice({
     RemoveUser: (state) => {
       localStorage.removeItem("current_user");
       state.current_user = {};
+      state.loading = false;
+      state.success = false;
+      state.error = false;
     },
 
     ListUser: (state, action) => {

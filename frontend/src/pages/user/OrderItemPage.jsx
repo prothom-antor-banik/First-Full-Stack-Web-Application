@@ -22,8 +22,6 @@ function OrderItemPage() {
   const { current_user } = useSelector((state) => state.user);
   const { loading, success, error } = useSelector((state) => state.order);
 
-  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
-
   const initalState = {
     products: 0,
     items: 0,
@@ -60,84 +58,90 @@ function OrderItemPage() {
     }
   }, [buttonPressed, success]);
 
-  return (
-    <Row className="p-3">
-      <h1 className="py-3 text-center">ORDER</h1>
-      <Col md={8}>
-        <ListGroup>
-          <ListGroup.Item>
-            <h2>Details:</h2>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <p>{"Name : " + current_user.name}</p>
-            <p>{"Email : " + current_user.email}</p>
-            <p>{"Address : " + current_user.address}</p>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <h2>Payment Method:</h2>
-          </ListGroup.Item>
-          <ListGroup.Item>
-            <p>{"Method : Bkash"}</p>
-          </ListGroup.Item>
-        </ListGroup>
-      </Col>
-      <Col md={4}>
-        <Table striped bordered>
-          <thead>
-            <tr>
-              <th colSpan={2}>
-                <h2 className="py-2">Order Summary</h2>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Total Product</td>
-              <td>{order.products}</td>
-            </tr>
-            <tr>
-              <td>Total Items</td>
-              <td>{order.items}</td>
-            </tr>
-            <tr>
-              <td>Price</td>
-              <td>{order.price}</td>
-            </tr>
-            <tr>
-              <td>Delivery Cost</td>
-              <td>{order.items ? 40 : 0}</td>
-            </tr>
-            <tr>
-              <td>Total Cost</td>
-              <td>{order.price ? order.price + 40 : 0}</td>
-            </tr>
-            <tr>
-              <td colSpan={2}>
-                <ButtonGroup className="d-flex">
-                  <Button variant="dark" onClick={() => handleOrder()}>
-                    Payment
-                  </Button>
-                </ButtonGroup>
-              </td>
-            </tr>
-          </tbody>
-        </Table>
-        {error ? (
-          <Message variant={"danger"} message={"Error on dealing with order"} />
-        ) : loading ? (
-          <Loader />
-        ) : success ? (
-          <Message
-            variant={"success"}
-            message={"Successfully ordered your items"}
-          />
-        ) : (
-          <></>
-        )}
-      </Col>
-      <Footer />
-    </Row>
-  );
+  if (!Object.keys(current_user).length) return <Navigate to="/login" />;
+  else {
+    return (
+      <Row className="p-3">
+        <h1 className="py-3 text-center">ORDER</h1>
+        <Col md={8}>
+          <ListGroup>
+            <ListGroup.Item>
+              <h2>Details:</h2>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <p>{"Name : " + current_user.name}</p>
+              <p>{"Email : " + current_user.email}</p>
+              <p>{"Address : " + current_user.address}</p>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <h2>Payment Method:</h2>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <p>{"Method : Bkash"}</p>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={4}>
+          <Table striped bordered>
+            <thead>
+              <tr>
+                <th colSpan={2}>
+                  <h2 className="py-2">Order Summary</h2>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Total Product</td>
+                <td>{order.products}</td>
+              </tr>
+              <tr>
+                <td>Total Items</td>
+                <td>{order.items}</td>
+              </tr>
+              <tr>
+                <td>Price</td>
+                <td>{order.price}</td>
+              </tr>
+              <tr>
+                <td>Delivery Cost</td>
+                <td>{order.items ? 40 : 0}</td>
+              </tr>
+              <tr>
+                <td>Total Cost</td>
+                <td>{order.price ? order.price + 40 : 0}</td>
+              </tr>
+              <tr>
+                <td colSpan={2}>
+                  <ButtonGroup className="d-flex">
+                    <Button variant="dark" onClick={() => handleOrder()}>
+                      Payment
+                    </Button>
+                  </ButtonGroup>
+                </td>
+              </tr>
+            </tbody>
+          </Table>
+          {error ? (
+            <Message
+              variant={"danger"}
+              message={"Error on dealing with order"}
+            />
+          ) : loading ? (
+            <Loader />
+          ) : success ? (
+            <Message
+              variant={"success"}
+              message={"Successfully ordered your items"}
+            />
+          ) : (
+            <></>
+          )}
+        </Col>
+        <Footer />
+      </Row>
+    );
+  }
 }
 
 export default OrderItemPage;

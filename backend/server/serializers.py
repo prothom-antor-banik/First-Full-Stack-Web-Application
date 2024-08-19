@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
+
 from .models import User, Products, Orders, Cart
 
 class UserSerializer(serializers.ModelSerializer):
@@ -6,6 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta: 
         model = User
         fields = ("Id", "name", "email", "address", "password", "is_admin")
+
+    def create(self, validated_data):
+        password = validated_data['password']
+        validated_data['password'] = make_password(password)
+        return User.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         super().update(instance=instance, validated_data=validated_data)
