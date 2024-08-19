@@ -7,6 +7,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ("Id", "name", "email", "address", "password", "is_admin")
 
+    def update(self, instance, validated_data):
+        super().update(instance=instance, validated_data=validated_data)
+        instance.is_staff = instance.is_admin
+        instance.save()
+        return instance
+    
 
 class ProductSerializer(serializers.ModelSerializer):
     
