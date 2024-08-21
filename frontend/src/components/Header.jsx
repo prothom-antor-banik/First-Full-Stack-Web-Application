@@ -44,6 +44,7 @@ function Header() {
               }}
               onClick={() => dispatch(getAllProducts())}
             >
+              <i className="bi bi-shop-window px-2" />
               Shop
             </NavLink>
           </Navbar.Brand>
@@ -87,6 +88,7 @@ function Header() {
                     };
                   }}
                 >
+                  <i className="bi bi-person-gear px-1" />
                   Admin
                 </NavLink>
               ) : (
@@ -104,6 +106,7 @@ function Header() {
                 };
               }}
             >
+              <i className="bi bi-cart px-1" />
               Cart
             </NavLink>
             {Object.keys(current_user).length ? (
@@ -116,6 +119,7 @@ function Header() {
                   };
                 }}
               >
+                <i className="bi bi-person-fill px-1" />
                 User
               </NavLink>
             ) : (
@@ -128,6 +132,7 @@ function Header() {
                   };
                 }}
               >
+                <i className="bi bi-box-arrow-in-right px-1" />
                 Login
               </NavLink>
             )}

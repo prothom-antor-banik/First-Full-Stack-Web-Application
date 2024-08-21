@@ -41,6 +41,7 @@ function AdminHeader() {
                 };
               }}
             >
+              <i className="bi bi-person-gear px-2" />
               Admin
             </NavLink>
           </Navbar.Brand>
@@ -84,6 +85,7 @@ function AdminHeader() {
                 };
               }}
             >
+              <i className="bi bi-person-fill px-1" />
               User
             </NavLink>
             <NavLink
@@ -95,6 +97,7 @@ function AdminHeader() {
                 };
               }}
             >
+              <i className="bi bi-shop-window px-1" />
               Shop
             </NavLink>
           </Nav>

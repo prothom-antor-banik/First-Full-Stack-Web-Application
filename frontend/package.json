@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "fetch": "^1.1.0",
     "md5": "^2.3.0",
     "react": "^18.3.1",
