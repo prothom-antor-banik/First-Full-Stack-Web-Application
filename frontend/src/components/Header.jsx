@@ -30,7 +30,7 @@ function Header() {
   }
 
   return (
-    <>
+    <Row>
       <Navbar bg="dark" data-bs-theme="dark" collapseOnSelect>
         <Container>
           <Navbar.Brand>
@@ -140,7 +140,7 @@ function Header() {
         </Container>
       </Navbar>
       <Outlet />
-    </>
+    </Row>
   );
 }
 

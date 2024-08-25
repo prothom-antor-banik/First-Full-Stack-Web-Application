@@ -13,7 +13,9 @@ import Footer from "../../components/Footer";
 function UserProfilePage() {
   const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
-  const { orders, loading, error } = useSelector((state) => state.order);
+  const { orders, pages, loading, error } = useSelector((state) => state.order);
+
+  const [page, setPage] = useState(1);
 
   const [state, setState] = useState({
     name: current_user.name,
@@ -48,14 +50,14 @@ function UserProfilePage() {
   }
 
   useEffect(() => {
-    dispatch(getUserOrders(current_user.Id));
+    dispatch(getUserOrders(current_user.Id, page));
     return () => dispatch(Initial());
-  }, []);
+  }, [page]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/" />;
   else {
     return (
-      <Row className="p-3">
+      <Row className="p-4">
         <Col md={4}>
           <section className="p-2 d-flex flex-row justify-content-between">
             <h1>User Profile</h1>
@@ -168,23 +170,22 @@ function UserProfilePage() {
             <Table striped responsive>
               <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Date</th>
-                  <th>Products</th>
-                  <th>Items</th>
-                  <th>Total</th>
-                  <th></th>
+                  <th className="text-center">ID</th>
+                  <th className="text-center">Date</th>
+                  <th className="text-center">Products</th>
+                  <th className="text-center">Items</th>
+                  <th className="text-center">Total</th>
                 </tr>
               </thead>
 
               <tbody>
                 {orders.map((order) => (
                   <tr key={order.Id}>
-                    <td>{order.Id}</td>
-                    <td>{order.date}</td>
-                    <td>{order.products}</td>
-                    <td>{order.items}</td>
-                    <td>{order.price}</td>
+                    <td className="text-center">{order.Id}</td>
+                    <td className="text-center">{order.date}</td>
+                    <td className="text-center">{order.products}</td>
+                    <td className="text-center">{order.items}</td>
+                    <td className="text-center">{order.price}</td>
                   </tr>
                 ))}
               </tbody>
@@ -193,7 +194,7 @@ function UserProfilePage() {
             <Message variant={"warning"} message={"No products to show"} />
           )}
         </Col>
-        <Footer />
+        <Footer pages={pages} page={page} setPage={setPage} />
       </Row>
     );
   }

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,13 +10,15 @@ import Footer from "../../components/Footer";
 
 function OrdersPage() {
   const dispatch = useDispatch();
-  const { orders, loading, error } = useSelector((state) => state.order);
+  const { orders, pages, loading, error } = useSelector((state) => state.order);
   const { current_user } = useSelector((state) => state.user);
 
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    dispatch(getAllOrders());
+    dispatch(getAllOrders(page));
     return () => dispatch(Initial());
-  }, []);
+  }, [page]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else if (!current_user.is_admin) return <Navigate to="/" />;
@@ -65,7 +67,7 @@ function OrdersPage() {
             <Message variant={"warning"} message={"No order is made yet"} />
           </Col>
         )}
-        <Footer />
+        <Footer pages={pages} page={page} setPage={setPage} />
       </Row>
     );
   }

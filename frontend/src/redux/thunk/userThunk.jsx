@@ -3,6 +3,7 @@ import {
   Success,
   CurrentUser,
   ListUser,
+  Delete,
   Error,
 } from "../slice/userSlice";
 import axios from "axios";
@@ -41,8 +42,8 @@ export const registerUser = (user) => async (dispatch) => {
   }
 };
 
-export const getAllUsers = () => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/users/";
+export const getAllUsers = (page) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/users/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -54,8 +55,8 @@ export const getAllUsers = () => async (dispatch) => {
   }
 };
 
-export const getAllUsersWithSearch = (query) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/?search=${query}`;
+export const getAllUsersWithSearch = (query, page) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/users/?search=${query}&page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -107,7 +108,7 @@ export const deleteUser = (Id) => async (dispatch) => {
     dispatch(Loading());
     const res = await axios.delete(url);
     if (res.status === 200) {
-      dispatch(ListUser(res.data));
+      dispatch(Delete(Id));
     }
   } catch (error) {
     dispatch(Error());

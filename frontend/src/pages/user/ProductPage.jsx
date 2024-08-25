@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/productSlice";
@@ -6,19 +6,22 @@ import { getAllProducts } from "../../redux/thunk/productThunk";
 import Product from "../../components/Product";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import Footer from "../../components/Footer";
 
 function ProductPage() {
   const dispatch = useDispatch();
-  const { products, loading, success, error } = useSelector(
+  const { products, pages, loading, success, error } = useSelector(
     (state) => state.product
   );
 
+  const [page, setPage] = useState(1);
+
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getAllProducts(page));
     return () => {
       dispatch(Initial());
     };
-  }, []);
+  }, [page]);
 
   return (
     <Row className="p-4">
@@ -45,6 +48,7 @@ function ProductPage() {
       ) : (
         <></>
       )}
+      <Footer pages={pages} page={page} setPage={setPage} />
     </Row>
   );
 }

@@ -3,6 +3,7 @@ import {
   Success,
   ListProduct,
   GetProduct,
+  Delete,
   Error,
 } from "../slice/productSlice";
 import axios from "axios";
@@ -24,8 +25,8 @@ export const createProduct = (product) => async (dispatch) => {
   }
 };
 
-export const getAllProducts = () => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/products/";
+export const getAllProducts = (page) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/products/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -37,8 +38,8 @@ export const getAllProducts = () => async (dispatch) => {
   }
 };
 
-export const getAllProductsWithSearch = (query) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/?search=${query}`;
+export const getAllProductsWithSearch = (query, page) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/products/?search=${query}&page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -73,7 +74,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
       },
     });
     if (res.status === 200) {
-      dispatch(Success(res.data));
+      dispatch(Success());
     }
   } catch (error) {
     dispatch(Error());
@@ -86,7 +87,7 @@ export const deleteProduct = (Id) => async (dispatch) => {
     dispatch(Loading());
     const res = await axios.delete(url);
     if (res.status === 200) {
-      dispatch(ListProduct(res.data));
+      dispatch(Delete(Id));
     }
   } catch (error) {
     dispatch(Error());

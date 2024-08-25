@@ -5,6 +5,7 @@ export const productSlice = createSlice({
   initialState: {
     products: [],
     product: {},
+    pages: 0,
     loading: false,
     success: false,
     error: false,
@@ -29,7 +30,8 @@ export const productSlice = createSlice({
     },
 
     ListProduct: (state, action) => {
-      state.products = action.payload;
+      state.products = action.payload.products;
+      state.pages = action.payload.pages;
       state.loading = false;
       state.success = true;
       state.error = false;
@@ -42,15 +44,32 @@ export const productSlice = createSlice({
       state.error = false;
     },
 
+    Delete: (state, action) => {
+      state.products = state.products.filter((product) => {
+        if (product.Id === action.payload) return false;
+        else return true;
+      });
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
     Error: (state) => {
-      state.loading = true;
+      state.loading = false;
       state.success = false;
       state.error = true;
     },
   },
 });
 
-export const { Initial, Loading, ListProduct, GetProduct, Success, Error } =
-  productSlice.actions;
+export const {
+  Initial,
+  Loading,
+  ListProduct,
+  GetProduct,
+  Delete,
+  Success,
+  Error,
+} = productSlice.actions;
 
 export default productSlice.reducer;

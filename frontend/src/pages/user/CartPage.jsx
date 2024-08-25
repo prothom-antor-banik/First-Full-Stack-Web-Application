@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Row,
   Col,
@@ -25,14 +25,15 @@ function CartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
-  const { product_list, products, items, price, loading, error } = useSelector(
-    (state) => state.cart
-  );
+  const { product_list, products, items, price, pages, loading, error } =
+    useSelector((state) => state.cart);
+
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getUserCart(current_user.Id));
+    dispatch(getUserCart(current_user.Id, page));
     return () => dispatch(Initial());
-  }, []);
+  }, [page]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else {
@@ -64,7 +65,7 @@ function CartPage() {
                         value={product.items}
                         onChange={(e) =>
                           dispatch(
-                            updataCartItem(product.userId, product.Id, {
+                            updataCartItem(product.Id, {
                               items: e.target.value,
                             })
                           )
@@ -154,7 +155,7 @@ function CartPage() {
             </tbody>
           </Table>
         </Col>
-        <Footer />
+        <Footer pages={pages} page={page} setPage={setPage} />
       </Row>
     );
   }

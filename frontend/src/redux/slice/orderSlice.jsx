@@ -4,6 +4,7 @@ export const orderSlice = createSlice({
   name: "order",
   initialState: {
     orders: [],
+    pages: 0,
     loading: false,
     success: false,
     error: false,
@@ -21,8 +22,15 @@ export const orderSlice = createSlice({
       state.error = false;
     },
 
-    Success: (state, action) => {
-      state.orders = action.payload;
+    ListOrders: (state, action) => {
+      state.orders = action.payload.orders;
+      state.pages = action.payload.pages;
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
+    Success: (state) => {
       state.loading = false;
       state.success = true;
       state.error = false;
@@ -36,6 +44,7 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { Initial, Loading, Success, Error } = orderSlice.actions;
+export const { Initial, Loading, ListOrders, Success, Error } =
+  orderSlice.actions;
 
 export default orderSlice.reducer;

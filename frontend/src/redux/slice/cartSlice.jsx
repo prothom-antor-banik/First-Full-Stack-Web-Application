@@ -7,6 +7,7 @@ export const cartSlice = createSlice({
     products: 0,
     items: 0,
     price: 0,
+    pages: 0,
     loading: false,
     success: false,
     error: false,
@@ -31,8 +32,46 @@ export const cartSlice = createSlice({
     },
 
     ListProducts: (state, action) => {
-      state.product_list = action.payload;
-      state.products = action.payload.length;
+      state.product_list = action.payload.cart;
+      state.products = action.payload.cart.length;
+      let items = 0;
+      let price = 0;
+      state.product_list.map((product) => {
+        items += product.items;
+        price += product.product.price * product.items;
+      });
+      state.items = items;
+      state.price = price;
+      state.pages = action.payload.pages;
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
+    Update: (state, action) => {
+      state.product_list = state.product_list.map((product) => {
+        if (product.Id === action.payload.Id) {
+          return { ...product, ...action.payload.entry };
+        } else return product;
+      });
+      let items = 0;
+      let price = 0;
+      state.product_list.map((product) => {
+        items += product.items;
+        price += product.product.price * product.items;
+      });
+      state.items = items;
+      state.price = price;
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
+    Delete: (state, action) => {
+      state.product_list = state.product_list.filter((product) => {
+        if (product.Id === action.payload) return false;
+        else return true;
+      });
       let items = 0;
       let price = 0;
       state.product_list.map((product) => {
@@ -59,7 +98,8 @@ export const {
   Loading,
   Success,
   ListProducts,
-  UpdateProducts,
+  Update,
+  Delete,
   Error,
 } = cartSlice.actions;
 

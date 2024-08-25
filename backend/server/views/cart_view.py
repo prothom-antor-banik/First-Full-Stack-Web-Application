@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import Http404
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
@@ -8,9 +9,16 @@ from ..serializers import CartSerializer
 
 class CartList(APIView):
 	def get(self, request, format=None):
-		cart_objects = Cart.objects.all()
+		page_size = 12
+		page = request.query_params['page']
+		cart_objects = Cart.objects.get_queryset().order_by('Id')
+		paginator = Paginator(cart_objects, page_size)
+		try:
+			cart_objects = paginator.page(page)
+		except:
+			Response(status=status.HTTP_400_BAD_REQUEST)
 		serializer = CartSerializer(cart_objects, many=True) 
-		return Response(serializer.data)
+		return Response({'cart': serializer.data, 'pages': paginator.num_pages})
 
 	def post(self, request, format=None):
 		serializer = CartSerializer(data=request.data)
@@ -32,26 +40,32 @@ class CartDetail(APIView):
 			raise Http404
 
 	def get(self, request, pk, format=None):
-		cart_objects = Cart.objects.filter(userId=pk)
-		serializer = CartSerializer(cart_objects, many=True)
-		return Response(serializer.data)
+		try:
+			page_size = 12
+			page = request.query_params['page']
+			cart_objects = Cart.objects.filter(userId=pk).order_by('Id')
+			paginator = Paginator(cart_objects, page_size)
+			try:
+				cart_objects = paginator.page(page)
+			except:
+				Response(status=status.HTTP_400_BAD_REQUEST)
+			serializer = CartSerializer(cart_objects, many=True)
+			return Response({'cart': serializer.data, 'pages': paginator.num_pages})
+		except:
+			return Response(status=status.HTTP_202_ACCEPTED)
 
 	def patch(self, request, pk, format=None):
 		cart_object = self.get_cart(pk) 
 		serializer = CartSerializer(cart_object, data=request.data, partial=True) 
 		if serializer.is_valid():
 			serializer.save()
-			cart_objects = Cart.objects.all()
-			serializer = CartSerializer(cart_objects, many=True)
-			return Response(serializer.data)
+			return Response(status=status.HTTP_200_OK)
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 	def delete(self, request, pk, format=None):
 		cart_object = self.get_cart(pk)
 		cart_object.delete()
-		cart_objects = Cart.objects.all()
-		serializer = CartSerializer(cart_objects, many=True)
-		return Response(serializer.data)
+		return Response(status=status.HTTP_200_OK)
 
 class CartDelete(APIView):
     def delete(self, request, pk, format=None):

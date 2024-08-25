@@ -7,6 +7,7 @@ export const userSlice = createSlice({
       ? JSON.parse(localStorage.getItem("current_user"))
       : {},
     users: [],
+    pages: 0,
     loading: false,
     success: false,
     error: false,
@@ -41,7 +42,18 @@ export const userSlice = createSlice({
     },
 
     ListUser: (state, action) => {
-      state.users = action.payload;
+      state.users = action.payload.users;
+      state.pages = action.payload.pages;
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
+    Delete: (state, action) => {
+      state.users = state.users.filter((user) => {
+        if (user.Id === action.payload) return false;
+        else return true;
+      });
       state.loading = false;
       state.success = true;
       state.error = false;
@@ -55,7 +67,14 @@ export const userSlice = createSlice({
   },
 });
 
-export const { Loading, Success, CurrentUser, RemoveUser, ListUser, Error } =
-  userSlice.actions;
+export const {
+  Loading,
+  Success,
+  CurrentUser,
+  RemoveUser,
+  ListUser,
+  Delete,
+  Error,
+} = userSlice.actions;
 
 export default userSlice.reducer;
