@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, ButtonGroup, Button } from "react-bootstrap";
+import { Row, Col, Pagination } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Footer({ pages = 0, page = 0, setPage = null }) {
@@ -10,42 +10,34 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
       {pages ? (
         <Row className="justify-content-center">
           <Col md="auto">
-            <ButtonGroup>
-              <Button
-                variant="dark"
+            <Pagination>
+              <Pagination.Prev
                 onClick={() => {
                   if (page > 1) navigate(-1);
                 }}
-              >
-                <i className="bi bi-skip-backward" />
-              </Button>
+              />
               {[...Array(pages).keys()].map((ele) => (
-                <Button
-                  variant={ele === page ? "dark" : "light"}
+                <Pagination.Item
                   key={ele}
+                  active={ele + 1 === page}
                   onClick={() => setPage(ele)}
                 >
                   {ele + 1}
-                </Button>
+                </Pagination.Item>
               ))}
-              <Button
-                variant="dark"
+              <Pagination.Next
                 onClick={() => {
                   if (page < pages) navigate(1);
                 }}
-              >
-                <i className="bi bi-skip-forward" />
-              </Button>
-            </ButtonGroup>
+              />
+            </Pagination>
           </Col>
         </Row>
       ) : (
         <Row></Row>
       )}
       <Row className="py-1">
-        <Col className="bg-dark text-white text-center">
-          ~ Copyright &copy; 2024 ~
-        </Col>
+        <Col className="bg-dark text-center">~ Copyright &copy; 2024 ~</Col>
       </Row>
     </div>
   );
