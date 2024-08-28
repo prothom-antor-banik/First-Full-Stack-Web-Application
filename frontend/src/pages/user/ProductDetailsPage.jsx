@@ -39,84 +39,89 @@ function ProductDetailsPage() {
   }, []);
 
   return (
-    <Row className="p-3">
-      <Col className="p-4 align-items-center" md={4} lg={6}>
-        <Image src={"http://127.0.0.1:8000" + product.image} fluid rounded />
-      </Col>
-      <Col className="p-4" md={4} lg={6}>
-        <Row>
-          <Table striped bordered>
-            <tbody>
-              <tr>
-                <td>
-                  <h4>{product.name}</h4>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>{"Price : " + product.price}</strong>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <section>{product.description}</section>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
-        <Row>
-          <Table striped bordered>
-            <tbody>
-              <tr>
-                <td>Category</td>
-                <td>{product.category}</td>
-              </tr>
-              <tr>
-                <td>Brand</td>
-                <td>{product.brand}</td>
-              </tr>
-              <tr>
-                <td>Price</td>
-                <td>{product.price}</td>
-              </tr>
-              <tr>
-                <td>In Stock</td>
-                <td>{product.countInStock}</td>
-              </tr>
-              <tr>
-                <td>Rating</td>
-                <td>{product.rating}</td>
-              </tr>
-              <tr>
-                <td colSpan={2}>
-                  <ButtonGroup className="d-flex">
-                    <Button variant="dark" onClick={() => handleAddToCart()}>
-                      Add to cart
-                    </Button>
-                  </ButtonGroup>
-                </td>
-              </tr>
-            </tbody>
-          </Table>
-        </Row>
-        {!Object.keys(current_user).length ? (
-          <Message variant={"warning"} message={"Login to Add items to cart"} />
-        ) : error ? (
-          <Message variant={"danger"} message={"Error loading product"} />
-        ) : loading ? (
-          <Loader />
-        ) : success ? (
-          <Message
-            variant={"success"}
-            message={"Successfully added product to cart"}
-          />
-        ) : (
-          <></>
-        )}
-      </Col>
+    <div>
+      <Row className="p-3">
+        <Col className="p-4 align-items-center" md={4} lg={6}>
+          <Image src={"http://127.0.0.1:8000" + product.image} fluid rounded />
+        </Col>
+        <Col className="p-4" md={4} lg={6}>
+          <Row>
+            <Table striped bordered>
+              <tbody>
+                <tr>
+                  <td>
+                    <h4>{product.name}</h4>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>{"Price : " + product.price}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <section>{product.description}</section>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+          <Row>
+            <Table striped bordered>
+              <tbody>
+                <tr>
+                  <td>Category</td>
+                  <td>{product.category}</td>
+                </tr>
+                <tr>
+                  <td>Brand</td>
+                  <td>{product.brand}</td>
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>{product.price}</td>
+                </tr>
+                <tr>
+                  <td>In Stock</td>
+                  <td>{product.countInStock}</td>
+                </tr>
+                <tr>
+                  <td>Rating</td>
+                  <td>{product.rating}</td>
+                </tr>
+                <tr>
+                  <td colSpan={2}>
+                    <ButtonGroup className="d-flex">
+                      <Button variant="dark" onClick={() => handleAddToCart()}>
+                        Add to cart
+                      </Button>
+                    </ButtonGroup>
+                  </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Row>
+          {!Object.keys(current_user).length ? (
+            <Message
+              variant={"warning"}
+              message={"Login to Add items to cart"}
+            />
+          ) : error ? (
+            <Message variant={"danger"} message={"Error loading product"} />
+          ) : loading ? (
+            <Loader />
+          ) : success ? (
+            <Message
+              variant={"success"}
+              message={"Successfully added product to cart"}
+            />
+          ) : (
+            <></>
+          )}
+        </Col>
+      </Row>
       <Footer />
-    </Row>
+    </div>
   );
 }
 

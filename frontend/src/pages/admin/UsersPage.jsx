@@ -45,7 +45,7 @@ function UsersPage() {
   else if (!current_user.is_admin) return <Navigate to="/" />;
   else {
     return (
-      <Row>
+      <div>
         <Row>
           <h2 className="p-2 text-center">Search Users</h2>
           <Form className="p-3" onSubmit={(e) => e.preventDefault()}>
@@ -131,7 +131,7 @@ function UsersPage() {
           </Col>
         </Row>
         <Footer pages={pages} page={page} setPage={setPage} />
-      </Row>
+      </div>
     );
   }
 }

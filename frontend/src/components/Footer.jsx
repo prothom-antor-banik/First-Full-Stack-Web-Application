@@ -6,7 +6,7 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
   const navigate = useNavigate();
 
   return (
-    <Row className="py-2 position-absolute bottom-0">
+    <div className="position-absolute bottom-0 vw-100">
       {pages ? (
         <Row className="justify-content-center">
           <Col md="auto">
@@ -47,7 +47,7 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
           ~ Copyright &copy; 2024 ~
         </Col>
       </Row>
-    </Row>
+    </div>
   );
 }
 

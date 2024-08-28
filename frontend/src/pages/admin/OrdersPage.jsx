@@ -24,51 +24,53 @@ function OrdersPage() {
   else if (!current_user.is_admin) return <Navigate to="/" />;
   else {
     return (
-      <Row className="justify-content-center">
-        {orders.length ? (
-          error ? (
-            <Message variant={"danger"} message={"Error loading orders"} />
-          ) : loading ? (
-            <Loader />
-          ) : (
-            <Col md={10}>
-              <h1 className="py-3">Orders</h1>
-              <Table striped responsive>
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Products</th>
-                    <th>Items</th>
-                    <th>Price</th>
-                    <th>Method</th>
-                    <th>Date</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {orders.map((order) => (
-                    <tr key={order.Id}>
-                      <td>{order.Id}</td>
-                      <td>{order.userId}</td>
-                      <td>{order.products}</td>
-                      <td>{order.items}</td>
-                      <td>{order.price}</td>
-                      <td>{order.method}</td>
-                      <td>{order.date}</td>
+      <div>
+        <Row className="justify-content-center">
+          {orders.length ? (
+            error ? (
+              <Message variant={"danger"} message={"Error loading orders"} />
+            ) : loading ? (
+              <Loader />
+            ) : (
+              <Col md={10}>
+                <h1 className="py-3">Orders</h1>
+                <Table striped responsive>
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>User</th>
+                      <th>Products</th>
+                      <th>Items</th>
+                      <th>Price</th>
+                      <th>Method</th>
+                      <th>Date</th>
                     </tr>
-                  ))}
-                </tbody>
-              </Table>
+                  </thead>
+
+                  <tbody>
+                    {orders.map((order) => (
+                      <tr key={order.Id}>
+                        <td>{order.Id}</td>
+                        <td>{order.userId}</td>
+                        <td>{order.products}</td>
+                        <td>{order.items}</td>
+                        <td>{order.price}</td>
+                        <td>{order.method}</td>
+                        <td>{order.date}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Col>
+            )
+          ) : (
+            <Col md={10} className="py-3">
+              <Message variant={"warning"} message={"No order is made yet"} />
             </Col>
-          )
-        ) : (
-          <Col md={10} className="py-3">
-            <Message variant={"warning"} message={"No order is made yet"} />
-          </Col>
-        )}
+          )}
+        </Row>
         <Footer pages={pages} page={page} setPage={setPage} />
-      </Row>
+      </div>
     );
   }
 }

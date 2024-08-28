@@ -24,32 +24,33 @@ function ProductPage() {
   }, [page]);
 
   return (
-    <Row className="p-4">
-      <h1 className="text-center text-dark">Product List</h1>
-
-      {error ? (
-        <Message variant={"danger"} message={"Error loading products"} />
-      ) : loading ? (
-        <Loader />
-      ) : success ? (
-        Object.keys(products).length ? (
-          products.map((product) => (
-            <Col className="p-3 d-flex" sm={3} md={2} key={product.Id}>
-              <Product product={product} />
-            </Col>
-          ))
+    <div>
+      <h1 className="text-center text-dark border py-2">Product List</h1>
+      <Row className="p-3">
+        {error ? (
+          <Message variant={"danger"} message={"Error loading products"} />
+        ) : loading ? (
+          <Loader />
+        ) : success ? (
+          Object.keys(products).length ? (
+            products.map((product) => (
+              <Col className="p-3 d-flex" sm={3} md={2} key={product.Id}>
+                <Product product={product} />
+              </Col>
+            ))
+          ) : (
+            <Message
+              className="p-3"
+              variant={"warning"}
+              message={"No products to show"}
+            />
+          )
         ) : (
-          <Message
-            className="p-3"
-            variant={"warning"}
-            message={"No products to show"}
-          />
-        )
-      ) : (
-        <></>
-      )}
+          <Row></Row>
+        )}
+      </Row>
       <Footer pages={pages} page={page} setPage={setPage} />
-    </Row>
+    </div>
   );
 }
 
