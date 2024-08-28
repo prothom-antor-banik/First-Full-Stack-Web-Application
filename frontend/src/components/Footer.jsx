@@ -3,19 +3,6 @@ import { Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Footer({ pages = 0, page = 0, setPage = null }) {
-  let buttons = [];
-  for (let i = 1; i <= pages; i++) {
-    buttons.push(
-      <Button
-        variant={i === page ? "dark" : "secondary"}
-        key={i}
-        onClick={() => setPage(i)}
-      >
-        {i}
-      </Button>
-    );
-  }
-
   const navigate = useNavigate();
 
   return (
@@ -25,16 +12,24 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
           <Col md="auto">
             <ButtonGroup>
               <Button
-                variant="gray"
+                variant="dark"
                 onClick={() => {
                   if (page > 1) navigate(-1);
                 }}
               >
                 <i className="bi bi-skip-backward" />
               </Button>
-              {buttons}
+              {[...Array(pages).keys()].map((ele) => (
+                <Button
+                  variant={ele === page ? "dark" : "light"}
+                  key={ele}
+                  onClick={() => setPage(ele)}
+                >
+                  {ele + 1}
+                </Button>
+              ))}
               <Button
-                variant="gray"
+                variant="dark"
                 onClick={() => {
                   if (page < pages) navigate(1);
                 }}
