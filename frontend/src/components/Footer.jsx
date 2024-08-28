@@ -36,8 +36,10 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
       ) : (
         <Row></Row>
       )}
-      <Row className="py-1">
-        <Col className="bg-dark text-center">~ Copyright &copy; 2024 ~</Col>
+      <Row>
+        <Col className="p-2 bg-dark text-center text-white">
+          ~ Copyright &copy; 2024 ~
+        </Col>
       </Row>
     </div>
   );
