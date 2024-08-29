@@ -6,7 +6,7 @@ function Product({ product }) {
   const navigate = useNavigate();
 
   return (
-    <Row className="p-2 justify-content-center border shadow-sm rounded">
+    <Row className="py-2 justify-content-center border shadow-sm rounded">
       <Row className="my-2 text-center">
         <Link
           className="text-dark text-decoration-none"
@@ -19,21 +19,15 @@ function Product({ product }) {
           />
         </Link>
       </Row>
-      <Row as="h5" className="my-2">
+      <Row as="h5" className="my-2 justify-content-center">
         {product.name}
       </Row>
       <Row className="mb-2">
-        <Col md={6} className="d-flex justify-content-center bg-light">
-          <section>
-            <i className="bi bi-currency-dollar px-1"></i>
-            {product.price}
-          </section>
+        <Col md={8}>
+          <i className="bi bi-currency-dollar">{product.price}</i>
         </Col>
-        <Col md={6} className="d-flex justify-content-center bg-light">
-          <section>
-            <i className="bi bi-star-half px-1" />
-            {product.rating}
-          </section>
+        <Col md={4}>
+          <i className="bi bi-star-half">{product.rating}</i>
         </Col>
       </Row>
 

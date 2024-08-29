@@ -11,7 +11,7 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
   };
 
   return (
-    <div className="position-absolute bottom-0 vw-100">
+    <div className="position-fixed bottom-0 vw-100">
       {pages ? (
         <Row className="justify-content-center">
           <Col md="auto">
