@@ -92,29 +92,29 @@ function ProductsPage() {
                 <Table striped responsive>
                   <thead>
                     <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>Price</th>
-                      <th>Category</th>
-                      <th>Brand</th>
-                      <th>In Stock</th>
-                      <th>Update</th>
-                      <th>Delete</th>
+                      <th className="text-center">ID</th>
+                      <th className="text-center">Name</th>
+                      <th className="text-center">Price</th>
+                      <th className="text-center">Category</th>
+                      <th className="text-center">Brand</th>
+                      <th className="text-center">In Stock</th>
+                      <th className="text-center">Update</th>
+                      <th className="text-center">Delete</th>
                     </tr>
                   </thead>
 
                   <tbody>
                     {products.map((product) => (
                       <tr key={product.Id}>
-                        <td>{product.Id}</td>
-                        <td>
+                        <td className="text-center">{product.Id}</td>
+                        <td className="text-center">
                           <strong>{product.name}</strong>
                         </td>
-                        <td>{product.price}</td>
-                        <td>{product.category}</td>
-                        <td>{product.brand}</td>
-                        <td>{product.countInStock}</td>
-                        <td>
+                        <td className="text-center">{product.price}</td>
+                        <td className="text-center">{product.category}</td>
+                        <td className="text-center">{product.brand}</td>
+                        <td className="text-center">{product.countInStock}</td>
+                        <td className="text-center">
                           <Button
                             type="submit"
                             variant="secondary"
@@ -127,7 +127,7 @@ function ProductsPage() {
                             Update
                           </Button>
                         </td>
-                        <td>
+                        <td className="text-center">
                           <Button
                             type="submit"
                             variant="danger"

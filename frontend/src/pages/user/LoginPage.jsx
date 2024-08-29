@@ -38,6 +38,11 @@ function LoginPage() {
 
   return (
     <Row className="bg-light justify-content-center align-items-center vh-100">
+      <Col md={1} className="position-absolute top-0 start-0 py-2">
+        <Button variant="dark" onClick={() => navigate(-1)}>
+          <i className="bi bi-arrow-left" />
+        </Button>
+      </Col>
       <Col className="bg-white rounded shadow-lg" md={4}>
         <h1 className="text-center p-2">Sign In</h1>
         <Form onSubmit={(e) => e.preventDefault()}>

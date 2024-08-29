@@ -52,6 +52,7 @@ function CartPage() {
                       <Col className="d-flex align-items-center" md={2}>
                         <Image
                           src={"http://127.0.0.1:8000" + product.product.image}
+                          width="50%"
                           fluid
                           rounded
                         />

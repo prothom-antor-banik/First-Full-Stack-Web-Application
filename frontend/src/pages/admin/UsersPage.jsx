@@ -107,7 +107,7 @@ function UsersPage() {
                       <td className="text-center">
                         {user.is_admin ? "Yes" : "No"}
                       </td>
-                      <td>
+                      <td className="text-center">
                         <Form className="d-flex flex-row justify-content-center">
                           <Form.Check
                             type="switch"
@@ -116,7 +116,7 @@ function UsersPage() {
                           />
                         </Form>
                       </td>
-                      <td>
+                      <td className="text-center">
                         <Button
                           type="submit"
                           variant="danger"
