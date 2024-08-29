@@ -24,14 +24,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Header />} errorElement={<Error />}>
+        <Route path="/" errorElement={<Error />}>
           <Route index element={<ProductPage />} />
           <Route path="product/:Id" element={<ProductDetailsPage />} />
           <Route path="cart" element={<CartPage />} />
           <Route path="order" element={<OrderItemPage />} />
           <Route path="profile/" element={<UserProfilePage />} />
         </Route>
-        <Route path="admin" element={<AdminHeader />} errorElement={<Error />}>
+        <Route path="admin" errorElement={<Error />}>
           <Route index element={<AdminPage />} />
           <Route path="products" element={<ProductsPage />} />
           <Route path="orders" element={<OrdersPage />} />

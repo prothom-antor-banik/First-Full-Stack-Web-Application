@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { getAllOrders } from "../../redux/thunk/orderThunk";
+import AdminHeader from "../../components/AdminHeader";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -24,7 +25,8 @@ function OrdersPage() {
   else if (!current_user.is_admin) return <Navigate to="/" />;
   else {
     return (
-      <div>
+      <div className="d-flex flex-column min-vh-100">
+        <AdminHeader />
         <Row className="justify-content-center">
           {orders.length ? (
             error ? (

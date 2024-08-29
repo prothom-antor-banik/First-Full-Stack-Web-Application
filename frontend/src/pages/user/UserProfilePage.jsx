@@ -6,6 +6,7 @@ import { RemoveUser } from "../../redux/slice/userSlice";
 import { Initial } from "../../redux/slice/orderSlice";
 import { updateUserDetails } from "../../redux/thunk/userThunk";
 import { getUserOrders } from "../../redux/thunk/orderThunk";
+import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -57,7 +58,8 @@ function UserProfilePage() {
   if (!Object.keys(current_user).length) return <Navigate to="/" />;
   else {
     return (
-      <div>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
         <Row className="p-4">
           <Col md={4}>
             <section className="p-2 d-flex flex-row justify-content-between">

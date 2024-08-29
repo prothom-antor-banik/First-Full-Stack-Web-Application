@@ -12,6 +12,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { createOrder } from "../../redux/thunk/orderThunk";
 import { deleteUserCart } from "../../redux/thunk/cartThunk";
+import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -61,7 +62,8 @@ function OrderItemPage() {
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else {
     return (
-      <div>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
         <h1 className="py-2 text-center">ORDER</h1>
         <Row className="px-3">
           <Col md={8}>

@@ -17,6 +17,7 @@ import {
   updataCartItem,
   deleteCartItem,
 } from "../../redux/thunk/cartThunk";
+import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -38,7 +39,8 @@ function CartPage() {
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else {
     return (
-      <div>
+      <div className="d-flex flex-column min-vh-100">
+        <Header />
         <Row className="p-3">
           <Col md={8}>
             <h2 className="py-2">Shopping Cart</h2>

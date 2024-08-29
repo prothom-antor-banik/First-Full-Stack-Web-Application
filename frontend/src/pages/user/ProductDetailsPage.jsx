@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";
 import { getProduct } from "../../redux/thunk/productThunk";
 import { addToCart } from "../../redux/thunk/cartThunk";
+import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -39,7 +40,8 @@ function ProductDetailsPage() {
   }, []);
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <Header />
       <Row className="p-3">
         <Col className="p-4 align-items-center" md={4} lg={6}>
           <Image src={"http://127.0.0.1:8000" + product.image} fluid rounded />

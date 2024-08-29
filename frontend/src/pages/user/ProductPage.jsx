@@ -3,6 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/productSlice";
 import { getAllProducts } from "../../redux/thunk/productThunk";
+import Header from "../../components/Header";
 import Product from "../../components/Product";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -24,7 +25,8 @@ function ProductPage() {
   }, [page]);
 
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
+      <Header />
       <h1 className="text-center text-dark border py-2">Product List</h1>
       <Row className="p-3">
         {error ? (

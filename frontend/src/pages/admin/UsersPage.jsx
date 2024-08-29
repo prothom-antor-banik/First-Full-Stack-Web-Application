@@ -8,6 +8,7 @@ import {
   updateToAdmin,
   deleteUser,
 } from "../../redux/thunk/userThunk";
+import AdminHeader from "../../components/AdminHeader";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -45,7 +46,8 @@ function UsersPage() {
   else if (!current_user.is_admin) return <Navigate to="/" />;
   else {
     return (
-      <div>
+      <div className="d-flex flex-column min-vh-100">
+        <AdminHeader />
         <Row>
           <h2 className="p-2 text-center">Search Users</h2>
           <Form className="p-3" onSubmit={(e) => e.preventDefault()}>
