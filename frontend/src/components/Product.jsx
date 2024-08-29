@@ -7,12 +7,16 @@ function Product({ product }) {
 
   return (
     <Row className="p-2 justify-content-center border shadow-sm rounded">
-      <Row className="my-2">
+      <Row className="my-2 text-center">
         <Link
           className="text-dark text-decoration-none"
           to={`product/${product.Id}`}
         >
-          <Image src={"http://127.0.0.1:8000" + product.image} fluid />
+          <Image
+            src={"http://127.0.0.1:8000" + product.image}
+            width="50%"
+            fluid
+          />
         </Link>
       </Row>
       <Row as="h5" className="my-2">

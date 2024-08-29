@@ -1,9 +1,14 @@
 import React from "react";
 import { Row, Col, Pagination } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
 
 function Footer({ pages = 0, page = 0, setPage = null }) {
-  const navigate = useNavigate();
+  const style = {
+    color: "black",
+    border: "1px solid",
+    borderRadius: "3px",
+    margin: "1px",
+    fontWeight: "500",
+  };
 
   return (
     <div className="position-absolute bottom-0 vw-100">
@@ -12,22 +17,29 @@ function Footer({ pages = 0, page = 0, setPage = null }) {
           <Col md="auto">
             <Pagination>
               <Pagination.Prev
+                linkStyle={style}
                 onClick={() => {
-                  if (page > 1) navigate(-1);
+                  if (page > 1) setPage(page - 1);
                 }}
               />
               {[...Array(pages).keys()].map((ele) => (
                 <Pagination.Item
                   key={ele}
                   active={ele + 1 === page}
-                  onClick={() => setPage(ele)}
+                  linkStyle={{
+                    ...style,
+                    color: ele + 1 === page ? "white" : "black",
+                    backgroundColor: ele + 1 === page ? "black" : "white",
+                  }}
+                  onClick={() => setPage(ele + 1)}
                 >
                   {ele + 1}
                 </Pagination.Item>
               ))}
               <Pagination.Next
+                linkStyle={style}
                 onClick={() => {
-                  if (page < pages) navigate(1);
+                  if (page < pages) setPage(page + 1);
                 }}
               />
             </Pagination>
