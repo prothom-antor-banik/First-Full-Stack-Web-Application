@@ -10,7 +10,7 @@ from ..serializers import UserSerializer
 
 class UserList(APIView):
 	def get(self, request, format=None):
-		page_size = 12
+		page_size = 5
 		page = request.query_params['page']
 		try:
 			search = request.query_params['search']

@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
 from django.http import Http404
+from django.db.models import Sum
+from django.db.models import F
 from rest_framework.views import APIView 
 from rest_framework.response import Response 
-from rest_framework import status 
+from rest_framework import status
 
 from ..models import Cart
 from ..serializers import CartSerializer
@@ -41,7 +43,7 @@ class CartDetail(APIView):
 
 	def get(self, request, pk, format=None):
 		try:
-			page_size = 12
+			page_size = 7
 			page = request.query_params['page']
 			cart_objects = Cart.objects.filter(userId=pk).order_by('Id')
 			paginator = Paginator(cart_objects, page_size)
@@ -50,7 +52,10 @@ class CartDetail(APIView):
 			except:
 				Response(status=status.HTTP_400_BAD_REQUEST)
 			serializer = CartSerializer(cart_objects, many=True)
-			return Response({'cart': serializer.data, 'pages': paginator.num_pages})
+			products = Cart.objects.filter(userId=pk).count()
+			items = Cart.objects.filter(userId=pk).aggregate(total=Sum('items'))['total']
+			price = Cart.objects.filter(userId=pk).aggregate(total=Sum(F('items')*F('product__price')))['total']
+			return Response({'cart': serializer.data, 'products': products, 'items': items, 'price': price, 'pages': paginator.num_pages})
 		except:
 			return Response(status=status.HTTP_202_ACCEPTED)
 

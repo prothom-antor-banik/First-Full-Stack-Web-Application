@@ -50,7 +50,6 @@ class CartSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        product = validated_data.pop('product')
         product_instance = Products.objects.get(Id=validated_data['productId'])
         validated_data['product'] = product_instance
         cart_instance = Cart.objects.create(**validated_data)

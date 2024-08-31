@@ -33,15 +33,9 @@ export const cartSlice = createSlice({
 
     ListProducts: (state, action) => {
       state.product_list = action.payload.cart;
-      state.products = action.payload.cart.length;
-      let items = 0;
-      let price = 0;
-      state.product_list.map((product) => {
-        items += product.items;
-        price += product.product.price * product.items;
-      });
-      state.items = items;
-      state.price = price;
+      state.products = action.payload.products;
+      state.items = action.payload.items;
+      state.price = action.payload.price;
       state.pages = action.payload.pages;
       state.loading = false;
       state.success = true;
@@ -49,16 +43,16 @@ export const cartSlice = createSlice({
     },
 
     Update: (state, action) => {
+      let items = state.items;
+      let price = state.price;
       state.product_list = state.product_list.map((product) => {
         if (product.Id === action.payload.Id) {
-          return { ...product, ...action.payload.entry };
+          items += action.payload.cartItem.items - product.items;
+          price +=
+            product.product.price *
+            (action.payload.cartItem.items - product.items);
+          return { ...product, ...action.payload.cartItem };
         } else return product;
-      });
-      let items = 0;
-      let price = 0;
-      state.product_list.map((product) => {
-        items += product.items;
-        price += product.product.price * product.items;
       });
       state.items = items;
       state.price = price;
@@ -68,16 +62,16 @@ export const cartSlice = createSlice({
     },
 
     Delete: (state, action) => {
+      let items = state.items;
+      let price = state.price;
       state.product_list = state.product_list.filter((product) => {
-        if (product.Id === action.payload) return false;
-        else return true;
+        if (product.Id === action.payload) {
+          items -= product.items;
+          price -= product.items * product.product.price;
+          return false;
+        } else return true;
       });
-      let items = 0;
-      let price = 0;
-      state.product_list.map((product) => {
-        items += product.items;
-        price += product.product.price * product.items;
-      });
+      state.products = state.products - 1;
       state.items = items;
       state.price = price;
       state.loading = false;

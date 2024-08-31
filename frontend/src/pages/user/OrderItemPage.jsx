@@ -28,15 +28,15 @@ function OrderItemPage() {
     items: 0,
     price: 0,
   };
-  const state = Object.keys(location.state).length
+  const order = Object.keys(location.state).length
     ? location.state
     : initalState;
 
-  const [order, setOrder] = useState(state);
   const [buttonPressed, setButtonPressed] = useState(false);
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   function handleOrder() {
-    if (order.price) {
+    if (!buttonDisable) {
       dispatch(
         createOrder({
           ...order,
@@ -51,8 +51,8 @@ function OrderItemPage() {
 
   useEffect(() => {
     if (buttonPressed && success) {
+      setButtonDisable(true);
       setTimeout(() => {
-        setOrder(initalState);
         dispatch(Initial());
         dispatch(deleteUserCart(current_user.Id));
       }, 1500);

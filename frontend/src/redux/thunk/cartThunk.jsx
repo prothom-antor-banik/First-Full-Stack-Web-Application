@@ -8,11 +8,11 @@ import {
 } from "../slice/cartSlice";
 import axios from "axios";
 
-export const addToCart = (entry) => async (dispatch) => {
+export const addToCart = (cartItem) => async (dispatch) => {
   const url = "http://127.0.0.1:8000/cart/";
   try {
     dispatch(Loading());
-    const res = await axios.post(url, JSON.stringify(entry), {
+    const res = await axios.post(url, JSON.stringify(cartItem), {
       headers: {
         "content-type": "application/json",
       },
@@ -40,17 +40,17 @@ export const getUserCart = (Id, page) => async (dispatch) => {
   }
 };
 
-export const updataCartItem = (Id, entry) => async (dispatch) => {
+export const updataCartItem = (Id, cartItem) => async (dispatch) => {
   const url = `http://127.0.0.1:8000/cart/${Id}/`;
   try {
     dispatch(Loading());
-    const res = await axios.patch(url, JSON.stringify(entry), {
+    const res = await axios.patch(url, JSON.stringify(cartItem), {
       headers: {
         "content-type": "application/json",
       },
     });
     if (res.status === 200) {
-      dispatch(Update({ Id, entry }));
+      dispatch(Update({ Id, cartItem }));
     }
   } catch (error) {
     dispatch(Error());
