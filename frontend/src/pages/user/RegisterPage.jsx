@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { registerUser } from "../../redux/thunk/userThunk";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import md5 from "md5";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -26,7 +25,7 @@ function RegisterPage() {
     dispatch(
       registerUser({
         ...state,
-        password: md5(state.password),
+        password: state.password,
       })
     );
   }
