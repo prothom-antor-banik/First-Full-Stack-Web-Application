@@ -2,8 +2,6 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdminHeader from "./components/AdminHeader";
-import Header from "./components/Header";
 import Error from "./components/Error";
 import NotFound from "./components/NotFound";
 import ProductPage from "./pages/user/ProductPage";
