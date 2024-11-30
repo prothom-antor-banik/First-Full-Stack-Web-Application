@@ -60,7 +60,7 @@ function UpdateProductPage() {
   }, [success, buttonPressed]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
-  else if (!current_user.is_admin) return <Navigate to="/" />;
+  else if (!current_user.is_superuser) return <Navigate to="/" />;
   else {
     return (
       <div className="d-flex flex-column min-vh-100">
