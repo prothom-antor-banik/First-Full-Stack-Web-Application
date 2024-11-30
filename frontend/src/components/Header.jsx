@@ -78,7 +78,7 @@ function Header() {
               </Row>
             </Form>
             {Object.keys(current_user).length ? (
-              current_user.is_admin ? (
+              current_user.is_superuser ? (
                 <NavLink
                   className={"text-decoration-none align-self-center"}
                   to="/admin"
