@@ -64,6 +64,7 @@ class Orders(models.Model):
     price = models.FloatField(blank=False, default=0.0)
     date = models.DateField(auto_now_add=True)
     method = models.CharField(max_length=64, blank=False)
+    pending = models.BooleanField(default=True)
 
     class Meta:
         verbose_name = "Order"

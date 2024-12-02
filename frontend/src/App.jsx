@@ -17,6 +17,7 @@ import OrdersPage from "./pages/admin/OrdersPage";
 import UsersPage from "./pages/admin/UsersPage";
 import CreatProductPage from "./pages/admin/CreateProductPage";
 import UpdateProductPage from "./pages/admin/UpdateProductPage";
+import ReceivedOrderPage from "./pages/staff/ReceivedOrderPage";
 
 function App() {
   return (
@@ -37,6 +38,11 @@ function App() {
           <Route path="create-product" element={<CreatProductPage />} />
           <Route path="update-product" element={<UpdateProductPage />} />
         </Route>
+        <Route
+          path="stuff"
+          element={<ReceivedOrderPage />}
+          errorElement={<Error />}
+        />
         <Route path="login" element={<LoginPage />} errorElement={<Error />} />
         <Route
           path="register"

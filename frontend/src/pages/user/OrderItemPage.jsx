@@ -10,7 +10,7 @@ import {
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
-import { createOrder } from "../../redux/thunk/orderThunk";
+import { createOrder, getOrderById } from "../../redux/thunk/orderThunk";
 import { deleteUserCart } from "../../redux/thunk/cartThunk";
 import Header from "../../components/Header";
 import Message from "../../components/Message";
@@ -21,7 +21,9 @@ function OrderItemPage() {
   const location = useLocation();
   const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
-  const { loading, success, error } = useSelector((state) => state.order);
+  const { loading, success, error, order_id, pending } = useSelector(
+    (state) => state.order
+  );
 
   const initalState = {
     products: 0,
@@ -34,6 +36,7 @@ function OrderItemPage() {
 
   const [buttonPressed, setButtonPressed] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
 
   function handleOrder() {
     if (!buttonDisable) {
@@ -43,10 +46,15 @@ function OrderItemPage() {
           price: order.price + 40,
           userId: current_user.Id,
           method: "bkash",
+          pending: true,
         })
       );
       setButtonPressed(true);
     }
+  }
+
+  function handleOderSuccess() {
+    if (!pending) setOrderSuccess(true);
   }
 
   useEffect(() => {
@@ -57,7 +65,18 @@ function OrderItemPage() {
         dispatch(deleteUserCart(current_user.Id));
       }, 1500);
     }
+    return () => dispatch(Initial());
   }, [buttonPressed, success]);
+
+  useEffect(() => {
+    const myInterval = setInterval(() => {
+      if (buttonDisable && pending) {
+        dispatch(getOrderById(order_id));
+      }
+    }, 1000);
+    if (!pending) clearInterval(myInterval);
+    return () => clearInterval(myInterval);
+  }, [pending, buttonDisable]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else {
@@ -117,28 +136,42 @@ function OrderItemPage() {
                 <tr>
                   <td colSpan={2}>
                     <ButtonGroup className="d-flex">
-                      <Button variant="dark" onClick={() => handleOrder()}>
-                        Payment
-                      </Button>
+                      {buttonDisable ? (
+                        <Button
+                          disabled={pending}
+                          variant={pending ? "warning" : "success"}
+                          onClick={() => handleOderSuccess()}
+                        >
+                          {pending ? "Processing" : "Payment"}
+                        </Button>
+                      ) : (
+                        <Button variant="dark" onClick={() => handleOrder()}>
+                          Order
+                        </Button>
+                      )}
                     </ButtonGroup>
                   </td>
                 </tr>
               </tbody>
             </Table>
-            {error ? (
-              <Message
-                variant={"danger"}
-                message={"Error on dealing with order"}
-              />
-            ) : loading ? (
-              <Loader />
-            ) : success ? (
-              <Message
-                variant={"success"}
-                message={"Successfully ordered your items"}
-              />
+            {!orderSuccess ? (
+              error ? (
+                <Message
+                  variant={"danger"}
+                  message={"Error on dealing with order"}
+                />
+              ) : loading ? (
+                <Loader />
+              ) : success ? (
+                <Message
+                  variant={"success"}
+                  message={"Successfully ordered your items"}
+                />
+              ) : (
+                <></>
+              )
             ) : (
-              <></>
+              <Message variant={"success"} message={"Payment Complete!!!"} />
             )}
           </Col>
         </Row>

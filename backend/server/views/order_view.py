@@ -11,7 +11,8 @@ class OrderList(APIView):
 	def get(self, request, format=None): 
 		page_size = 12
 		page = request.query_params['page']
-		orders = Orders.objects.get_queryset().order_by('Id')
+		status = True if request.query_params['status'] == 'true' else False
+		orders = Orders.objects.get_queryset().filter(pending=status).order_by('Id')
 		paginator = Paginator(orders, page_size)
 		try:
 			orders = paginator.page(page)
@@ -61,4 +62,30 @@ class OrderDetail(APIView):
 	def delete(self, request, pk, format=None): 
 		order = self.get_order(pk)
 		order.delete()
-		return Response(status=status.HTTP_204_NO_CONTENT) 
+		return Response(status=status.HTTP_204_NO_CONTENT)
+	
+
+class OrderPending(APIView):
+	def get_order(self, pk):
+		try: 
+			return Orders.objects.get(Id=pk)
+		except Orders.DoesNotExist: 
+			raise Http404
+
+	def get(self, request, pk, format=None):
+		order = self.get_order(pk)
+		serializer = OrderSerializer(order)
+		return Response(serializer.data)
+	
+	def patch(self, request, pk, format=None):
+		order = self.get_order(pk) 
+		serializer = OrderSerializer(order, data=request.data, partial=True) 
+		if serializer.is_valid(): 
+			serializer.save()
+			return Response(status=status.HTTP_200_OK)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+	
+	def delete(self, request, pk, format=None): 
+		order = self.get_order(pk)
+		order.delete()
+		return Response(status=status.HTTP_200_OK)
