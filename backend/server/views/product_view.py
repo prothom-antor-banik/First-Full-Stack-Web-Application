@@ -67,3 +67,24 @@ class ProductDetail(APIView):
 		product = self.get_product(pk)
 		product.delete()
 		return Response(status=status.HTTP_200_OK)
+	
+
+class ProductUpdate(APIView):
+	def get_product(self, pk):
+		try: 
+			return Products.objects.get(Id=pk)
+		except Products.DoesNotExist: 
+			raise Http404
+		
+	def get(self, request, pk, format=None):
+		product = self.get_product(pk)
+		serializer = ProductSerializer(product)
+		return Response(serializer.data)
+		
+	def patch(self, request, pk, format=None):
+		product = self.get_product(pk)
+		serializer = ProductSerializer(product, data=request.data, partial=True) 
+		if serializer.is_valid(): 
+			serializer.save()
+			return Response(status=status.HTTP_200_OK)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

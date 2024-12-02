@@ -10,6 +10,7 @@ import {
 import { Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
+import { reduceProduct } from "../../redux/thunk/productThunk";
 import { createOrder, getOrderById } from "../../redux/thunk/orderThunk";
 import { deleteUserCart } from "../../redux/thunk/cartThunk";
 import Header from "../../components/Header";
@@ -24,6 +25,7 @@ function OrderItemPage() {
   const { loading, success, error, order_id, pending } = useSelector(
     (state) => state.order
   );
+  const { stored_list } = useSelector((state) => state.cart);
 
   const initalState = {
     products: 0,
@@ -77,6 +79,19 @@ function OrderItemPage() {
     if (!pending) clearInterval(myInterval);
     return () => clearInterval(myInterval);
   }, [pending, buttonDisable]);
+
+  useEffect(() => {
+    if (orderSuccess) {
+      stored_list.map((element) => {
+        dispatch(
+          reduceProduct(
+            element.productId,
+            element.product.countInStock - element.items
+          )
+        );
+      });
+    }
+  }, [orderSuccess]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else {

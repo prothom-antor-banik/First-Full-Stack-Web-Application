@@ -4,6 +4,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState: {
     product_list: [],
+    stored_list: [],
     products: 0,
     items: 0,
     price: 0,
@@ -33,6 +34,8 @@ export const cartSlice = createSlice({
 
     ListProducts: (state, action) => {
       state.product_list = action.payload.cart;
+      state.stored_list = state.product_list;
+      console.log("stored_list : ", state.stored_list);
       state.products = action.payload.products;
       state.items = action.payload.items;
       state.price = action.payload.price;
@@ -54,6 +57,7 @@ export const cartSlice = createSlice({
           return { ...product, ...action.payload.cartItem };
         } else return product;
       });
+      state.stored_list = state.product_list;
       state.items = items;
       state.price = price;
       state.loading = false;
@@ -72,6 +76,7 @@ export const cartSlice = createSlice({
         } else return true;
       });
       state.products = state.products - 1;
+      state.stored_list = state.product_list;
       state.items = items;
       state.price = price;
       state.loading = false;
