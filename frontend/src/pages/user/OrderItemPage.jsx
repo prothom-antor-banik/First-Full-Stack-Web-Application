@@ -153,7 +153,7 @@ function OrderItemPage() {
                     <ButtonGroup className="d-flex">
                       {buttonDisable ? (
                         <Button
-                          disabled={pending}
+                          disabled={orderSuccess}
                           variant={pending ? "warning" : "success"}
                           onClick={() => handleOderSuccess()}
                         >

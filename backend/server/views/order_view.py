@@ -9,7 +9,7 @@ from ..serializers import OrderSerializer
 
 class OrderList(APIView):
 	def get(self, request, format=None): 
-		page_size = 12
+		page_size = 10
 		page = request.query_params['page']
 		status = True if request.query_params['status'] == 'true' else False
 		orders = Orders.objects.get_queryset().filter(pending=status).order_by('Id')
