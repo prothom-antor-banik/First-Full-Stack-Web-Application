@@ -86,6 +86,25 @@ function AdminPage() {
                   </Col>
                 </Row>
               </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col
+                    md={8}
+                    as="h6"
+                    className="d-flex flex-row justify-content-center align-items-center"
+                  >
+                    Summary
+                  </Col>
+                  <Col md={4} className="d-flex justify-content-center">
+                    <Button
+                      variant="dark"
+                      onClick={() => navigate("/admin/summary")}
+                    >
+                      Show
+                    </Button>
+                  </Col>
+                </Row>
+              </ListGroup.Item>
             </ListGroup>
           </Col>
         </Row>

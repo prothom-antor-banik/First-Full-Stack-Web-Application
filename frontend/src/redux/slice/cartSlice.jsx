@@ -35,7 +35,6 @@ export const cartSlice = createSlice({
     ListProducts: (state, action) => {
       state.product_list = action.payload.cart;
       state.stored_list = state.product_list;
-      console.log("stored_list : ", state.stored_list);
       state.products = action.payload.products;
       state.items = action.payload.items;
       state.price = action.payload.price;

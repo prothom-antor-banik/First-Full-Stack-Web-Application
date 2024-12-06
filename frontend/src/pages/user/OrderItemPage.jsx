@@ -13,6 +13,7 @@ import { Initial } from "../../redux/slice/orderSlice";
 import { reduceProduct } from "../../redux/thunk/productThunk";
 import { createOrder, getOrderById } from "../../redux/thunk/orderThunk";
 import { deleteUserCart } from "../../redux/thunk/cartThunk";
+import { addSummaryProduct } from "../../redux/thunk/summaryThunk";
 import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
@@ -88,6 +89,15 @@ function OrderItemPage() {
             element.productId,
             element.product.countInStock - element.items
           )
+        );
+        dispatch(
+          addSummaryProduct({
+            _id: element.productId,
+            product_name: element.product.name,
+            product_price: element.product.price,
+            items: element.items,
+            date: new Date().toISOString().split("T")[0],
+          })
         );
       });
     }

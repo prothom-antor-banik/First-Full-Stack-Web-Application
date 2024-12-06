@@ -15,6 +15,7 @@ import AdminPage from "./pages/admin/AdminPage";
 import ProductsPage from "./pages/admin/ProductsPage";
 import OrdersPage from "./pages/admin/OrdersPage";
 import UsersPage from "./pages/admin/UsersPage";
+import SummaryPage from "./pages/admin/SummaryPage";
 import CreatProductPage from "./pages/admin/CreateProductPage";
 import UpdateProductPage from "./pages/admin/UpdateProductPage";
 import ReceivedOrderPage from "./pages/staff/ReceivedOrderPage";
@@ -35,6 +36,7 @@ function App() {
           <Route path="products" element={<ProductsPage />} />
           <Route path="orders" element={<OrdersPage />} />
           <Route path="users" element={<UsersPage />} />
+          <Route path="summary" element={<SummaryPage />} />
           <Route path="create-product" element={<CreatProductPage />} />
           <Route path="update-product" element={<UpdateProductPage />} />
         </Route>
