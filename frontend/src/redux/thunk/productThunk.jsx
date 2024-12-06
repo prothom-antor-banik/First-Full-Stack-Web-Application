@@ -25,8 +25,8 @@ export const createProduct = (product) => async (dispatch) => {
   }
 };
 
-export const getAllProducts = (page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/?page=${page}`;
+export const getAllProducts = (page, sort, by) => async (dispatch) => {
+  const url = `http://127.0.0.1:8000/products/?page=${page}&sort=${sort}&by=${by}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -38,18 +38,19 @@ export const getAllProducts = (page) => async (dispatch) => {
   }
 };
 
-export const getAllProductsWithSearch = (query, page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/?search=${query}&page=${page}`;
-  try {
-    dispatch(Loading());
-    const res = await axios.get(url);
-    if (res.status === 200) {
-      dispatch(ListProduct(res.data));
+export const getAllProductsWithSearch =
+  (query, sort, by, page) => async (dispatch) => {
+    const url = `http://127.0.0.1:8000/products/?search=${query}&page=${page}&sort=${sort}&by=${by}`;
+    try {
+      dispatch(Loading());
+      const res = await axios.get(url);
+      if (res.status === 200) {
+        dispatch(ListProduct(res.data));
+      }
+    } catch (error) {
+      dispatch(Error());
     }
-  } catch (error) {
-    dispatch(Error());
-  }
-};
+  };
 
 export const getProduct = (Id) => async (dispatch) => {
   const url = `http://127.0.0.1:8000/products/${Id}`;

@@ -13,9 +13,12 @@ class ProductList(APIView):
 	def get(self, request, format=None):
 		page_size = 12
 		page = request.query_params['page']
+		sort = request.query_params['sort']
+		by = request.query_params['by']
+		field = f"-{by}" if sort == 'DESC' else by
 		try:
 			search = request.query_params['search']
-			products = Products.objects.filter(Q(name__contains=search) | Q(description__contains=search) | Q(brand__contains=search)).order_by('Id') 
+			products = Products.objects.filter(Q(name__contains=search) | Q(description__contains=search) | Q(brand__contains=search)).order_by(field) 
 			paginator = Paginator(products, page_size)
 			try:
 				products = paginator.page(page)
@@ -24,7 +27,7 @@ class ProductList(APIView):
 			serializer = ProductSerializer(products, many=True) 
 			return Response({'products': serializer.data, 'pages': paginator.num_pages})
 		except:
-			products = Products.objects.get_queryset().order_by('Id')
+			products = Products.objects.get_queryset().order_by(field)
 			paginator = Paginator(products, page_size)
 			try:
 				products = paginator.page(page)
