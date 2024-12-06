@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Table, ButtonGroup, Button } from "react-bootstrap";
+import { Row, Col, Form, Table, Button } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -61,16 +61,17 @@ function UsersPage() {
                   onChange={(e) => setQuery(e.target.value)}
                 />
               </Col>
-              <Col md={1}>
-                <ButtonGroup className="d-flex">
-                  <Button
-                    type="submit"
-                    variant="dark"
-                    onClick={() => handleSearch()}
-                  >
-                    <i className="bi bi-search" />
-                  </Button>
-                </ButtonGroup>
+              <Col
+                md={1}
+                className="d-flex justify-content-start align-items-center"
+              >
+                <Button
+                  type="submit"
+                  variant="dark"
+                  onClick={() => handleSearch()}
+                >
+                  <i className="bi bi-search" />
+                </Button>
               </Col>
             </Row>
           </Form>

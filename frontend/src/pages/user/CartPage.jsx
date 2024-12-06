@@ -6,7 +6,6 @@ import {
   Form,
   Table,
   Image,
-  ButtonGroup,
   Button,
 } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -91,18 +90,14 @@ function CartPage() {
                         className="d-flex justify-content-center align-items-center"
                         md={2}
                       >
-                        <ButtonGroup className="d-flex">
-                          <Button
-                            variant="danger"
-                            onClick={() =>
-                              dispatch(
-                                deleteCartItem(product.Id, product.userId)
-                              )
-                            }
-                          >
-                            Delete
-                          </Button>
-                        </ButtonGroup>
+                        <Button
+                          variant="danger"
+                          onClick={() =>
+                            dispatch(deleteCartItem(product.Id, product.userId))
+                          }
+                        >
+                          Delete
+                        </Button>
                       </Col>
                     </Row>
                     {error ? (
@@ -123,45 +118,43 @@ function CartPage() {
             )}
           </Col>
           <Col md={4}>
-            <h2 className="py-2">Summary</h2>
-            <Table striped bordered>
-              <tbody>
-                <tr>
-                  <td>Total Product</td>
-                  <td>{products}</td>
-                </tr>
-                <tr>
-                  <td>Total Items</td>
-                  <td>{items}</td>
-                </tr>
-                <tr>
-                  <td>Total Price</td>
-                  <td>{price}</td>
-                </tr>
-                <tr>
-                  <td colSpan={2}>
-                    <ButtonGroup className="d-flex">
-                      <Button
-                        variant="dark"
-                        onClick={() => {
-                          if (price) {
-                            navigate("/order", {
-                              state: {
-                                products: products,
-                                items: items,
-                                price: price,
-                              },
-                            });
-                          }
-                        }}
-                      >
-                        Checkout
-                      </Button>
-                    </ButtonGroup>
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
+            <Row className="px-2">
+              <h2 className="py-2">Summary</h2>
+              <Table striped bordered>
+                <tbody>
+                  <tr>
+                    <td>Total Product</td>
+                    <td>{products}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Items</td>
+                    <td>{items}</td>
+                  </tr>
+                  <tr>
+                    <td>Total Price</td>
+                    <td>{price}</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </Row>
+            <Row className="px-2">
+              <Button
+                variant="dark"
+                onClick={() => {
+                  if (price) {
+                    navigate("/order", {
+                      state: {
+                        products: products,
+                        items: items,
+                        price: price,
+                      },
+                    });
+                  }
+                }}
+              >
+                Checkout
+              </Button>
+            </Row>
           </Col>
         </Row>
         <Footer pages={pages} page={page} setPage={setPage} />
