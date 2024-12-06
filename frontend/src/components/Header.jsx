@@ -25,7 +25,7 @@ function Header() {
 
   function handleSearch() {
     setQuery("");
-    dispatch(getAllProductsWithSearch(query));
+    dispatch(getAllProductsWithSearch(query, "ASC", "Id"));
     dispatch(Initial());
   }
 
@@ -42,7 +42,7 @@ function Header() {
                   color: isActive ? "white" : "gray",
                 };
               }}
-              onClick={() => dispatch(getAllProducts())}
+              onClick={() => dispatch(getAllProducts(1, "ASC", "Id"))}
             >
               <i className="bi bi-shop-window px-2" />
               Shop

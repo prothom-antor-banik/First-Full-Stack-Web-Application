@@ -18,7 +18,7 @@ function ProductPage() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllProducts(page));
+    dispatch(getAllProducts(page, "ASC", "Id"));
     return () => {
       dispatch(Initial());
     };
