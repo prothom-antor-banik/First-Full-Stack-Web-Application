@@ -1,8 +1,9 @@
 from django.urls import path 
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import login_view, user_view, product_view, order_view, cart_view, summary_view
+from .views import index_view, login_view, user_view, product_view, order_view, cart_view, summary_view
 
 urlpatterns = [
+    path('', index_view.index, name='index'),
     path('login/', login_view.Login.as_view()),
 	path('users/<int:pk>/', user_view.UserDetail.as_view()),
 	path('users/', user_view.UserList.as_view()),

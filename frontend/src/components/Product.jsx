@@ -12,11 +12,7 @@ function Product({ product }) {
           className="text-dark text-decoration-none"
           to={`product/${product.Id}`}
         >
-          <Image
-            src={"http://127.0.0.1:8000" + product.image}
-            width="50%"
-            fluid
-          />
+          <Image src={product.image} width="50%" fluid />
         </Link>
       </Row>
       <Row as="h5" className="my-2 justify-content-center">

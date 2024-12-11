@@ -44,7 +44,7 @@ function ProductDetailsPage() {
       <Header />
       <Row className="p-3">
         <Col className="p-4 align-items-center" md={4} lg={6}>
-          <Image src={"http://127.0.0.1:8000" + product.image} fluid rounded />
+          <Image src={product.image} fluid rounded />
         </Col>
         <Col className="p-4" md={4} lg={6}>
           <Row>
