@@ -9,7 +9,7 @@ from datetime import date
 env = environ.Env()
 environ.Env.read_env()
 
-db = pymongo.MongoClient(env('connection_string'))['MyMongoDB']
+db = pymongo.MongoClient(env('connection_string'), connectTimeoutMS=15000, socketTimeoutMS=None, connect=False, maxPoolsize=1)['MyMongoDB']
 collection = db['summary']
 
 class Summary(APIView):
