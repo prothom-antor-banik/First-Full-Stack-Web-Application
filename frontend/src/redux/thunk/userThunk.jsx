@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const loginUser = (user) => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/login/";
+  const url = "/login/";
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(user), {
@@ -26,7 +26,7 @@ export const loginUser = (user) => async (dispatch) => {
 };
 
 export const registerUser = (user) => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/users/";
+  const url = "/users/";
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(user), {
@@ -43,7 +43,7 @@ export const registerUser = (user) => async (dispatch) => {
 };
 
 export const getAllUsers = (page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/?page=${page}`;
+  const url = `/users/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -56,7 +56,7 @@ export const getAllUsers = (page) => async (dispatch) => {
 };
 
 export const getAllUsersWithSearch = (query, page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/?search=${query}&page=${page}`;
+  const url = `/users/?search=${query}&page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -69,7 +69,7 @@ export const getAllUsersWithSearch = (query, page) => async (dispatch) => {
 };
 
 export const updateUserDetails = (user) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/${user.Id}/`;
+  const url = `/users/${user.Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify(user), {
@@ -86,7 +86,7 @@ export const updateUserDetails = (user) => async (dispatch) => {
 };
 
 export const updateToAdmin = (user) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/${user.Id}/`;
+  const url = `/users/${user.Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify(user), {
@@ -103,7 +103,7 @@ export const updateToAdmin = (user) => async (dispatch) => {
 };
 
 export const deleteUser = (Id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/users/${Id}`;
+  const url = `/users/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

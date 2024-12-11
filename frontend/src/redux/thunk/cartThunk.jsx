@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const addToCart = (cartItem) => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/cart/";
+  const url = "/cart/";
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(cartItem), {
@@ -26,7 +26,7 @@ export const addToCart = (cartItem) => async (dispatch) => {
 };
 
 export const getUserCart = (Id, page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/cart/${Id}/?page=${page}`;
+  const url = `/cart/${Id}/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -41,7 +41,7 @@ export const getUserCart = (Id, page) => async (dispatch) => {
 };
 
 export const updataCartItem = (Id, cartItem) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/cart/${Id}/`;
+  const url = `/cart/${Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify(cartItem), {
@@ -58,7 +58,7 @@ export const updataCartItem = (Id, cartItem) => async (dispatch) => {
 };
 
 export const deleteCartItem = (productId) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/cart/${productId}`;
+  const url = `/cart/${productId}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);
@@ -71,7 +71,7 @@ export const deleteCartItem = (productId) => async (dispatch) => {
 };
 
 export const deleteUserCart = (userId) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/cart-delete/${userId}/`;
+  const url = `/cart-delete/${userId}/`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const createOrder = (order) => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/orders/";
+  const url = "/orders/";
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(order), {
@@ -26,7 +26,7 @@ export const createOrder = (order) => async (dispatch) => {
 };
 
 export const getAllOrders = (page, status) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/orders/?page=${page}&status=${status}`;
+  const url = `/orders/?page=${page}&status=${status}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -39,7 +39,7 @@ export const getAllOrders = (page, status) => async (dispatch) => {
 };
 
 export const getUserOrders = (id, page) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/orders/${id}/?page=${page}`;
+  const url = `/orders/${id}/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -52,7 +52,7 @@ export const getUserOrders = (id, page) => async (dispatch) => {
 };
 
 export const getOrderById = (id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/orders/pending/${id}/`;
+  const url = `/orders/pending/${id}/`;
   try {
     const res = await axios.get(url);
     if (res.status === 200) {
@@ -64,7 +64,7 @@ export const getOrderById = (id) => async (dispatch) => {
 };
 
 export const clearPendingOrder = (id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/orders/pending/${id}/`;
+  const url = `/orders/pending/${id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify({ pending: false }), {
@@ -81,7 +81,7 @@ export const clearPendingOrder = (id) => async (dispatch) => {
 };
 
 export const deleteOrderItem = (id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/orders/pending/${id}`;
+  const url = `/orders/pending/${id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

@@ -38,7 +38,12 @@ function LoginPage() {
   return (
     <Row className="bg-light justify-content-center align-items-center vh-100">
       <Col md={1} className="position-absolute top-0 start-0 py-2">
-        <Button variant="dark" onClick={() => navigate(-1)}>
+        <Button
+          variant="dark"
+          onClick={() =>
+            Object.keys(current_user).length ? navigate(-1) : navigate("/")
+          }
+        >
           <i className="bi bi-arrow-left" />
         </Button>
       </Col>

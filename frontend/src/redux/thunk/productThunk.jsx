@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const createProduct = (product) => async (dispatch) => {
-  const url = "http://127.0.0.1:8000/products/";
+  const url = "/products/";
   try {
     dispatch(Loading());
     const res = await axios.post(url, product, {
@@ -26,7 +26,7 @@ export const createProduct = (product) => async (dispatch) => {
 };
 
 export const getAllProducts = (page, sort, by) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/?page=${page}&sort=${sort}&by=${by}`;
+  const url = `/products/?page=${page}&sort=${sort}&by=${by}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -40,7 +40,7 @@ export const getAllProducts = (page, sort, by) => async (dispatch) => {
 
 export const getAllProductsWithSearch =
   (query, sort, by, page) => async (dispatch) => {
-    const url = `http://127.0.0.1:8000/products/?search=${query}&page=${page}&sort=${sort}&by=${by}`;
+    const url = `/products/?search=${query}&page=${page}&sort=${sort}&by=${by}`;
     try {
       dispatch(Loading());
       const res = await axios.get(url);
@@ -53,7 +53,7 @@ export const getAllProductsWithSearch =
   };
 
 export const getProduct = (Id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/${Id}`;
+  const url = `/products/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -66,7 +66,7 @@ export const getProduct = (Id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, product) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/${id}/`;
+  const url = `/products/${id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, product, {
@@ -83,7 +83,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
 };
 
 export const reduceProduct = (id, price) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/product-update/${id}`;
+  const url = `/product-update/${id}`;
   try {
     const res = await axios.patch(
       url,
@@ -103,7 +103,7 @@ export const reduceProduct = (id, price) => async (dispatch) => {
 };
 
 export const deleteProduct = (Id) => async (dispatch) => {
-  const url = `http://127.0.0.1:8000/products/${Id}`;
+  const url = `/products/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);
