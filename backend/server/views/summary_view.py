@@ -1,14 +1,15 @@
-from django.core.paginator import Paginator
-from django.http import Http404
 from rest_framework.views import APIView 
 from rest_framework.response import Response
 from rest_framework import status
 import pymongo
-from ..credentials import connection_string
+import environ
 from bson.json_util import loads, dumps
 from datetime import date
 
-db = pymongo.MongoClient(connection_string)['MyMongoDB']
+env = environ.Env()
+environ.Env.read_env()
+
+db = pymongo.MongoClient(env('connection_string'))['MyMongoDB']
 collection = db['summary']
 
 class Summary(APIView):
