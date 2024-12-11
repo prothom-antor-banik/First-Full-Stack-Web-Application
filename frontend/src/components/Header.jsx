@@ -89,7 +89,7 @@ function Header() {
                   }}
                 >
                   <i className="bi bi-person-gear px-1" />
-                  Stuff
+                  Staff
                 </NavLink>
               ) : current_user.is_superuser ? (
                 <NavLink
