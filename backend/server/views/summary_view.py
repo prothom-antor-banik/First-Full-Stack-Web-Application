@@ -2,14 +2,13 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 import pymongo
-import environ
 from bson.json_util import loads, dumps
 from datetime import date
 
-env = environ.Env()
-environ.Env.read_env()
+connectionString = "mongodb+srv://prothomantorbanik:antor_123@mymongoo.u3i4d.mongodb.net/?retryWrites=true&w=majority&appName=MyMongoo"
 
-db = pymongo.MongoClient(env('connection_string'), connectTimeoutMS=15000, socketTimeoutMS=None, connect=False, maxPoolsize=1)['MyMongoDB']
+client = pymongo.MongoClient(connectionString, connectTimeoutMS=15000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
+db = client['MyMongoDB']
 collection = db['summary']
 
 class Summary(APIView):
