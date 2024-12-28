@@ -9,13 +9,14 @@ import {
   Button,
 } from "react-bootstrap";
 import { Outlet, NavLink, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersWithSearch } from "../redux/thunk/userThunk";
 import { getAllProductsWithSearch } from "../redux/thunk/productThunk";
 
 function AdminHeader() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const { current_user } = useSelector((state) => state.user);
 
   const [query, setQuery] = useState("");
 
@@ -33,6 +34,7 @@ function AdminHeader() {
         <Container>
           <Navbar.Brand>
             <NavLink
+              hidden={!current_user.is_superuser}
               to="/admin"
               className={"text-decoration-none"}
               style={({ isActive }) => {

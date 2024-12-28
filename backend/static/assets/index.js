@@ -9138,7 +9138,7 @@ function Wx(e = yn) {
     };
   return Object.assign(n, { withTypes: () => n }), n;
 }
-var K = Wx();
+var V = Wx();
 function Hx(e) {
   e();
 }
@@ -11585,7 +11585,7 @@ const Em = y.forwardRef((e, t) => {
 });
 Em.displayName = "Alert";
 const Q1 = Object.assign(Em, { Link: Sm, Heading: wm }),
-  V = y.forwardRef(
+  K = y.forwardRef(
     (
       {
         as: e,
@@ -11618,7 +11618,7 @@ const Q1 = Object.assign(Em, { Link: Sm, Heading: wm }),
       });
     }
   );
-V.displayName = "Button";
+K.displayName = "Button";
 const Dr = y.forwardRef(
   (
     {
@@ -16837,7 +16837,7 @@ const cE = (e) => async (t) => {
 function Qn() {
   const e = Rt(),
     t = Ce(),
-    { current_user: n } = K((l) => l.user),
+    { current_user: n } = V((l) => l.user),
     [r, s] = y.useState("");
   function o() {
     s(""), t(Pc(r, "ASC", "Id")), t(bn());
@@ -16883,7 +16883,7 @@ function Qn() {
                       }),
                       i.jsx(T, {
                         xs: "auto",
-                        children: i.jsx(V, {
+                        children: i.jsx(K, {
                           type: "submit",
                           variant: "light",
                           onClick: () => o(),
@@ -16894,19 +16894,7 @@ function Qn() {
                   }),
                 }),
                 Object.keys(n).length
-                  ? n.is_admin
-                    ? i.jsxs(It, {
-                        className: "text-decoration-none align-self-center",
-                        to: "/stuff",
-                        style: ({ isActive: l }) => ({
-                          color: l ? "white" : "gray",
-                        }),
-                        children: [
-                          i.jsx("i", { className: "bi bi-person-gear px-1" }),
-                          "Staff",
-                        ],
-                      })
-                    : n.is_superuser
+                  ? n.is_superuser
                     ? i.jsxs(It, {
                         className: "text-decoration-none align-self-center",
                         to: "/admin",
@@ -16916,6 +16904,18 @@ function Qn() {
                         children: [
                           i.jsx("i", { className: "bi bi-person-gear px-1" }),
                           "Admin",
+                        ],
+                      })
+                    : n.is_admin
+                    ? i.jsxs(It, {
+                        className: "text-decoration-none align-self-center",
+                        to: "/stuff",
+                        style: ({ isActive: l }) => ({
+                          color: l ? "white" : "gray",
+                        }),
+                        children: [
+                          i.jsx("i", { className: "bi bi-person-gear px-1" }),
+                          "Staff",
                         ],
                       })
                     : i.jsx(i.Fragment, {})
@@ -17118,7 +17118,7 @@ function yE({ product: e }) {
       }),
       i.jsx(I, {
         className: "mb-2",
-        children: i.jsx(V, {
+        children: i.jsx(K, {
           variant: "dark",
           onClick: () => t(`/product/${e.Id}`),
           children: "Details",
@@ -17144,7 +17144,7 @@ function gE() {
       loading: r,
       success: s,
       error: o,
-    } = K((u) => u.product),
+    } = V((u) => u.product),
     [l, a] = y.useState(1);
   return (
     y.useEffect(
@@ -17332,9 +17332,9 @@ const Vy = Hs({
 function _E() {
   const { Id: e } = P0(),
     t = Ce(),
-    { current_user: n } = K((u) => u.user),
-    { product: r } = K((u) => u.product),
-    { loading: s, success: o, error: l } = K((u) => u.cart);
+    { current_user: n } = V((u) => u.user),
+    { product: r } = V((u) => u.product),
+    { loading: s, success: o, error: l } = V((u) => u.cart);
   function a() {
     Object.keys(n).length &&
       t(
@@ -17440,7 +17440,7 @@ function _E() {
                             colSpan: 2,
                             children: i.jsx(Dr, {
                               className: "d-flex",
-                              children: i.jsx(V, {
+                              children: i.jsx(K, {
                                 variant: "dark",
                                 onClick: () => a(),
                                 children: "Add to cart",
@@ -17482,7 +17482,7 @@ function _E() {
 function RE() {
   const e = Pt(),
     t = Ce(),
-    { current_user: n } = K((p) => p.user),
+    { current_user: n } = V((p) => p.user),
     {
       product_list: r,
       products: s,
@@ -17491,7 +17491,7 @@ function RE() {
       pages: a,
       loading: u,
       error: c,
-    } = K((p) => p.cart),
+    } = V((p) => p.cart),
     [d, f] = y.useState(1);
   return (
     y.useEffect(() => (t(EE(n.Id, d)), () => t(Ky())), [d]),
@@ -17577,7 +17577,7 @@ function RE() {
                                         className:
                                           "d-flex justify-content-center align-items-center",
                                         md: 2,
-                                        children: i.jsx(V, {
+                                        children: i.jsx(K, {
                                           variant: "danger",
                                           onClick: () => t(NE(p.Id, p.userId)),
                                           children: "Delete",
@@ -17642,7 +17642,7 @@ function RE() {
                     }),
                     i.jsx(I, {
                       className: "px-2",
-                      children: i.jsx(V, {
+                      children: i.jsx(K, {
                         variant: "dark",
                         onClick: () => {
                           l &&
@@ -17854,15 +17854,15 @@ const Gy = Hs({
 function WE() {
   const e = Rt(),
     t = Ce(),
-    { current_user: n } = K((h) => h.user),
+    { current_user: n } = V((h) => h.user),
     {
       loading: r,
       success: s,
       error: o,
       order_id: l,
       pending: a,
-    } = K((h) => h.order),
-    { stored_list: u } = K((h) => h.cart),
+    } = V((h) => h.order),
+    { stored_list: u } = V((h) => h.cart),
     c = { products: 0, items: 0, price: 0 },
     d = Object.keys(e.state).length ? e.state : c,
     [f, p] = y.useState(!1),
@@ -18008,13 +18008,13 @@ function WE() {
                                 children: i.jsx(Dr, {
                                   className: "d-flex",
                                   children: x
-                                    ? i.jsx(V, {
+                                    ? i.jsx(K, {
                                         disabled: j,
                                         variant: a ? "warning" : "success",
                                         onClick: () => g(),
                                         children: a ? "Processing" : "Payment",
                                       })
-                                    : i.jsx(V, {
+                                    : i.jsx(K, {
                                         variant: "dark",
                                         onClick: () => v(),
                                         children: "Order",
@@ -18194,8 +18194,8 @@ const eg = Hs({
   };
 function ZE() {
   const e = Ce(),
-    { current_user: t } = K((x) => x.user),
-    { orders: n, pages: r, loading: s, error: o } = K((x) => x.order),
+    { current_user: t } = V((x) => x.user),
+    { orders: n, pages: r, loading: s, error: o } = V((x) => x.order),
     [l, a] = y.useState(1),
     [u, c] = y.useState({ name: t.name, email: t.email, address: t.address }),
     [d, f] = y.useState({ password: "", confirmPassword: "" });
@@ -18223,7 +18223,7 @@ function ZE() {
                       children: [
                         i.jsx("h1", { children: "User Profile" }),
                         i.jsx("span", {
-                          children: i.jsx(V, {
+                          children: i.jsx(K, {
                             variant: "dark",
                             onClick: () => e(VE()),
                             children: "Logout",
@@ -18342,7 +18342,7 @@ function ZE() {
                         }),
                         i.jsx(Dr, {
                           className: "d-flex",
-                          children: i.jsx(V, {
+                          children: i.jsx(K, {
                             type: "submit",
                             variant: "dark",
                             onClick: p,
@@ -18454,7 +18454,7 @@ function ZE() {
 function eC() {
   const e = Pt(),
     t = Ce(),
-    { current_user: n, loading: r, success: s, error: o } = K((d) => d.user),
+    { current_user: n, loading: r, success: s, error: o } = V((d) => d.user),
     l = { email: "", password: "" },
     [a, u] = y.useState(l);
   function c() {
@@ -18470,7 +18470,7 @@ function eC() {
         i.jsx(T, {
           md: 1,
           className: "position-absolute top-0 start-0 py-2",
-          children: i.jsx(V, {
+          children: i.jsx(K, {
             variant: "dark",
             onClick: () => (Object.keys(n).length ? e(-1) : e("/")),
             children: i.jsx("i", { className: "bi bi-arrow-left" }),
@@ -18520,7 +18520,7 @@ function eC() {
                 }),
                 i.jsx(Dr, {
                   className: "d-flex p-3",
-                  children: i.jsx(V, {
+                  children: i.jsx(K, {
                     variant: "dark",
                     type: "submit",
                     onClick: () => c(),
@@ -18558,7 +18558,7 @@ function eC() {
 function tC() {
   const e = Pt(),
     t = Ce(),
-    { current_user: n, loading: r, success: s, error: o } = K((d) => d.user),
+    { current_user: n, loading: r, success: s, error: o } = V((d) => d.user),
     l = { name: "", email: "", address: "", password: "" },
     [a, u] = y.useState(l);
   function c() {
@@ -18574,7 +18574,7 @@ function tC() {
         i.jsx(T, {
           md: 1,
           className: "position-absolute top-0 start-0 py-2",
-          children: i.jsx(V, {
+          children: i.jsx(K, {
             variant: "dark",
             onClick: () => e(-1),
             children: i.jsx("i", { className: "bi bi-arrow-left" }),
@@ -18656,7 +18656,7 @@ function tC() {
                 }),
                 i.jsx(Dr, {
                   className: "d-flex p-3",
-                  children: i.jsx(V, {
+                  children: i.jsx(K, {
                     variant: "dark",
                     type: "submit",
                     onClick: () => c(),
@@ -18679,10 +18679,11 @@ function tC() {
 function Sn() {
   const e = Rt(),
     t = Ce(),
-    [n, r] = y.useState("");
-  function s() {
-    r(""),
-      e.pathname === "/admin/products" ? (t(Pc(n)), t(Initial())) : t(ng(n));
+    { current_user: n } = V((l) => l.user),
+    [r, s] = y.useState("");
+  function o() {
+    s(""),
+      e.pathname === "/admin/products" ? (t(Pc(r)), t(Initial())) : t(ng(r));
   }
   return i.jsxs(i.Fragment, {
     children: [
@@ -18694,9 +18695,10 @@ function Sn() {
           children: [
             i.jsx(cl.Brand, {
               children: i.jsxs(It, {
+                hidden: !n.is_superuser,
                 to: "/admin",
                 className: "text-decoration-none",
-                style: ({ isActive: o }) => ({ color: o ? "white" : "gray" }),
+                style: ({ isActive: l }) => ({ color: l ? "white" : "gray" }),
                 children: [
                   i.jsx("i", { className: "bi bi-person-gear px-2" }),
                   "Admin",
@@ -18712,25 +18714,25 @@ function Sn() {
                     e.pathname === "/admin/users"
                       ? "px-2 visible"
                       : "px-2 invisible",
-                  onSubmit: (o) => o.preventDefault(),
+                  onSubmit: (l) => l.preventDefault(),
                   children: i.jsxs(I, {
                     children: [
                       i.jsx(T, {
                         xs: "auto",
                         children: i.jsx(_.Control, {
                           type: "text",
-                          value: n,
+                          value: r,
                           placeholder: "Search",
                           className: "mr-sm-2",
-                          onChange: (o) => r(o.target.value),
+                          onChange: (l) => s(l.target.value),
                         }),
                       }),
                       i.jsx(T, {
                         xs: "auto",
-                        children: i.jsx(V, {
+                        children: i.jsx(K, {
                           type: "submit",
                           variant: "light",
-                          onClick: () => s(),
+                          onClick: () => o(),
                           children: "Submit",
                         }),
                       }),
@@ -18740,7 +18742,7 @@ function Sn() {
                 i.jsxs(It, {
                   to: "/profile",
                   className: "px-3 text-decoration-none align-self-center",
-                  style: ({ isActive: o }) => ({ color: o ? "white" : "gray" }),
+                  style: ({ isActive: l }) => ({ color: l ? "white" : "gray" }),
                   children: [
                     i.jsx("i", { className: "bi bi-person-fill px-1" }),
                     "User",
@@ -18749,7 +18751,7 @@ function Sn() {
                 i.jsxs(It, {
                   to: "/",
                   className: "text-decoration-none align-self-center",
-                  style: ({ isActive: o }) => ({ color: o ? "white" : "gray" }),
+                  style: ({ isActive: l }) => ({ color: l ? "white" : "gray" }),
                   children: [
                     i.jsx("i", { className: "bi bi-shop-window px-1" }),
                     "Shop",
@@ -18766,7 +18768,7 @@ function Sn() {
 }
 function nC() {
   const e = Pt(),
-    { current_user: t } = K((n) => n.user);
+    { current_user: t } = V((n) => n.user);
   return Object.keys(t).length
     ? t.is_superuser
       ? i.jsxs("div", {
@@ -18817,7 +18819,7 @@ function nC() {
                             i.jsx(T, {
                               md: 4,
                               className: "d-flex justify-content-center",
-                              children: i.jsx(V, {
+                              children: i.jsx(K, {
                                 variant: "dark",
                                 onClick: () => e("/admin/products"),
                                 children: "Show",
@@ -18839,7 +18841,7 @@ function nC() {
                             i.jsx(T, {
                               md: 4,
                               className: "d-flex justify-content-center",
-                              children: i.jsx(V, {
+                              children: i.jsx(K, {
                                 variant: "dark",
                                 onClick: () => e("/admin/users"),
                                 children: "Show",
@@ -18861,7 +18863,7 @@ function nC() {
                             i.jsx(T, {
                               md: 4,
                               className: "d-flex justify-content-center",
-                              children: i.jsx(V, {
+                              children: i.jsx(K, {
                                 variant: "dark",
                                 onClick: () => e("/admin/orders"),
                                 children: "Show",
@@ -18883,7 +18885,7 @@ function nC() {
                             i.jsx(T, {
                               md: 4,
                               className: "d-flex justify-content-center",
-                              children: i.jsx(V, {
+                              children: i.jsx(K, {
                                 variant: "dark",
                                 onClick: () => e("/admin/summary"),
                                 children: "Show",
@@ -18906,8 +18908,8 @@ function nC() {
 function rC() {
   const e = Pt(),
     t = Ce(),
-    { current_user: n } = K((w) => w.user),
-    { products: r, pages: s, loading: o, error: l } = K((w) => w.product),
+    { current_user: n } = V((w) => w.user),
+    { products: r, pages: s, loading: o, error: l } = V((w) => w.product),
     [a, u] = y.useState(""),
     [c, d] = y.useState("DESC"),
     [f, p] = y.useState("price"),
@@ -18950,7 +18952,7 @@ function rC() {
                         md: 1,
                         className:
                           "d-flex justify-content-center align-items-center",
-                        children: i.jsx(V, {
+                        children: i.jsx(K, {
                           type: "submit",
                           variant: "dark",
                           onClick: () => j(),
@@ -19008,7 +19010,7 @@ function rC() {
                       }),
                       i.jsx(T, {
                         md: 2,
-                        children: i.jsx(V, {
+                        children: i.jsx(K, {
                           type: "submit",
                           variant: "dark",
                           onClick: () => e("/admin/create-product"),
@@ -19104,7 +19106,7 @@ function rC() {
                                         }),
                                         i.jsx("td", {
                                           className: "text-center",
-                                          children: i.jsx(V, {
+                                          children: i.jsx(K, {
                                             type: "submit",
                                             variant: "secondary",
                                             onClick: () =>
@@ -19116,7 +19118,7 @@ function rC() {
                                         }),
                                         i.jsx("td", {
                                           className: "text-center",
-                                          children: i.jsx(V, {
+                                          children: i.jsx(K, {
                                             type: "submit",
                                             variant: "danger",
                                             onClick: () => t(hE(w.Id)),
@@ -19151,8 +19153,8 @@ function rC() {
 }
 function sC() {
   const e = Ce(),
-    { orders: t, pages: n, loading: r, error: s } = K((u) => u.order),
-    { current_user: o } = K((u) => u.user),
+    { orders: t, pages: n, loading: r, error: s } = V((u) => u.order),
+    { current_user: o } = V((u) => u.user),
     [l, a] = y.useState(1);
   return (
     y.useEffect(() => (e(qy(l, !1)), () => e(Ds())), [l]),
@@ -19285,7 +19287,7 @@ function oC() {
       pages: r,
       loading: s,
       error: o,
-    } = K((m) => m.user),
+    } = V((m) => m.user),
     [l, a] = y.useState(!1),
     [u, c] = y.useState(""),
     [d, f] = y.useState(1);
@@ -19331,7 +19333,7 @@ function oC() {
                           md: 1,
                           className:
                             "d-flex justify-content-start align-items-center",
-                          children: i.jsx(V, {
+                          children: i.jsx(K, {
                             type: "submit",
                             variant: "dark",
                             onClick: () => p(),
@@ -19435,7 +19437,7 @@ function oC() {
                                       }),
                                       i.jsx("td", {
                                         className: "text-center",
-                                        children: i.jsx(V, {
+                                        children: i.jsx(K, {
                                           type: "submit",
                                           variant: "danger",
                                           onClick: () => e(YE(m.Id)),
@@ -19462,7 +19464,7 @@ function oC() {
 }
 function lC() {
   const e = Ce(),
-    { current_user: t } = K((p) => p.user),
+    { current_user: t } = V((p) => p.user),
     {
       products: n,
       summary: r,
@@ -19470,7 +19472,7 @@ function lC() {
       loading: o,
       success: l,
       error: a,
-    } = K((p) => p.summary),
+    } = V((p) => p.summary),
     [u, c] = y.useState(1),
     [d, f] = y.useState("DESC");
   return (
@@ -19704,8 +19706,8 @@ function lC() {
 function iC() {
   const e = Pt(),
     t = Ce(),
-    { loading: n, success: r, error: s } = K((p) => p.product),
-    { current_user: o } = K((p) => p.user),
+    { loading: n, success: r, error: s } = V((p) => p.product),
+    { current_user: o } = V((p) => p.user),
     l = {
       name: "",
       description: "",
@@ -19758,7 +19760,7 @@ function iC() {
                     children: [
                       i.jsx("h1", { children: "Create Product" }),
                       i.jsx("span", {
-                        children: i.jsx(V, {
+                        children: i.jsx(K, {
                           variant: "dark",
                           size: "lg",
                           onClick: () => e("/admin/products"),
@@ -19923,7 +19925,7 @@ function iC() {
                     : i.jsx(i.Fragment, {}),
                   i.jsx("center", {
                     className: "py-3",
-                    children: i.jsx(V, {
+                    children: i.jsx(K, {
                       onClick: () => f(),
                       type: "submit",
                       variant: "dark",
@@ -19942,8 +19944,8 @@ function aC() {
   const e = Pt(),
     t = Rt(),
     n = Ce(),
-    { loading: r, success: s, error: o } = K((m) => m.product),
-    { current_user: l } = K((m) => m.user),
+    { loading: r, success: s, error: o } = V((m) => m.product),
+    { current_user: l } = V((m) => m.user),
     a = t.state,
     u = {
       name: a.name,
@@ -20181,7 +20183,7 @@ function aC() {
                     : i.jsx(i.Fragment, {}),
                   i.jsx("center", {
                     className: "py-3",
-                    children: i.jsx(V, {
+                    children: i.jsx(K, {
                       onClick: () => x(),
                       type: "submit",
                       variant: "warning",
@@ -20198,8 +20200,8 @@ function aC() {
 }
 function uC() {
   const e = Ce(),
-    { orders: t, pages: n, loading: r, error: s } = K((u) => u.order),
-    { current_user: o } = K((u) => u.user),
+    { orders: t, pages: n, loading: r, error: s } = V((u) => u.order),
+    { current_user: o } = V((u) => u.user),
     [l, a] = y.useState(1);
   return (
     y.useEffect(() => (e(qy(l, !0)), () => e(Ds())), [l]),
