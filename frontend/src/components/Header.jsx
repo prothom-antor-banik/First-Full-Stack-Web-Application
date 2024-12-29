@@ -94,7 +94,7 @@ function Header() {
               ) : current_user.is_admin ? (
                 <NavLink
                   className={"text-decoration-none align-self-center"}
-                  to="/stuff"
+                  to="/staff"
                   style={({ isActive }) => {
                     return {
                       color: isActive ? "white" : "gray",

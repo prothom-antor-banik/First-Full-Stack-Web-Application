@@ -41,7 +41,7 @@ function App() {
           <Route path="update-product" element={<UpdateProductPage />} />
         </Route>
         <Route
-          path="stuff"
+          path="staff"
           element={<ReceivedOrderPage />}
           errorElement={<Error />}
         />

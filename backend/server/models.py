@@ -66,6 +66,7 @@ class Orders(models.Model):
     method = models.CharField(max_length=64, blank=False)
     pending = models.BooleanField(default=True)
     encode = models.CharField(max_length=2048, blank=True)
+    isShown = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Order"

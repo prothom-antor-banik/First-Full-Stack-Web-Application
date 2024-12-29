@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, Table } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Initial } from "../../redux/slice/orderSlice";
+import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
 import { getAllOrders } from "../../redux/thunk/orderThunk";
 import AdminHeader from "../../components/AdminHeader";
 import Message from "../../components/Message";
@@ -51,15 +51,54 @@ function OrdersPage() {
 
                   <tbody>
                     {orders.map((order) => (
-                      <tr key={order.Id}>
-                        <td className="text-center">{order.Id}</td>
-                        <td className="text-center">{order.userId}</td>
-                        <td className="text-center">{order.products}</td>
-                        <td className="text-center">{order.items}</td>
-                        <td className="text-center">{order.price}</td>
-                        <td className="text-center">{order.method}</td>
-                        <td className="text-center">{order.date}</td>
-                      </tr>
+                      <>
+                        <tr
+                          key={order.Id}
+                          onClick={() => dispatch(ToggleIsShown(order.Id))}
+                        >
+                          <td className="text-center">{order.Id}</td>
+                          <td className="text-center">{order.userId}</td>
+                          <td className="text-center">{order.products}</td>
+                          <td className="text-center">{order.items}</td>
+                          <td className="text-center">{order.price}</td>
+                          <td className="text-center">{order.method}</td>
+                          <td className="text-center">{order.date}</td>
+                        </tr>
+                        {order.isShown ? (
+                          order.encode.split("-").map((str) => (
+                            <tr key={str.split(":")[0]}>
+                              <td colSpan={2}></td>
+                              <td
+                                colSpan={1}
+                                className="text-center text-white bg-secondary"
+                              >
+                                {str.split(":")[0]}
+                              </td>
+                              <td
+                                colSpan={1}
+                                className="text-center text-white bg-secondary"
+                              >
+                                {str.split(":")[1]}
+                              </td>
+                              <td
+                                colSpan={1}
+                                className="text-center text-white bg-secondary"
+                              >
+                                {str.split(":")[2]}
+                              </td>
+                              <td
+                                colSpan={1}
+                                className="text-center text-white bg-secondary"
+                              >
+                                {str.split(":")[3]}
+                              </td>
+                              <td colSpan={1}></td>
+                            </tr>
+                          ))
+                        ) : (
+                          <></>
+                        )}
+                      </>
                     ))}
                   </tbody>
                 </Table>

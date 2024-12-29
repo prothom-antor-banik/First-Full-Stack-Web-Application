@@ -144,7 +144,7 @@ function CartPage() {
                   if (price) {
                     let encodedString = "";
                     product_list.map((product) => {
-                      encodedString += `${product.Id}:${product.product.name}:${product.product.price}:${product.items}-`;
+                      encodedString += `${product.productId}:${product.product.name}:${product.product.price}:${product.items}-`;
                     });
                     encodedString = encodedString.slice(0, -1);
                     navigate("/order", {
