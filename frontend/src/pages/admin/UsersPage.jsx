@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllUsers,
   getAllUsersWithSearch,
-  updateToAdmin,
+  updateToStaff,
   deleteUser,
 } from "../../redux/thunk/userThunk";
 import AdminHeader from "../../components/AdminHeader";
@@ -30,7 +30,7 @@ function UsersPage() {
 
   function handleChange(user) {
     dispatch(
-      updateToAdmin({
+      updateToStaff({
         Id: user.Id,
         is_admin: true,
       })
@@ -93,7 +93,7 @@ function UsersPage() {
                     <th className="text-center">Email</th>
                     <th className="text-center">Address</th>
                     <th className="text-center">Admin</th>
-                    <th className="text-center">Make Admin</th>
+                    <th className="text-center">Make Staff</th>
                     <th className="text-center">Delete</th>
                   </tr>
                 </thead>
@@ -105,8 +105,14 @@ function UsersPage() {
                       <td className="text-center">{user.name}</td>
                       <td className="text-center">{user.email}</td>
                       <td className="text-center">{user.address}</td>
-                      <td className="text-center">
-                        {user.is_admin ? "Yes" : "No"}
+                      <td
+                        className={
+                          user.is_superuser
+                            ? "text-center text-success"
+                            : "text-center text-dark"
+                        }
+                      >
+                        {user.is_superuser ? "Yes" : "No"}
                       </td>
                       <td className="text-center">
                         <Form className="d-flex flex-row justify-content-center">

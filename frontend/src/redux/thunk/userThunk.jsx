@@ -85,7 +85,7 @@ export const updateUserDetails = (user) => async (dispatch) => {
   }
 };
 
-export const updateToAdmin = (user) => async (dispatch) => {
+export const updateToStaff = (user) => async (dispatch) => {
   const url = `/users/${user.Id}/`;
   try {
     dispatch(Loading());

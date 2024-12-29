@@ -19769,7 +19769,7 @@ function iN() {
                                   }),
                                   i.jsx("th", {
                                     className: "text-center",
-                                    children: "Make Admin",
+                                    children: "Make Staff",
                                   }),
                                   i.jsx("th", {
                                     className: "text-center",
@@ -19801,8 +19801,10 @@ function iN() {
                                         children: h.address,
                                       }),
                                       i.jsx("td", {
-                                        className: "text-center",
-                                        children: h.is_admin ? "Yes" : "No",
+                                        className: h.is_superuser
+                                          ? "text-center text-success"
+                                          : "text-center text-dark",
+                                        children: h.is_superuser ? "Yes" : "No",
                                       }),
                                       i.jsx("td", {
                                         className: "text-center",
