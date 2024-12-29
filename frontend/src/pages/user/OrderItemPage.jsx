@@ -32,6 +32,7 @@ function OrderItemPage() {
     products: 0,
     items: 0,
     price: 0,
+    encode: "",
   };
   const order = Object.keys(location.state).length
     ? location.state

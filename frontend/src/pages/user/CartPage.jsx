@@ -66,13 +66,13 @@ function CartPage() {
                         <Form.Control
                           as="select"
                           value={product.items}
-                          onChange={(e) =>
+                          onChange={(e) => {
                             dispatch(
                               updataCartItem(product.Id, {
                                 items: e.target.value,
                               })
-                            )
-                          }
+                            );
+                          }}
                         >
                           {[...Array(product.product.countInStock).keys()].map(
                             (x) => (
@@ -142,11 +142,17 @@ function CartPage() {
                 variant="dark"
                 onClick={() => {
                   if (price) {
+                    let encodedString = "";
+                    product_list.map((product) => {
+                      encodedString += `${product.Id}:${product.product.name}:${product.product.price}:${product.items}-`;
+                    });
+                    encodedString = encodedString.slice(0, -1);
                     navigate("/order", {
                       state: {
                         products: products,
                         items: items,
                         price: price,
+                        encode: encodedString,
                       },
                     });
                   }

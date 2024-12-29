@@ -17547,12 +17547,13 @@ function RE() {
                                         children: i.jsx(_.Control, {
                                           as: "select",
                                           value: p.items,
-                                          onChange: (x) =>
+                                          onChange: (x) => {
                                             t(
                                               CE(p.Id, {
                                                 items: x.target.value,
                                               })
-                                            ),
+                                            );
+                                          },
                                           children: [
                                             ...Array(
                                               p.product.countInStock
@@ -17645,10 +17646,21 @@ function RE() {
                       children: i.jsx(K, {
                         variant: "dark",
                         onClick: () => {
-                          l &&
-                            e("/order", {
-                              state: { products: s, items: o, price: l },
-                            });
+                          if (l) {
+                            let p = "";
+                            r.map((x) => {
+                              p += `${x.Id}:${x.product.name}:${x.product.price}:${x.items}-`;
+                            }),
+                              (p = p.slice(0, -1)),
+                              e("/order", {
+                                state: {
+                                  products: s,
+                                  items: o,
+                                  price: l,
+                                  encode: p,
+                                },
+                              });
+                          }
                         },
                         children: "Checkout",
                       }),
@@ -17863,7 +17875,7 @@ function WE() {
       pending: a,
     } = V((h) => h.order),
     { stored_list: u } = V((h) => h.cart),
-    c = { products: 0, items: 0, price: 0 },
+    c = { products: 0, items: 0, price: 0, encode: "" },
     d = Object.keys(e.state).length ? e.state : c,
     [f, p] = y.useState(!1),
     [x, m] = y.useState(!1),
