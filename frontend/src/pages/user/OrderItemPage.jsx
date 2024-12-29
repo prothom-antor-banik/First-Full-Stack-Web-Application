@@ -127,6 +127,18 @@ function OrderItemPage() {
               <ListGroup.Item>
                 <p>{"Method : Bkash"}</p>
               </ListGroup.Item>
+              <ListGroup.Item>
+                <h2>{"Ordered Items"}</h2>
+              </ListGroup.Item>
+              {order.encode.split("-").map((str) => (
+                <ListGroup.Item>
+                  <Row key={str.split(":")[0]}>
+                    <Col md={3}>{`Product: ${str.split(":")[1]}`}</Col>
+                    <Col md={2}>{`Price : ${str.split(":")[2]}`}</Col>
+                    <Col md={2}>{`Quantity : ${str.split(":")[3]}`}</Col>
+                  </Row>
+                </ListGroup.Item>
+              ))}
             </ListGroup>
           </Col>
           <Col md={4}>
