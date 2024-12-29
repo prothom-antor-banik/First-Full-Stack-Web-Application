@@ -11,6 +11,7 @@ import OrderItemPage from "./pages/user/OrderItemPage";
 import UserProfilePage from "./pages/user/UserProfilePage";
 import LoginPage from "./pages/user/LoginPage";
 import RegisterPage from "./pages/user/RegisterPage";
+import LastPage from "./pages/user/LastPage";
 import AdminPage from "./pages/admin/AdminPage";
 import ProductsPage from "./pages/admin/ProductsPage";
 import OrdersPage from "./pages/admin/OrdersPage";
@@ -30,6 +31,7 @@ function App() {
           <Route path="cart" element={<CartPage />} />
           <Route path="order" element={<OrderItemPage />} />
           <Route path="profile/" element={<UserProfilePage />} />
+          <Route path="lastpage" element={<LastPage />} />
         </Route>
         <Route path="admin" errorElement={<Error />}>
           <Route index element={<AdminPage />} />

@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Button,
 } from "react-bootstrap";
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { reduceProduct } from "../../redux/thunk/productThunk";
@@ -22,6 +22,8 @@ import Footer from "../../components/Footer";
 function OrderItemPage() {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { current_user } = useSelector((state) => state.user);
   const { loading, success, error, order_id, pending } = useSelector(
     (state) => state.order
@@ -58,7 +60,24 @@ function OrderItemPage() {
   }
 
   function handleOderSuccess() {
-    if (!pending) setOrderSuccess(true);
+    if (!pending) {
+      setOrderSuccess(true);
+      setTimeout(
+        () =>
+          navigate("/lastpage", {
+            state: {
+              name: current_user.name,
+              email: current_user.email,
+              address: current_user.address,
+              method: "bkash",
+              encode: order.encode,
+              order_number: order_id,
+              sub_total: order.price,
+            },
+          }),
+        2000
+      );
+    }
   }
 
   useEffect(() => {

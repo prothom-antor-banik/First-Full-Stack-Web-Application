@@ -15,7 +15,7 @@ class Summary(APIView):
 	def get(self, request, format=None):
 		page_size = 10
 		page = int(request.query_params['page'])
-		pages = 1 + collection.count_documents({}) // page_size
+		pages = 1 if collection.count_documents({}) % page_size else 0  + collection.count_documents({}) // page_size
 		sort = request.query_params['sort']
 		sort_dir = pymongo.ASCENDING if sort == 'ASC' else pymongo.DESCENDING
 		products = loads(dumps(collection.find().sort('items', sort_dir).skip(page-1).limit(page_size)))
@@ -58,7 +58,7 @@ class Summary(APIView):
 		data = request.data
 		instance = collection.find_one({'_id': data['_id']})
 		if instance:
-			data['items'] += instance['items']
+			data['items'] = int(data['items']) + int(instance['items'])
 			collection.update_one({'_id': data['_id']}, {'$set': data})
 		else:
 			collection.insert_one(data)
