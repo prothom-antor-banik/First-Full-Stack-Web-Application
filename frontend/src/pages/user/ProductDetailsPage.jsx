@@ -7,19 +7,18 @@ import {
   ListGroup,
   ButtonGroup,
   Button,
-  Form,
 } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";
 import { getProduct } from "../../redux/thunk/productThunk";
 import { addToCart } from "../../redux/thunk/cartThunk";
-import { createComment, getAllComments } from "../../redux/thunk/commentThunk";
+import { getAllComments } from "../../redux/thunk/commentThunk";
 import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
+import Review from "../../components/Review";
 import Footer from "../../components/Footer";
-import { v4 as uuidv4 } from "uuid";
 import base from "../../configure";
 
 function ProductDetailsPage() {
@@ -30,7 +29,6 @@ function ProductDetailsPage() {
   const { loading, success, error } = useSelector((state) => state.cart);
   const { comments, pages } = useSelector((state) => state.comment);
 
-  const [comment, setComment] = useState("");
   const [page, setPage] = useState(1);
   const [toggle, setToggle] = useState(true);
 
@@ -49,24 +47,6 @@ function ProductDetailsPage() {
         })
       );
     }
-  }
-
-  function handleComment() {
-    dispatch(
-      createComment(
-        {
-          _id: uuidv4().toString(),
-          userId: current_user.Id,
-          userName: current_user.name,
-          productId: Id,
-          message: comment,
-          date: new Date().toISOString().split("T")[0],
-        },
-        Id
-      )
-    );
-    setComment("");
-    setToggle(!toggle);
   }
 
   useEffect(() => {
@@ -163,29 +143,7 @@ function ProductDetailsPage() {
         </Col>
       </Row>
       {Object.keys(current_user).length ? (
-        <Row className="p-2 justify-content-center">
-          <Col md={10}>
-            <Form>
-              <Form.Group className="p-2">
-                <Form.Label className="fw-bold">
-                  Write a review here!
-                </Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={2}
-                  placeholder="Nice and Attractive"
-                  value={comment}
-                  onChange={(e) => setComment(e.target.value)}
-                />
-              </Form.Group>
-            </Form>
-          </Col>
-          <Col className="d-flex align-items-center">
-            <Button variant="dark" onClick={() => handleComment()}>
-              Submit
-            </Button>
-          </Col>
-        </Row>
+        <Review productId={Id} setToggle={setToggle} toggle={!toggle} />
       ) : (
         <></>
       )}

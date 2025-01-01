@@ -14,9 +14,8 @@ class Comment(APIView):
 	def get(self, request, pk, format=None):
 		page_size = 5
 		page = int(request.query_params['page'])
-		pages = 1 if collection.count_documents({}) % page_size else 0  + collection.count_documents({}) // page_size
+		pages = collection.count_documents({"productId": pk}) // page_size +  (1 if collection.count_documents({"productId": pk}) % page_size else 0)
 		comments = loads(dumps(collection.find({"productId": pk}).skip(page-1).limit(page_size)))
-
 		return Response({'comments': comments, 'pages': pages}, status=status.HTTP_202_ACCEPTED)
 		
 	def post(self, request, pk, format=None):
