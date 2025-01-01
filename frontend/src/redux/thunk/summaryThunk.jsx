@@ -1,8 +1,9 @@
 import { Loading, Success, Error, ListProducts } from "../slice/summarySlice";
 import axios from "axios";
+import base from "../../configure";
 
 export const addSummaryProduct = (product) => async (dispatch) => {
-  const url = "/summary/";
+  const url = `${base}/summary/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(product), {
@@ -19,7 +20,7 @@ export const addSummaryProduct = (product) => async (dispatch) => {
 };
 
 export const getAllSummaryProducts = (page, sort) => async (dispatch) => {
-  const url = `/summary/?page=${page}&sort=${sort}`;
+  const url = `${base}/summary/?page=${page}&sort=${sort}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);

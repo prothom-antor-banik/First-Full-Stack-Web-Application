@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col, Image, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import base from "../configure";
 
 function Product({ product }) {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ function Product({ product }) {
           className="text-dark text-decoration-none"
           to={`product/${product.Id}`}
         >
-          <Image src={product.image} width="50%" fluid />
+          <Image src={base + product.image} width="50%" fluid />
         </Link>
       </Row>
       <Row as="h5" className="my-2 justify-content-center">

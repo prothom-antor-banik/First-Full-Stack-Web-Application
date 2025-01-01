@@ -7,9 +7,10 @@ import {
   Error,
 } from "../slice/productSlice";
 import axios from "axios";
+import base from "../../configure";
 
 export const createProduct = (product) => async (dispatch) => {
-  const url = "/products/";
+  const url = `${base}/products/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, product, {
@@ -26,7 +27,7 @@ export const createProduct = (product) => async (dispatch) => {
 };
 
 export const getAllProducts = (page, sort, by) => async (dispatch) => {
-  const url = `/products/?page=${page}&sort=${sort}&by=${by}`;
+  const url = `${base}/products/?page=${page}&sort=${sort}&by=${by}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -40,7 +41,7 @@ export const getAllProducts = (page, sort, by) => async (dispatch) => {
 
 export const getAllProductsWithSearch =
   (query, sort, by, page) => async (dispatch) => {
-    const url = `/products/?search=${query}&page=${page}&sort=${sort}&by=${by}`;
+    const url = `${base}/products/?search=${query}&page=${page}&sort=${sort}&by=${by}`;
     try {
       dispatch(Loading());
       const res = await axios.get(url);
@@ -53,7 +54,7 @@ export const getAllProductsWithSearch =
   };
 
 export const getProduct = (Id) => async (dispatch) => {
-  const url = `/products/${Id}`;
+  const url = `${base}/products/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -66,7 +67,7 @@ export const getProduct = (Id) => async (dispatch) => {
 };
 
 export const updateProduct = (id, product) => async (dispatch) => {
-  const url = `/products/${id}/`;
+  const url = `${base}/products/${id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, product, {
@@ -83,7 +84,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
 };
 
 export const reduceProduct = (id, price) => async (dispatch) => {
-  const url = `/product-update/${id}`;
+  const url = `${base}/product-update/${id}`;
   try {
     const res = await axios.patch(
       url,
@@ -103,7 +104,7 @@ export const reduceProduct = (id, price) => async (dispatch) => {
 };
 
 export const deleteProduct = (Id) => async (dispatch) => {
-  const url = `/products/${Id}`;
+  const url = `${base}/products/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

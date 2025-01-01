@@ -5,7 +5,7 @@ import pymongo
 from bson.json_util import loads, dumps
 from datetime import date
 
-connectionString = "mongodb+srv://prothomantorbanik:antor_123@mymongoo.u3i4d.mongodb.net/?retryWrites=true&w=majority&appName=MyMongoo"
+from ..configure import connectionString
 
 client = pymongo.MongoClient(connectionString, connectTimeoutMS=15000, socketTimeoutMS=None, connect=False, maxPoolsize=1)
 db = client['MyMongoDB']

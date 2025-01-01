@@ -39,7 +39,6 @@ function CreatProductPage() {
     formData.append("brand", state.brand);
     formData.append("category", state.category);
     formData.append("countInStock", Number(state.countInStock));
-    formData.append("rating", Math.round(Math.random() * 5));
 
     dispatch(createProduct(formData));
     setButtonPressd(true);

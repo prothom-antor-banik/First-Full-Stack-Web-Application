@@ -7,9 +7,10 @@ import {
   Error,
 } from "../slice/userSlice";
 import axios from "axios";
+import base from "../../configure";
 
 export const loginUser = (user) => async (dispatch) => {
-  const url = "/login/";
+  const url = `${base}/login/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(user), {
@@ -26,7 +27,7 @@ export const loginUser = (user) => async (dispatch) => {
 };
 
 export const registerUser = (user) => async (dispatch) => {
-  const url = "/users/";
+  const url = `${base}/users/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(user), {
@@ -43,7 +44,7 @@ export const registerUser = (user) => async (dispatch) => {
 };
 
 export const getAllUsers = (page) => async (dispatch) => {
-  const url = `/users/?page=${page}`;
+  const url = `${base}/users/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -56,7 +57,7 @@ export const getAllUsers = (page) => async (dispatch) => {
 };
 
 export const getAllUsersWithSearch = (query, page) => async (dispatch) => {
-  const url = `/users/?search=${query}&page=${page}`;
+  const url = `${base}/users/?search=${query}&page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -69,7 +70,7 @@ export const getAllUsersWithSearch = (query, page) => async (dispatch) => {
 };
 
 export const updateUserDetails = (user) => async (dispatch) => {
-  const url = `/users/${user.Id}/`;
+  const url = `${base}/users/${user.Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify(user), {
@@ -86,7 +87,7 @@ export const updateUserDetails = (user) => async (dispatch) => {
 };
 
 export const updateToStaff = (user) => async (dispatch) => {
-  const url = `/users/${user.Id}/`;
+  const url = `${base}/users/${user.Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify(user), {
@@ -103,7 +104,7 @@ export const updateToStaff = (user) => async (dispatch) => {
 };
 
 export const deleteUser = (Id) => async (dispatch) => {
-  const url = `/users/${Id}`;
+  const url = `${base}/users/${Id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

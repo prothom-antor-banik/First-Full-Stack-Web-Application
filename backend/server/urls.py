@@ -1,6 +1,6 @@
 from django.urls import path 
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import index_view, login_view, user_view, product_view, order_view, cart_view, summary_view
+from .views import index_view, login_view, user_view, product_view, order_view, cart_view, summary_view, comment_view
 
 urlpatterns = [
     path('', index_view.index, name='index'),
@@ -16,7 +16,8 @@ urlpatterns = [
 	path('cart/<int:pk>/', cart_view.CartDetail.as_view()),
     path('cart/', cart_view.CartList.as_view()),
     path('cart-delete/<int:pk>/', cart_view.CartDelete.as_view()),
-    path('summary/', summary_view.Summary.as_view())
+    path('summary/', summary_view.Summary.as_view()),
+    path('comment/<int:pk>',  comment_view.Comment.as_view())
 ] 
 
 urlpatterns = format_suffix_patterns(urlpatterns)

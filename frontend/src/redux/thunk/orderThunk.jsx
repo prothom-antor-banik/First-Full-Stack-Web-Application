@@ -7,9 +7,10 @@ import {
   Delete,
 } from "../slice/orderSlice";
 import axios from "axios";
+import base from "../../configure";
 
 export const createOrder = (order) => async (dispatch) => {
-  const url = "/orders/";
+  const url = `${base}/orders/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, JSON.stringify(order), {
@@ -26,7 +27,7 @@ export const createOrder = (order) => async (dispatch) => {
 };
 
 export const getAllOrders = (page, status) => async (dispatch) => {
-  const url = `/orders/?page=${page}&status=${status}`;
+  const url = `${base}/orders/?page=${page}&status=${status}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -39,7 +40,7 @@ export const getAllOrders = (page, status) => async (dispatch) => {
 };
 
 export const getUserOrders = (id, page) => async (dispatch) => {
-  const url = `/orders/${id}/?page=${page}`;
+  const url = `${base}/orders/${id}/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -52,7 +53,7 @@ export const getUserOrders = (id, page) => async (dispatch) => {
 };
 
 export const getOrderById = (id) => async (dispatch) => {
-  const url = `/orders/pending/${id}/`;
+  const url = `${base}/orders/pending/${id}/`;
   try {
     const res = await axios.get(url);
     if (res.status === 200) {
@@ -64,7 +65,7 @@ export const getOrderById = (id) => async (dispatch) => {
 };
 
 export const clearPendingOrder = (id) => async (dispatch) => {
-  const url = `/orders/pending/${id}/`;
+  const url = `${base}/orders/pending/${id}/`;
   try {
     dispatch(Loading());
     const res = await axios.patch(url, JSON.stringify({ pending: false }), {
@@ -81,7 +82,7 @@ export const clearPendingOrder = (id) => async (dispatch) => {
 };
 
 export const deleteOrderItem = (id) => async (dispatch) => {
-  const url = `/orders/pending/${id}`;
+  const url = `${base}/orders/pending/${id}`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

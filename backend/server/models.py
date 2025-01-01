@@ -38,7 +38,8 @@ class Products(models.Model):
     category = models.CharField(max_length=128, blank=False)
     price = models.FloatField(blank=False)
     countInStock = models.SmallIntegerField(blank=False, default=0)
-    rating = models.FloatField(blank=False, default=0.0)
+    rating = models.FloatField(default=0.0)
+    rate_count = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = "Product"
