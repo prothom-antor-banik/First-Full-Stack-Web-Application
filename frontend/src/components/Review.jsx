@@ -31,9 +31,10 @@ function Review({ productId, setToggle = null, toggle = null }) {
     );
     dispatch(
       partialUpdateProduct(productId, {
-        rating:
+        rating: (
           (product.rating * product.rate_count + rating) /
-          (product.rate_count + 1),
+          (product.rate_count + 1)
+        ).toFixed(2),
         rate_count: product.rate_count + 1,
       })
     );

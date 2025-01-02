@@ -77,8 +77,8 @@ function UsersPage() {
           </Form>
           <hr />
         </Row>
-        <Row className="justify-content-center">
-          <Col md={10}>
+        <Row className="px-3">
+          <Col md={12}>
             <h1 className="py-3">Users</h1>
             {loading ? (
               <Loader />
@@ -91,7 +91,10 @@ function UsersPage() {
                     <th className="text-center">ID</th>
                     <th className="text-center">Name</th>
                     <th className="text-center">Email</th>
-                    <th className="text-center">Address</th>
+                    <th className="text-center">Country</th>
+                    <th className="text-center">City</th>
+                    <th className="text-center">Street</th>
+                    <th className="text-center">Zip</th>
                     <th className="text-center">Admin</th>
                     <th className="text-center">Make Staff</th>
                     <th className="text-center">Delete</th>
@@ -104,7 +107,10 @@ function UsersPage() {
                       <td className="text-center">{user.Id}</td>
                       <td className="text-center">{user.name}</td>
                       <td className="text-center">{user.email}</td>
-                      <td className="text-center">{user.address}</td>
+                      <td className="text-center">{user.country}</td>
+                      <td className="text-center">{user.city}</td>
+                      <td className="text-center">{user.street}</td>
+                      <td className="text-center">{user.zip_code}</td>
                       <td
                         className={
                           user.is_superuser

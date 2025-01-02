@@ -32,7 +32,7 @@ class UserList(APIView):
 			serializer = UserSerializer(users, many=True)
 			return Response({'users': serializer.data, 'pages': paginator.num_pages})
 
-	def post(self, request, format=None): 
+	def post(self, request, format=None):
 		serializer = UserSerializer(data=request.data)
 		if serializer.is_valid(): 
 			serializer.save()

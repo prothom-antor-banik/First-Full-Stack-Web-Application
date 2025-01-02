@@ -102,7 +102,7 @@ function ProductDetailsPage() {
                   <td className="d-flex flex-row">
                     <Rating rating={product.rating} />
                     <p className="px-2 text-secondary">
-                      ({product.rating.toFixed(2)}/{product.rate_count})
+                      ({product.rating}/{product.rate_count})
                     </p>
                   </td>
                 </tr>

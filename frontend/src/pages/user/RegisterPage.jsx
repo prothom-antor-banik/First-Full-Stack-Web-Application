@@ -16,18 +16,16 @@ function RegisterPage() {
   const initialState = {
     name: "",
     email: "",
-    address: "",
+    country: "",
+    city: "",
+    street: "",
+    zip_code: "",
     password: "",
   };
   const [state, setState] = useState(initialState);
 
   function handleRegister() {
-    dispatch(
-      registerUser({
-        ...state,
-        password: state.password,
-      })
-    );
+    dispatch(registerUser(state));
   }
 
   useEffect(() => {
@@ -46,7 +44,7 @@ function RegisterPage() {
       <Col className="bg-white rounded shadow-lg" md={4}>
         <h1 className="text-center p-2">Sign Up</h1>
         <Form onSubmit={(e) => e.preventDefault()}>
-          <Form.Group className="p-2" controlId="formBasicFirstName">
+          <Form.Group className="p-2">
             <Form.Label className="fw-bold">Name</Form.Label>
             <Form.Control
               required
@@ -57,7 +55,7 @@ function RegisterPage() {
             />
           </Form.Group>
 
-          <Form.Group className="p-2" controlId="formBasicEmail">
+          <Form.Group className="p-2">
             <Form.Label className="fw-bold">Email address</Form.Label>
             <Form.Control
               required
@@ -68,19 +66,70 @@ function RegisterPage() {
             />
           </Form.Group>
 
-          <Form.Group className="p-2" controlId="formBasicLastName">
-            <Form.Label className="fw-bold">Address</Form.Label>
-            <Form.Control
-              required
-              as="textarea"
-              rows={2}
-              placeholder="Address"
-              value={state.address}
-              onChange={(e) => setState({ ...state, address: e.target.value })}
-            />
-          </Form.Group>
+          <Row className="p-2">
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label className="fw-bold">Country</Form.Label>
+                  <Form.Control
+                    required
+                    rows={2}
+                    placeholder="Country"
+                    value={state.country}
+                    onChange={(e) =>
+                      setState({ ...state, country: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label className="fw-bold">City</Form.Label>
+                  <Form.Control
+                    required
+                    rows={2}
+                    placeholder="City"
+                    value={state.city}
+                    onChange={(e) =>
+                      setState({ ...state, city: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group>
+                  <Form.Label className="fw-bold">Street</Form.Label>
+                  <Form.Control
+                    required
+                    rows={2}
+                    placeholder="Street"
+                    value={state.street}
+                    onChange={(e) =>
+                      setState({ ...state, street: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+              <Col>
+                <Form.Group>
+                  <Form.Label className="fw-bold">Zip Code</Form.Label>
+                  <Form.Control
+                    required
+                    rows={2}
+                    placeholder="Zip Code"
+                    value={state.zip_code}
+                    onChange={(e) =>
+                      setState({ ...state, zip_code: e.target.value })
+                    }
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+          </Row>
 
-          <Form.Group className="p-2" controlId="formBasicPassword">
+          <Form.Group className="p-2">
             <Form.Label className="fw-bold">Password</Form.Label>
             <Form.Control
               required

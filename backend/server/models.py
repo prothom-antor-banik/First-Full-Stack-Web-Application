@@ -9,7 +9,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     Id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=150, unique=True)
-    address = models.CharField(max_length=50)
+    country = models.CharField(max_length=64, default="None")
+    city = models.CharField(max_length=64, default="None")
+    street = models.CharField(max_length=64, default="None")
+    zip_code = models.CharField(max_length=64, default="None")
     password = models.CharField(max_length=1024)
 
     is_active = models.BooleanField(default=True)
@@ -18,7 +21,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'address']
+    REQUIRED_FIELDS = ['name', 'password']
     
     objects = UserManager()
 
