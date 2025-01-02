@@ -71,7 +71,6 @@ class Orders(models.Model):
     pending = models.BooleanField(default=True)
     product_list = models.ManyToManyField(Products, through='Orders_Products_Relationship')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    isShown = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Order"

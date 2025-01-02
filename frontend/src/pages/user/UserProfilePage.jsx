@@ -10,11 +10,11 @@ import {
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RemoveUser } from "../../redux/slice/userSlice";
-import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
+import { Initial } from "../../redux/slice/orderSlice";
 import { updateUserDetails } from "../../redux/thunk/userThunk";
 import { getUserOrders } from "../../redux/thunk/orderThunk";
 import Header from "../../components/Header";
-import List from "../../components/List";
+import Order from "../../components/Order";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -193,16 +193,7 @@ function UserProfilePage() {
                 </Row>
 
                 {orders.map((order) => (
-                  <ListGroup.Item key={order.Id}>
-                    <Row onClick={() => dispatch(ToggleIsShown(order.Id))}>
-                      <Col className="text-center">{order.Id}</Col>
-                      <Col className="text-center">{order.date}</Col>
-                      <Col className="text-center">{order.products}</Col>
-                      <Col className="text-center">{order.items}</Col>
-                      <Col className="text-center">{order.price}</Col>
-                    </Row>
-                    <List order={order} />
-                  </ListGroup.Item>
+                  <Order key={order.Id} type="user" order={order} />
                 ))}
               </ListGroup>
             ) : (

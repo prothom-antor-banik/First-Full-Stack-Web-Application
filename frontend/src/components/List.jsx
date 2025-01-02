@@ -3,11 +3,11 @@ import { Row, Col, Image, Button, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import base from "../configure";
 
-function List({ order }) {
+function List({ isShown, order }) {
   const navigate = useNavigate();
 
   return (
-    <Row className="p-3" hidden={order.isShown}>
+    <Row className="p-3" hidden={isShown}>
       <ListGroup>
         {order.product_list.map((product) => (
           <ListGroup.Item key={product.Id}>

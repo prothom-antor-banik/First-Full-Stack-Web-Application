@@ -111,7 +111,7 @@ function LastPage() {
                   </Row>
                   <Row>
                     <Col className="text-secondary" md={12}>
-                      Qty:{element.items}
+                      {`Qty: ${element.items}`}
                     </Col>
                   </Row>
                 </Row>

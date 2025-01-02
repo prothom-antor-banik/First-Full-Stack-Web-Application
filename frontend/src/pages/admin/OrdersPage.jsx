@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Row, Col, ListGroup } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
+import { Initial } from "../../redux/slice/orderSlice";
 import { getAllOrders } from "../../redux/thunk/orderThunk";
 import AdminHeader from "../../components/AdminHeader";
-import List from "../../components/List";
+import Order from "../../components/Order";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -47,6 +47,9 @@ function OrdersPage() {
                         User
                       </Col>
                       <Col as="h5" className="text-center">
+                        Date
+                      </Col>
+                      <Col as="h5" className="text-center">
                         Products
                       </Col>
                       <Col as="h5" className="text-center">
@@ -61,35 +64,11 @@ function OrdersPage() {
                       <Col as="h5" className="text-center">
                         Pending
                       </Col>
-                      <Col as="h5" className="text-center">
-                        Date
-                      </Col>
                     </Row>
                   </ListGroup.Item>
 
                   {orders.map((order) => (
-                    <ListGroup.Item key={order.Id}>
-                      <Row onClick={() => dispatch(ToggleIsShown(order.Id))}>
-                        <Col className="text-center">{order.Id}</Col>
-                        <Col className="text-center">{order.userId}</Col>
-                        <Col className="text-center">{order.products}</Col>
-                        <Col className="text-center">{order.items}</Col>
-                        <Col className="text-center">{order.price}</Col>
-                        <Col className="text-center">{order.method}</Col>
-                        <Col
-                          className={
-                            order.pending
-                              ? "text-center text-danger"
-                              : "text-center text-success"
-                          }
-                        >
-                          {order.pending ? "True" : "False"}
-                        </Col>
-
-                        <Col className="text-center">{order.date}</Col>
-                      </Row>
-                      <List order={order} />
-                    </ListGroup.Item>
+                    <Order key={order.Id} type="admin" order={order} />
                   ))}
                 </ListGroup>
               </Col>
