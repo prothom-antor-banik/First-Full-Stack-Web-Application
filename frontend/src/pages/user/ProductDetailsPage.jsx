@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Row,
-  Col,
-  Table,
-  Image,
-  ListGroup,
-  ButtonGroup,
-  Button,
-} from "react-bootstrap";
+import { Row, Col, Table, Image, ButtonGroup, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/cartSlice";
@@ -19,6 +11,7 @@ import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Review from "../../components/Review";
 import Rating from "../../components/Rating";
+import Comments from "../../components/Comments";
 import Footer from "../../components/Footer";
 import base from "../../configure";
 
@@ -52,11 +45,8 @@ function ProductDetailsPage() {
 
   useEffect(() => {
     dispatch(getProduct(Id));
-    return () => dispatch(Initial());
-  }, []);
-
-  useEffect(() => {
     dispatch(getAllComments(Id, page));
+    return () => dispatch(Initial());
   }, [page, toggle]);
 
   return (
@@ -109,7 +99,12 @@ function ProductDetailsPage() {
                 </tr>
                 <tr>
                   <td>Rating</td>
-                  <td>{product.rating}</td>
+                  <td className="d-flex flex-row">
+                    <Rating rating={product.rating} />
+                    <p className="px-2 text-secondary">
+                      ({product.rating.toFixed(2)}/{product.rate_count})
+                    </p>
+                  </td>
                 </tr>
                 <tr>
                   <td colSpan={2}>
@@ -143,39 +138,15 @@ function ProductDetailsPage() {
           )}
         </Col>
       </Row>
+
       {Object.keys(current_user).length ? (
         <Review productId={Id} setToggle={setToggle} toggle={!toggle} />
       ) : (
         <></>
       )}
-      <Row className="px-3">
-        <hr />
-        <h2 className="pb-2 px-3">All reviews</h2>
-        {comments.length ? (
-          <></>
-        ) : (
-          <Message variant={"warning"} message={"No reviews yet!"} />
-        )}
-        {comments.map((comment) => (
-          <ListGroup className="px-2 pb-2" key={comment._id}>
-            <ListGroup.Item>
-              <Row className="px-2">
-                <Col md={2}>
-                  <Row>{comment.userName}</Row>
-                  <Row>{comment.date}</Row>
-                </Col>
-                <Col md={8}>
-                  <Row>
-                    <Rating rating={comment.rating} />
-                  </Row>
-                  <Row>{comment.message}</Row>
-                </Col>
-              </Row>
-            </ListGroup.Item>
-          </ListGroup>
-        ))}
-        <hr className="p-2" />
-      </Row>
+
+      <Comments comments={comments} />
+
       <Footer pages={pages} page={page} setPage={setPage} />
     </div>
   );

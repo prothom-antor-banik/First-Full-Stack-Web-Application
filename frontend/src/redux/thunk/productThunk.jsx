@@ -83,18 +83,14 @@ export const updateProduct = (id, product) => async (dispatch) => {
   }
 };
 
-export const reduceProduct = (id, price) => async (dispatch) => {
+export const partialUpdateProduct = (id, product) => async (dispatch) => {
   const url = `${base}/product-update/${id}`;
   try {
-    const res = await axios.patch(
-      url,
-      JSON.stringify({ countInStock: price }),
-      {
-        headers: {
-          "content-type": "application/json",
-        },
-      }
-    );
+    const res = await axios.patch(url, JSON.stringify(product), {
+      headers: {
+        "content-type": "application/json",
+      },
+    });
     if (res.status === 200) {
       dispatch(Success());
     }

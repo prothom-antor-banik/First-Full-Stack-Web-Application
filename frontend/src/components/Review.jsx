@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Button, Form, ListGroup } from "react-bootstrap";
 import { createComment } from "../redux/thunk/commentThunk";
+import { partialUpdateProduct } from "../redux/thunk/productThunk";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import Rating from "./Rating";
@@ -8,6 +9,7 @@ import Rating from "./Rating";
 function Review({ productId, setToggle = null, toggle = null }) {
   const dispatch = useDispatch();
   const { current_user } = useSelector((state) => state.user);
+  const { product } = useSelector((state) => state.product);
 
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState(0);
@@ -26,6 +28,14 @@ function Review({ productId, setToggle = null, toggle = null }) {
         },
         productId
       )
+    );
+    dispatch(
+      partialUpdateProduct(productId, {
+        rating:
+          (product.rating * product.rate_count + rating) /
+          (product.rate_count + 1),
+        rate_count: product.rate_count + 1,
+      })
     );
     setComment("");
     setRating(0);

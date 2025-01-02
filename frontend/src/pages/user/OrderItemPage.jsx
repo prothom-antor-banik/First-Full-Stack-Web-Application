@@ -10,7 +10,7 @@ import {
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
-import { reduceProduct } from "../../redux/thunk/productThunk";
+import { partialUpdateProduct } from "../../redux/thunk/productThunk";
 import { createOrder, getOrderById } from "../../redux/thunk/orderThunk";
 import { deleteUserCart } from "../../redux/thunk/cartThunk";
 import { addSummaryProduct } from "../../redux/thunk/summaryThunk";
@@ -105,10 +105,9 @@ function OrderItemPage() {
     if (orderSuccess) {
       stored_list.map((element) => {
         dispatch(
-          reduceProduct(
-            element.productId,
-            element.product.countInStock - element.items
-          )
+          partialUpdateProduct(element.productId, {
+            countInStock: element.product.countInStock - element.items,
+          })
         );
         dispatch(
           addSummaryProduct({
