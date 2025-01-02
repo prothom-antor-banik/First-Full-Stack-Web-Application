@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Button,
 } from "react-bootstrap";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/orderSlice";
 import { partialUpdateProduct } from "../../redux/thunk/productThunk";
@@ -20,7 +20,6 @@ import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
 
 function OrderItemPage() {
-  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -28,17 +27,9 @@ function OrderItemPage() {
   const { loading, success, error, order_id, pending } = useSelector(
     (state) => state.order
   );
-  const { stored_list } = useSelector((state) => state.cart);
-
-  const initalState = {
-    products: 0,
-    items: 0,
-    price: 0,
-    encode: "",
-  };
-  const order = Object.keys(location.state).length
-    ? location.state
-    : initalState;
+  const { stored_list, products, items, price } = useSelector(
+    (state) => state.cart
+  );
 
   const [buttonPressed, setButtonPressed] = useState(false);
   const [buttonDisable, setButtonDisable] = useState(false);
@@ -46,13 +37,19 @@ function OrderItemPage() {
 
   function handleOrder() {
     if (!buttonDisable) {
+      let product_list = [];
+      stored_list.map((element) =>
+        product_list.push([element.productId, element.items])
+      );
       dispatch(
         createOrder({
-          ...order,
-          price: order.price + 40,
+          products: products,
+          items: items,
+          price: price + 40,
           userId: current_user.Id,
           method: "bkash",
           pending: true,
+          product_list: product_list,
         })
       );
       setButtonPressed(true);
@@ -62,21 +59,7 @@ function OrderItemPage() {
   function handleOderSuccess() {
     if (!pending) {
       setOrderSuccess(true);
-      setTimeout(
-        () =>
-          navigate("/lastpage", {
-            state: {
-              name: current_user.name,
-              email: current_user.email,
-              address: current_user.address,
-              method: "bkash",
-              encode: order.encode,
-              order_number: order_id,
-              sub_total: order.price,
-            },
-          }),
-        2000
-      );
+      setTimeout(() => navigate("/lastpage"), 2000);
     }
   }
 
@@ -137,7 +120,10 @@ function OrderItemPage() {
               <ListGroup.Item>
                 <p>{"Name : " + current_user.name}</p>
                 <p>{"Email : " + current_user.email}</p>
-                <p>{"Address : " + current_user.address}</p>
+                <p>
+                  {"Address : " +
+                    `${current_user.city} | ${current_user.street} | ${current_user.zip_code}`}
+                </p>
               </ListGroup.Item>
               <ListGroup.Item>
                 <h2>Payment Method:</h2>
@@ -148,12 +134,13 @@ function OrderItemPage() {
               <ListGroup.Item>
                 <h2>{"Ordered Items"}</h2>
               </ListGroup.Item>
-              {order.encode.split("-").map((str) => (
-                <ListGroup.Item>
-                  <Row key={str.split(":")[0]}>
-                    <Col md={3}>{`Product: ${str.split(":")[1]}`}</Col>
-                    <Col md={2}>{`Price : ${str.split(":")[2]}`}</Col>
-                    <Col md={2}>{`Quantity : ${str.split(":")[3]}`}</Col>
+
+              {stored_list.map((element) => (
+                <ListGroup.Item key={element.Id}>
+                  <Row>
+                    <Col md={4}>{`Product: ${element.product.name}`}</Col>
+                    <Col md={4}>{`Price : ${element.product.price}`}</Col>
+                    <Col md={4}>{`Quantity : ${element.items}`}</Col>
                   </Row>
                 </ListGroup.Item>
               ))}
@@ -171,23 +158,23 @@ function OrderItemPage() {
               <tbody>
                 <tr>
                   <td>Total Product</td>
-                  <td>{order.products}</td>
+                  <td>{products}</td>
                 </tr>
                 <tr>
                   <td>Total Items</td>
-                  <td>{order.items}</td>
+                  <td>{items}</td>
                 </tr>
                 <tr>
                   <td>Price</td>
-                  <td>{order.price}</td>
+                  <td>{price}</td>
                 </tr>
                 <tr>
                   <td>Delivery Cost</td>
-                  <td>{order.items ? 40 : 0}</td>
+                  <td>{items ? 40 : 0}</td>
                 </tr>
                 <tr>
                   <td>Total Cost</td>
-                  <td>{order.price ? order.price + 40 : 0}</td>
+                  <td>{price ? price + 40 : 0}</td>
                 </tr>
                 <tr>
                   <td colSpan={2}>

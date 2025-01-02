@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
-from .models import User, Products, Orders, Cart
+from .models import User, Products, Orders, Cart, Orders_Products_Relationship
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -28,11 +28,44 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class OrderUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ("Id", "name", "email", "country", "city", "street", "zip_code")
+
+
+class OrdersProductsRelationshipSerializer(serializers.ModelSerializer):
+    Id = serializers.IntegerField(source="product.Id", read_only=True)
+    name = serializers.CharField(source="product.name", read_only=True)
+    description = serializers.CharField(source="product.description", read_only=True)
+    image = serializers.ImageField(source="product.image", read_only=True)
+    price = serializers.FloatField(source="product.price", read_only=True)
+
+    class Meta:
+        model = Orders_Products_Relationship
+        fields = ("Id", "name", "description", "image" , "price", "items")
+
+
 class OrderSerializer(serializers.ModelSerializer):
+    user = OrderUserSerializer(read_only=True)
+    product_list = OrdersProductsRelationshipSerializer(source="orders_products_relationship_set", many=True, read_only=True)
 
     class Meta:
         model = Orders
         fields = "__all__"
+    
+    def create(self, validated_data):
+        product_list = validated_data["product_list"]
+        print(product_list)
+        print([product[0] for product in product_list])
+        user_instance = User.objects.get(Id=validated_data['userId'])
+        validated_data['user'] = user_instance
+        validated_data.pop("product_list")
+        order_instance = Orders.objects.create(**validated_data)
+        for product in product_list:
+            order_instance.product_list.add(Products.objects.get(Id=product[0]), through_defaults={"items": product[1]})
+        return order_instance
 
 
 class CartProductSerializer(serializers.ModelSerializer):

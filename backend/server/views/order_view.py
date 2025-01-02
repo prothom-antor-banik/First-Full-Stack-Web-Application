@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status 
 
 from ..models import Orders
-from ..serializers import OrderSerializer 
+from ..serializers import OrderSerializer
 
 class OrderList(APIView):
 	def get(self, request, format=None): 
@@ -23,8 +23,8 @@ class OrderList(APIView):
 
 	def post(self, request, format=None):
 		serializer = OrderSerializer(data=request.data)
-		if serializer.is_valid(): 
-			serializer.save()
+		if serializer.is_valid():
+			serializer.save(product_list=request.data["product_list"])
 			return Response(serializer.data, 
 							status=status.HTTP_201_CREATED) 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 

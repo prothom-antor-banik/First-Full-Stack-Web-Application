@@ -39,6 +39,7 @@ export const orderSlice = createSlice({
 
     ToggleIsShown: (state, action) => {
       const id = action.payload;
+      console.log("clicked: ", id);
       state.orders = state.orders.map((order) => {
         if (order.Id === id) {
           order.isShown = !order.isShown;

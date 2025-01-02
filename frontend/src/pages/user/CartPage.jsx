@@ -20,6 +20,7 @@ import Header from "../../components/Header";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
+import base from "../../configure";
 
 function CartPage() {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ function CartPage() {
                     <Row>
                       <Col className="d-flex align-items-center" md={2}>
                         <Image
-                          src={product.product.image}
+                          src={base + product.product.image}
                           width="50%"
                           fluid
                           rounded
@@ -142,19 +143,7 @@ function CartPage() {
                 variant="dark"
                 onClick={() => {
                   if (price) {
-                    let encodedString = "";
-                    product_list.map((product) => {
-                      encodedString += `${product.productId}:${product.product.name}:${product.product.price}:${product.items}-`;
-                    });
-                    encodedString = encodedString.slice(0, -1);
-                    navigate("/order", {
-                      state: {
-                        products: products,
-                        items: items,
-                        price: price,
-                        encode: encodedString,
-                      },
-                    });
+                    navigate("/order");
                   }
                 }}
               >

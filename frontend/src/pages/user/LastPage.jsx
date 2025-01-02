@@ -1,25 +1,13 @@
 import React from "react";
 import { Row, Col, ListGroup } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 function LastPage() {
-  const location = useLocation();
-
-  const initalState = {
-    name: "",
-    email: "",
-    address: "",
-    method: "",
-    encode: "",
-    order_number: 0,
-    sub_total: 0,
-  };
-
-  const summary_order = Object.keys(location.state).length
-    ? location.state
-    : initalState;
+  const { current_user } = useSelector((state) => state.user);
+  const { order_id } = useSelector((state) => state.order);
+  const { stored_list, price } = useSelector((state) => state.cart);
 
   return (
     <div className="d-flex flex-column min-vh-100">
@@ -41,18 +29,18 @@ function LastPage() {
                   <Col as="h5" md={8}>
                     Name
                   </Col>
-                  <Col md={4} className="text-center text-secondary">
-                    {summary_order.name}
+                  <Col md={4} className="text-end text-secondary">
+                    {current_user.name}
                   </Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col as="h5" md={8}>
+                  <Col as="h5" md={4}>
                     Address
                   </Col>
-                  <Col md={4} className="text-center text-secondary">
-                    {summary_order.address}
+                  <Col md={8} className="text-end text-secondary">
+                    {`${current_user.country} | ${current_user.city} | ${current_user.street}`}
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -61,8 +49,8 @@ function LastPage() {
                   <Col as="h5" md={8}>
                     Email
                   </Col>
-                  <Col md={4} className="text-center text-secondary">
-                    {summary_order.email}
+                  <Col md={4} className="text-end text-secondary">
+                    {current_user.email}
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -71,15 +59,15 @@ function LastPage() {
                   <Col as="h5" md={8}>
                     Method
                   </Col>
-                  <Col md={4} className="text-center text-secondary">
-                    {summary_order.method}
+                  <Col md={4} className="text-end text-secondary">
+                    {"Bkash"}
                   </Col>
                 </Row>
               </ListGroup.Item>
             </ListGroup>
           </Row>
         </Col>
-        <Col md={5} className="pt-4">
+        <Col md={6} className="pt-4">
           <ListGroup>
             <ListGroup.Item>
               <Row as="h2" className="p-2">
@@ -88,42 +76,42 @@ function LastPage() {
             </ListGroup.Item>
             <ListGroup.Item>
               <Row className="pt-2">
-                <Col md={4} className="text-secondary">
+                <Col md={4} className="text-start text-secondary">
                   {"Date"}
                 </Col>
-                <Col md={4} className="text-secondary">
+                <Col md={4} className="text-center text-secondary">
                   {"Order Number"}
                 </Col>
-                <Col md={4} className="text-secondary">
+                <Col md={4} className="text-end text-secondary">
                   {"Payment Method"}
                 </Col>
               </Row>
               <Row className="pb-2">
-                <Col as="h6" md={4}>
+                <Col as="h6" md={4} className="text-start">
                   {new Date().toISOString().split("T")[0]}
                 </Col>
-                <Col as="h6" md={4}>
-                  {summary_order.order_number}
+                <Col as="h6" md={4} className="text-center">
+                  {order_id}
                 </Col>
-                <Col as="h6" md={4}>
-                  {summary_order.method}
+                <Col as="h6" md={4} className="text-center">
+                  {"Bkash"}
                 </Col>
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>
-              {summary_order.encode.split("-").map((str) => (
-                <Row key={str.split(":")[0]} className="pt-2">
+              {stored_list.map((element) => (
+                <Row key={element.Id} className="pt-2">
                   <Row>
                     <Col as="h5" md={8}>
-                      {str.split(":")[1]}
+                      {element.product.name}
                     </Col>
                     <Col md={4} className="text-center">
-                      <strong>${str.split(":")[2] * str.split(":")[3]}</strong>
+                      <strong>${element.product.price * element.items}</strong>
                     </Col>
                   </Row>
                   <Row>
                     <Col className="text-secondary" md={12}>
-                      Qty:{str.split(":")[3]}
+                      Qty:{element.items}
                     </Col>
                   </Row>
                 </Row>
@@ -135,7 +123,7 @@ function LastPage() {
                   Sub Total
                 </Col>
                 <Col md={4} as="p" className="text-secondary">
-                  {summary_order.sub_total}
+                  {price}
                 </Col>
               </Row>
               <Row>
@@ -153,7 +141,7 @@ function LastPage() {
                   Order Total
                 </Col>
                 <Col md={4} as="h4">
-                  {summary_order.sub_total + 40}
+                  {price + 40}
                 </Col>
               </Row>
             </ListGroup.Item>

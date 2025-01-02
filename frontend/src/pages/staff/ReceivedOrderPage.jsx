@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col, ListGroup } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
@@ -9,6 +9,7 @@ import {
   deleteOrderItem,
 } from "../../redux/thunk/orderThunk";
 import AdminHeader from "../../components/AdminHeader";
+import List from "../../components/List";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -40,86 +41,46 @@ function ReceivedOrderPage() {
             ) : (
               <Col md={10}>
                 <h1 className="py-3"> Pending Orders</h1>
-                <Table striped bordered responsive>
-                  <thead>
-                    <tr>
-                      <th className="text-center">ID</th>
-                      <th className="text-center">User</th>
-                      <th className="text-center">Products</th>
-                      <th className="text-center">Items</th>
-                      <th className="text-center">Date</th>
-                      <th className="text-center">Complete</th>
-                      <th className="text-center">Terminate</th>
-                    </tr>
-                  </thead>
+                <ListGroup>
+                  <Row>
+                    <Col className="text-center">ID</Col>
+                    <Col className="text-center">User</Col>
+                    <Col className="text-center">Products</Col>
+                    <Col className="text-center">Items</Col>
+                    <Col className="text-center">Date</Col>
+                    <Col className="text-center">Complete</Col>
+                    <Col className="text-center">Terminate</Col>
+                  </Row>
 
-                  <tbody>
-                    {orders.map((order) => (
-                      <>
-                        <tr
-                          key={order.Id}
-                          onClick={() => dispatch(ToggleIsShown(order.Id))}
+                  {orders.map((order) => (
+                    <ListGroup.Item key={order.Id}>
+                      <Row onClick={() => dispatch(ToggleIsShown(order.Id))}>
+                        <Col className="text-center">{order.Id}</Col>
+                        <Col className="text-center">{order.userId}</Col>
+                        <Col className="text-center">{order.products}</Col>
+                        <Col className="text-center">{order.items}</Col>
+                        <Col className="text-center">{order.date}</Col>
+                        <Col
+                          onClick={() => {
+                            dispatch(clearPendingOrder(order.Id));
+                          }}
+                          className="text-center text-success"
                         >
-                          <td className="text-center">{order.Id}</td>
-                          <td className="text-center">{order.userId}</td>
-                          <td className="text-center">{order.products}</td>
-                          <td className="text-center">{order.items}</td>
-                          <td className="text-center">{order.date}</td>
-                          <td
-                            onClick={() => {
-                              dispatch(clearPendingOrder(order.Id));
-                            }}
-                            className="text-center text-success"
-                          >
-                            Deliver
-                          </td>
-                          <td
-                            onClick={() => {
-                              dispatch(deleteOrderItem(order.Id));
-                            }}
-                            className="text-center text-danger"
-                          >
-                            Delete
-                          </td>
-                        </tr>
-                        {order.isShown ? (
-                          order.encode.split("-").map((str) => (
-                            <tr key={str.split(":")[0]}>
-                              <td colSpan={2}></td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[0]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[1]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[2]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[3]}
-                              </td>
-                              <td colSpan={1}></td>
-                            </tr>
-                          ))
-                        ) : (
-                          <></>
-                        )}
-                      </>
-                    ))}
-                  </tbody>
-                </Table>
+                          Deliver
+                        </Col>
+                        <Col
+                          onClick={() => {
+                            dispatch(deleteOrderItem(order.Id));
+                          }}
+                          className="text-center text-danger"
+                        >
+                          Delete
+                        </Col>
+                      </Row>
+                      <List order={order} />
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
               </Col>
             )
           ) : (

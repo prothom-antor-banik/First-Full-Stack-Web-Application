@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Table } from "react-bootstrap";
+import { Row, Col, ListGroup } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
 import { getAllOrders } from "../../redux/thunk/orderThunk";
 import AdminHeader from "../../components/AdminHeader";
+import List from "../../components/List";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -34,78 +35,67 @@ function OrdersPage() {
             ) : loading ? (
               <Loader />
             ) : (
-              <Col md={10}>
+              <Col md={11}>
                 <h1 className="py-3">Orders</h1>
-                <Table striped responsive>
-                  <thead>
-                    <tr>
-                      <th className="text-center">ID</th>
-                      <th className="text-center">User</th>
-                      <th className="text-center">Products</th>
-                      <th className="text-center">Items</th>
-                      <th className="text-center">Price</th>
-                      <th className="text-center">Method</th>
-                      <th className="text-center">Date</th>
-                    </tr>
-                  </thead>
+                <ListGroup>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col as="h5" className="text-center">
+                        ID
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        User
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Products
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Items
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Price
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Method
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Pending
+                      </Col>
+                      <Col as="h5" className="text-center">
+                        Date
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
 
-                  <tbody>
-                    {orders.map((order) => (
-                      <>
-                        <tr
-                          key={order.Id}
-                          onClick={() => dispatch(ToggleIsShown(order.Id))}
+                  {orders.map((order) => (
+                    <ListGroup.Item key={order.Id}>
+                      <Row onClick={() => dispatch(ToggleIsShown(order.Id))}>
+                        <Col className="text-center">{order.Id}</Col>
+                        <Col className="text-center">{order.userId}</Col>
+                        <Col className="text-center">{order.products}</Col>
+                        <Col className="text-center">{order.items}</Col>
+                        <Col className="text-center">{order.price}</Col>
+                        <Col className="text-center">{order.method}</Col>
+                        <Col
+                          className={
+                            order.pending
+                              ? "text-center text-danger"
+                              : "text-center text-success"
+                          }
                         >
-                          <td className="text-center">{order.Id}</td>
-                          <td className="text-center">{order.userId}</td>
-                          <td className="text-center">{order.products}</td>
-                          <td className="text-center">{order.items}</td>
-                          <td className="text-center">{order.price}</td>
-                          <td className="text-center">{order.method}</td>
-                          <td className="text-center">{order.date}</td>
-                        </tr>
-                        {order.isShown ? (
-                          order.encode.split("-").map((str) => (
-                            <tr key={str.split(":")[0]}>
-                              <td colSpan={2}></td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[0]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[1]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[2]}
-                              </td>
-                              <td
-                                colSpan={1}
-                                className="text-center text-white bg-secondary"
-                              >
-                                {str.split(":")[3]}
-                              </td>
-                              <td colSpan={1}></td>
-                            </tr>
-                          ))
-                        ) : (
-                          <></>
-                        )}
-                      </>
-                    ))}
-                  </tbody>
-                </Table>
+                          {order.pending ? "True" : "False"}
+                        </Col>
+
+                        <Col className="text-center">{order.date}</Col>
+                      </Row>
+                      <List order={order} />
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
               </Col>
             )
           ) : (
-            <Col md={10} className="py-3">
+            <Col md={11} className="py-3">
               <Message variant={"warning"} message={"No order is made yet"} />
             </Col>
           )}

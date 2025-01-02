@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Row, Col, Form, Table, ButtonGroup, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Form,
+  ListGroup,
+  ButtonGroup,
+  Button,
+} from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { RemoveUser } from "../../redux/slice/userSlice";
@@ -7,6 +14,7 @@ import { Initial, ToggleIsShown } from "../../redux/slice/orderSlice";
 import { updateUserDetails } from "../../redux/thunk/userThunk";
 import { getUserOrders } from "../../redux/thunk/orderThunk";
 import Header from "../../components/Header";
+import List from "../../components/List";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -175,67 +183,28 @@ function UserProfilePage() {
                 message={"Error loading your orders"}
               />
             ) : orders.length ? (
-              <Table striped responsive>
-                <thead>
-                  <tr>
-                    <th className="text-center">ID</th>
-                    <th className="text-center">Date</th>
-                    <th className="text-center">Products</th>
-                    <th className="text-center">Items</th>
-                    <th className="text-center">Total</th>
-                  </tr>
-                </thead>
+              <ListGroup>
+                <Row>
+                  <Col className="text-center">ID</Col>
+                  <Col className="text-center">Date</Col>
+                  <Col className="text-center">Products</Col>
+                  <Col className="text-center">Items</Col>
+                  <Col className="text-center">Total</Col>
+                </Row>
 
-                <tbody>
-                  {orders.map((order) => (
-                    <>
-                      <tr
-                        key={order.Id}
-                        onClick={() => dispatch(ToggleIsShown(order.Id))}
-                      >
-                        <td className="text-center">{order.Id}</td>
-                        <td className="text-center">{order.date}</td>
-                        <td className="text-center">{order.products}</td>
-                        <td className="text-center">{order.items}</td>
-                        <td className="text-center">{order.price}</td>
-                      </tr>
-                      {order.isShown ? (
-                        order.encode.split("-").map((str) => (
-                          <tr key={str.split(":")[0]}>
-                            <td colSpan={1}></td>
-                            <td
-                              colSpan={1}
-                              className="text-center text-white bg-secondary"
-                            >
-                              {str.split(":")[0]}
-                            </td>
-                            <td
-                              colSpan={1}
-                              className="text-center text-white bg-secondary"
-                            >
-                              {str.split(":")[1]}
-                            </td>
-                            <td
-                              colSpan={1}
-                              className="text-center text-white bg-secondary"
-                            >
-                              {str.split(":")[2]}
-                            </td>
-                            <td
-                              colSpan={1}
-                              className="text-center text-white bg-secondary"
-                            >
-                              {str.split(":")[3]}
-                            </td>
-                          </tr>
-                        ))
-                      ) : (
-                        <></>
-                      )}
-                    </>
-                  ))}
-                </tbody>
-              </Table>
+                {orders.map((order) => (
+                  <ListGroup.Item key={order.Id}>
+                    <Row onClick={() => dispatch(ToggleIsShown(order.Id))}>
+                      <Col className="text-center">{order.Id}</Col>
+                      <Col className="text-center">{order.date}</Col>
+                      <Col className="text-center">{order.products}</Col>
+                      <Col className="text-center">{order.items}</Col>
+                      <Col className="text-center">{order.price}</Col>
+                    </Row>
+                    <List order={order} />
+                  </ListGroup.Item>
+                ))}
+              </ListGroup>
             ) : (
               <Message variant={"warning"} message={"No products to show"} />
             )}

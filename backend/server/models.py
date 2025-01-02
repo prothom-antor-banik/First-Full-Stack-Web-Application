@@ -69,7 +69,8 @@ class Orders(models.Model):
     date = models.DateField(auto_now_add=True)
     method = models.CharField(max_length=64, blank=False)
     pending = models.BooleanField(default=True)
-    encode = models.CharField(max_length=2048, blank=True)
+    product_list = models.ManyToManyField(Products, through='Orders_Products_Relationship')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     isShown = models.BooleanField(default=False)
 
     class Meta:
@@ -77,6 +78,19 @@ class Orders(models.Model):
 
     def __str__(self):
         return f"{str(self.Id)} {str(self.userId)}"
+    
+
+class Orders_Products_Relationship(models.Model):
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    items = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name = "Orders_Products_Relationship"
+        unique_together = (('order', 'product'),)
+    
+    def __str__(self):
+        return f"{self.pk} {self.order_id} {self.product_id}"
     
     
 class Cart(models.Model):
