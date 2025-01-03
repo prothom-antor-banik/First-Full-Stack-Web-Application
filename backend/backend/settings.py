@@ -56,8 +56,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgresql_5i0m',
+        'USER': 'postgresql_5i0m_user',
+        'PASSWORD': 'M4xtMWp7vdx4HuJOV8oTLKiueTkUQumK',
+        'HOST': 'dpg-ctrpaelumphs73ffrorg-a',
+        'PORT': '5432'
     }
 }
 
@@ -86,7 +90,6 @@ USE_TZ = True
 
 
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ORIGIN_WHITELIST = []
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATIC_URL = '/static/'

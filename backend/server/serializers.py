@@ -57,8 +57,6 @@ class OrderSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         product_list = validated_data["product_list"]
-        print(product_list)
-        print([product[0] for product in product_list])
         user_instance = User.objects.get(Id=validated_data['userId'])
         validated_data['user'] = user_instance
         validated_data.pop("product_list")
