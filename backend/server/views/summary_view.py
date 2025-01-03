@@ -41,10 +41,12 @@ class Summary(APIView):
 		products = loads(dumps(collection.find().sort('items', sort_dir).skip(page-1).limit(page_size)))
 
 		today = date.today()
+		month = str(today.month).zfill(2)
+		year = str(today.year)
 
 		today_summary = getSummary(str(today), str(today))
-		month_summary = getSummary(f"{today.year}-{today.month}-{1}", f"{today.year}-{today.month}-{calendar.monthrange(today.year, today.month)[1]}")
-		year_summary = getSummary(f"{today.year}-{1}-{1}", f"{today.year}-{12}-{31}")
+		month_summary = getSummary(f"{year}-{month}-01", f"{year}-{month}-{calendar.monthrange(today.year, today.month)[1]}")
+		year_summary = getSummary(f"{year}-01-01", f"{year}-12-31")
 
 		summary = {
 			'today_products': 0 if not today_summary else today_summary[0]['total_products'],

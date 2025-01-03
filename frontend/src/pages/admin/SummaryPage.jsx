@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Initial } from "../../redux/slice/summarySlice";
 import { getAllSummaryProducts } from "../../redux/thunk/summaryThunk";
 import AdminHeader from "../../components/AdminHeader";
+import Rating from "../../components/Rating";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -64,6 +65,7 @@ function SummaryPage() {
                     <th className="text-center">Price</th>
                     <th className="text-center">Items</th>
                     <th className="text-center">Latest Date</th>
+                    <th className="text-center">Rating</th>
                   </tr>
                 </thead>
 
@@ -77,6 +79,9 @@ function SummaryPage() {
                       <td className="text-center">{product.product_price}</td>
                       <td className="text-center">{product.items}</td>
                       <td className="text-center">{product.date}</td>
+                      <td className="text-center">
+                        <Rating rating={product.rating} />
+                      </td>
                     </tr>
                   ))}
                 </tbody>

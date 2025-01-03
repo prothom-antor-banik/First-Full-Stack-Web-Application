@@ -98,6 +98,7 @@ function OrderItemPage() {
             product_name: element.product.name,
             product_price: element.product.price,
             items: element.items,
+            rating: element.product.rating,
             date: new Date().toISOString().split("T")[0],
           })
         );

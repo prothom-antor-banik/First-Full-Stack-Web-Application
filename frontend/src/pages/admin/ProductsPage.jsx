@@ -9,6 +9,7 @@ import {
   deleteProduct,
 } from "../../redux/thunk/productThunk";
 import AdminHeader from "../../components/AdminHeader";
+import Rating from "../../components/Rating";
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
 import Footer from "../../components/Footer";
@@ -85,6 +86,7 @@ function ProductsPage() {
               >
                 <option value="price">Price</option>
                 <option value="countInStock">Items</option>
+                <option value="rating">Rating</option>
               </Form.Control>
             </Col>
             <Col md={2}>
@@ -123,6 +125,7 @@ function ProductsPage() {
                       <th className="text-center">Category</th>
                       <th className="text-center">Brand</th>
                       <th className="text-center">In Stock</th>
+                      <th className="text-center">Rating</th>
                       <th className="text-center">Update</th>
                       <th className="text-center">Delete</th>
                     </tr>
@@ -139,6 +142,9 @@ function ProductsPage() {
                         <td className="text-center">{product.category}</td>
                         <td className="text-center">{product.brand}</td>
                         <td className="text-center">{product.countInStock}</td>
+                        <td className="text-center">
+                          <Rating rating={product.rating} />
+                        </td>
                         <td className="text-center">
                           <Button
                             type="submit"
