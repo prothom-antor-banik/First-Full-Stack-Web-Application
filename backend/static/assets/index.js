@@ -17109,9 +17109,9 @@ function J({ variant: e, message: t }) {
   return l.jsx(uj, { variant: e, children: t });
 }
 function Oe() {
-  return l.jsxs("div", {
+  return l.jsx("div", {
     className: "p-2 d-flex flex-row justify-content-center",
-    children: [l.jsx(py, { animation: "border" }), ";"],
+    children: l.jsx(py, { animation: "border" }),
   });
 }
 function IE() {
