@@ -69,5 +69,7 @@ class Summary(APIView):
 			data['items'] = int(data['items']) + int(instance['items'])
 			collection.update_one({'_id': data['_id']}, {'$set': data})
 		else:
+			data['product_price'] = int(data['product_price'])
+			data['items'] = int(data['items'])
 			collection.insert_one(data)
 		return Response(status=status.HTTP_201_CREATED)
