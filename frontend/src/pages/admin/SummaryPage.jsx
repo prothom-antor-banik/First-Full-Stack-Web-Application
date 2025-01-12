@@ -18,12 +18,13 @@ function SummaryPage() {
   );
 
   const [page, setPage] = useState(1);
+  const [by, setBy] = useState("items");
   const [sort, setSort] = useState("DESC");
 
   useEffect(() => {
-    dispatch(getAllSummaryProducts(page, sort));
+    dispatch(getAllSummaryProducts(page, by, sort));
     return () => dispatch(Initial());
-  }, [page, sort]);
+  }, [page, by, sort]);
 
   if (!Object.keys(current_user).length) return <Navigate to="/login" />;
   else if (!current_user.is_superuser) return <Navigate to="/" />;
@@ -32,7 +33,7 @@ function SummaryPage() {
       <div className="d-flex flex-column min-vh-100">
         <AdminHeader />
         <Row className="px-3 pt-2">
-          <Col md={6}>
+          <Col md={4}>
             <h2>
               {sort === "DESC" ? "Top Sold Products" : "Less Sold Products"}
             </h2>
@@ -51,6 +52,22 @@ function SummaryPage() {
             >
               <option value="DESC">DESC</option>
               <option value="ASC">ASC</option>
+            </Form.Control>
+          </Col>
+          <Col md={1} className="d-flex justify-content-end align-items-center">
+            <strong>Field:</strong>
+          </Col>
+          <Col
+            md={2}
+            className="d-flex justify-content-start align-items-center"
+          >
+            <Form.Control
+              as="select"
+              value={by}
+              onChange={(e) => setBy(e.target.value)}
+            >
+              <option value="items">Items</option>
+              <option value="rating">Rating</option>
             </Form.Control>
           </Col>
         </Row>

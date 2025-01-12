@@ -36,9 +36,10 @@ class Summary(APIView):
 		page_size = 10
 		page = int(request.query_params['page'])
 		pages = collection.count_documents({}) // page_size + 1 if collection.count_documents({}) % page_size else 0
+		by = request.query_params['by']
 		sort = request.query_params['sort']
 		sort_dir = pymongo.ASCENDING if sort == 'ASC' else pymongo.DESCENDING
-		products = loads(dumps(collection.find().sort('items', sort_dir).skip(page-1).limit(page_size)))
+		products = loads(dumps(collection.find().sort(str(by), sort_dir).skip(page-1).limit(page_size)))
 
 		today = date.today()
 		month = str(today.month).zfill(2)

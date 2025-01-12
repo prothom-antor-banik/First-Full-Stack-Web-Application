@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AdminHeader from "../../components/AdminHeader";
 import Footer from "../../components/Footer";
+import ProductCarousel from "../../components/Carousel";
 
 function AdminPage() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function AdminPage() {
     return (
       <div className="d-flex flex-column min-vh-100">
         <AdminHeader />
-        <Row className="justify-content-center">
+        <Row className="p-3 justify-content-center">
           <Col md={8}>
             <h1 className="py-3 text-center">Admin Pages</h1>
             <ListGroup className="py-2">
@@ -106,6 +107,9 @@ function AdminPage() {
                 </Row>
               </ListGroup.Item>
             </ListGroup>
+          </Col>
+          <Col md={4}>
+            <ProductCarousel />
           </Col>
         </Row>
         <Footer />

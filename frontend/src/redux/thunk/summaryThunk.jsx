@@ -19,8 +19,8 @@ export const addSummaryProduct = (product) => async (dispatch) => {
   }
 };
 
-export const getAllSummaryProducts = (page, sort) => async (dispatch) => {
-  const url = `${base}/summary/?page=${page}&sort=${sort}`;
+export const getAllSummaryProducts = (page, by, sort) => async (dispatch) => {
+  const url = `${base}/summary/?page=${page}&by=${by}&sort=${sort}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
