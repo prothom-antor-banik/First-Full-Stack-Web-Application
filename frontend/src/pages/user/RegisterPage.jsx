@@ -25,6 +25,7 @@ function RegisterPage() {
   const [state, setState] = useState(initialState);
 
   function handleRegister() {
+    console.log(state);
     dispatch(registerUser(state));
   }
 
@@ -66,19 +67,19 @@ function RegisterPage() {
             />
           </Form.Group>
 
-          <Row className="p-2">
-            <Row>
+          <Row className="px-3">
+            <Row className="p-2">
               <Col>
                 <Form.Group>
                   <Form.Label className="fw-bold">Country</Form.Label>
                   <Form.Control
                     required
-                    rows={2}
                     placeholder="Country"
                     value={state.country}
-                    onChange={(e) =>
-                      setState({ ...state, country: e.target.value })
-                    }
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setState({ ...state, country: e.target.value });
+                    }}
                   />
                 </Form.Group>
               </Col>
@@ -87,37 +88,81 @@ function RegisterPage() {
                   <Form.Label className="fw-bold">City</Form.Label>
                   <Form.Control
                     required
-                    rows={2}
+                    as="select"
                     placeholder="City"
                     value={state.city}
-                    onChange={(e) =>
-                      setState({ ...state, city: e.target.value })
-                    }
-                  />
+                    onChange={(e) => {
+                      console.log(e.target.value);
+                      setState({ ...state, city: e.target.value });
+                    }}
+                  >
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Chittagong">Chittagong</option>
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            <Row className="p-2">
               <Col>
-                <Form.Group>
-                  <Form.Label className="fw-bold">Street</Form.Label>
-                  <Form.Control
-                    required
-                    rows={2}
-                    placeholder="Street"
-                    value={state.street}
-                    onChange={(e) =>
-                      setState({ ...state, street: e.target.value })
-                    }
-                  />
-                </Form.Group>
+                {state.city === "Chittagong" ? (
+                  <Form.Group>
+                    <Form.Label className="fw-bold">Street</Form.Label>
+                    <Form.Control
+                      required
+                      as="select"
+                      placeholder="Street"
+                      value={state.street}
+                      onChange={(e) =>
+                        setState({ ...state, street: e.target.value })
+                      }
+                    >
+                      <option value="Agrabad">Agrabad</option>
+                      <option value="Bhatiari">Bhatiari</option>
+                      <option value="Faujdarhat">Faujdarhat</option>
+                    </Form.Control>
+                  </Form.Group>
+                ) : state.city === "Rajshahi" ? (
+                  <Form.Group>
+                    <Form.Label className="fw-bold">Street</Form.Label>
+                    <Form.Control
+                      required
+                      as="select"
+                      placeholder="Street"
+                      value={state.street}
+                      onChange={(e) =>
+                        setState({ ...state, street: e.target.value })
+                      }
+                    >
+                      <option value="Kazla">Kazla</option>
+                      <option value="Nohata">Nohata</option>
+                      <option value="Puthia">Puthia</option>
+                    </Form.Control>
+                  </Form.Group>
+                ) : (
+                  <Form.Group>
+                    <Form.Label className="fw-bold">Street</Form.Label>
+                    <Form.Control
+                      required
+                      as="select"
+                      placeholder="Street"
+                      value={state.street}
+                      onChange={(e) =>
+                        setState({ ...state, street: e.target.value })
+                      }
+                    >
+                      <option value="Arambagh">Arambagh</option>
+                      <option value="Ramna">Ramna</option>
+                      <option value="Banani">Banani</option>
+                    </Form.Control>
+                  </Form.Group>
+                )}
               </Col>
               <Col>
                 <Form.Group>
                   <Form.Label className="fw-bold">Zip Code</Form.Label>
                   <Form.Control
                     required
-                    rows={2}
                     placeholder="Zip Code"
                     value={state.zip_code}
                     onChange={(e) =>
