@@ -91,7 +91,7 @@ function UsersPage() {
                     <th className="text-center">ID</th>
                     <th className="text-center">Name</th>
                     <th className="text-center">Email</th>
-                    <th className="text-center">Country</th>
+                    <th className="text-center">Division</th>
                     <th className="text-center">City</th>
                     <th className="text-center">Street</th>
                     <th className="text-center">Zip</th>
@@ -107,7 +107,7 @@ function UsersPage() {
                       <td className="text-center">{user.Id}</td>
                       <td className="text-center">{user.name}</td>
                       <td className="text-center">{user.email}</td>
-                      <td className="text-center">{user.country}</td>
+                      <td className="text-center">{user.division}</td>
                       <td className="text-center">{user.city}</td>
                       <td className="text-center">{user.street}</td>
                       <td className="text-center">{user.zip_code}</td>

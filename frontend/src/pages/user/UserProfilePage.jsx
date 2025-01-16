@@ -29,7 +29,10 @@ function UserProfilePage() {
   const [state, setState] = useState({
     name: current_user.name,
     email: current_user.email,
-    address: current_user.address,
+    division: current_user.division,
+    city: current_user.city,
+    street: current_user.street,
+    zip_code: current_user.zip_code,
   });
 
   const [Password, setPassword] = useState({
@@ -82,7 +85,7 @@ function UserProfilePage() {
               className="p-3 bg-light text-secondary"
               onSubmit={(e) => e.preventDefault()}
             >
-              <Form.Group as={Row} className="mb-3" controlId="name">
+              <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="3" className="fw-bold">
                   Name
                 </Form.Label>
@@ -98,7 +101,7 @@ function UserProfilePage() {
                 </Col>
               </Form.Group>
 
-              <Form.Group as={Row} className="mb-3" controlId="email">
+              <Form.Group as={Row} className="mb-3">
                 <Form.Label column sm="3" className="fw-bold">
                   Email
                 </Form.Label>
@@ -114,25 +117,72 @@ function UserProfilePage() {
                   ></Form.Control>
                 </Col>
               </Form.Group>
-
-              <Form.Group as={Row} className="mb-3" controlId="address">
-                <Form.Label column sm="3" className="fw-bold">
-                  Address
-                </Form.Label>
-                <Col sm={9}>
-                  <Form.Control
-                    plaintext
-                    as="textarea"
-                    rows={2}
-                    value={state.address}
-                    onChange={(e) =>
-                      setState({ ...state, address: e.target.value })
-                    }
-                  ></Form.Control>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label column sm="3" className="fw-bold">
+                      Division
+                    </Form.Label>
+                    <Form.Control
+                      plaintext
+                      type="text"
+                      value={state.division}
+                      onChange={(e) =>
+                        setState({ ...state, division: e.target.value })
+                      }
+                    ></Form.Control>
+                  </Form.Group>
                 </Col>
-              </Form.Group>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label column sm="3" className="fw-bold">
+                      City
+                    </Form.Label>
+                    <Form.Control
+                      plaintext
+                      type="text"
+                      value={state.city}
+                      onChange={(e) =>
+                        setState({ ...state, city: e.target.value })
+                      }
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label column sm="3" className="fw-bold">
+                      Street
+                    </Form.Label>
+                    <Form.Control
+                      plaintext
+                      type="text"
+                      value={state.street}
+                      onChange={(e) =>
+                        setState({ ...state, street: e.target.value })
+                      }
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
+                <Col>
+                  <Form.Group className="mb-3">
+                    <Form.Label column sm="3" className="fw-bold">
+                      Zip
+                    </Form.Label>
+                    <Form.Control
+                      plaintext
+                      type="text"
+                      value={state.zip_code}
+                      onChange={(e) =>
+                        setState({ ...state, zip_code: e.target.value })
+                      }
+                    ></Form.Control>
+                  </Form.Group>
+                </Col>
+              </Row>
 
-              <Form.Group className="mb-3" controlId="password">
+              <Form.Group className="mb-3">
                 <Form.Label className="fw-bold">Password</Form.Label>
                 <Form.Control
                   type="password"
@@ -144,7 +194,7 @@ function UserProfilePage() {
                 ></Form.Control>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="confirmPassword">
+              <Form.Group className="mb-3">
                 <Form.Label className="fw-bold">Confirm Password</Form.Label>
                 <Form.Control
                   type="password"

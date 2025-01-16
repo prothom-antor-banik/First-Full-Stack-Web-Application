@@ -9,7 +9,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     Id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     email = models.EmailField(max_length=150, unique=True)
-    country = models.CharField(max_length=64, default="None")
+    division = models.CharField(max_length=64, default="None")
     city = models.CharField(max_length=64, default="None")
     street = models.CharField(max_length=64, default="None")
     zip_code = models.CharField(max_length=64, default="None")

@@ -16,7 +16,7 @@ function RegisterPage() {
   const initialState = {
     name: "",
     email: "",
-    country: "",
+    division: "",
     city: "",
     street: "",
     zip_code: "",
@@ -25,7 +25,6 @@ function RegisterPage() {
   const [state, setState] = useState(initialState);
 
   function handleRegister() {
-    console.log(state);
     dispatch(registerUser(state));
   }
 
@@ -71,16 +70,20 @@ function RegisterPage() {
             <Row className="p-2">
               <Col>
                 <Form.Group>
-                  <Form.Label className="fw-bold">Country</Form.Label>
+                  <Form.Label className="fw-bold">Division</Form.Label>
                   <Form.Control
                     required
-                    placeholder="Country"
-                    value={state.country}
+                    as="select"
+                    placeholder="Division"
+                    value={state.division}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setState({ ...state, country: e.target.value });
+                      setState({ ...state, division: e.target.value });
                     }}
-                  />
+                  >
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Chittagong">Chittagong</option>
+                  </Form.Control>
                 </Form.Group>
               </Col>
               <Col>
@@ -92,7 +95,6 @@ function RegisterPage() {
                     placeholder="City"
                     value={state.city}
                     onChange={(e) => {
-                      console.log(e.target.value);
                       setState({ ...state, city: e.target.value });
                     }}
                   >
