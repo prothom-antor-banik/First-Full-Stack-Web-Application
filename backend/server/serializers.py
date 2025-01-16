@@ -32,7 +32,7 @@ class OrderUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("Id", "name", "email", "country", "city", "street", "zip_code")
+        fields = ("Id", "name", "email", "division", "city", "street", "zip_code")
 
 
 class OrdersProductsRelationshipSerializer(serializers.ModelSerializer):
