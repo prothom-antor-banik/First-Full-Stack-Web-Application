@@ -40,7 +40,7 @@ function LastPage() {
                     Address
                   </Col>
                   <Col md={8} className="text-end text-secondary">
-                    {`${current_user.country} | ${current_user.city} | ${current_user.street}`}
+                    {`${current_user.division} | ${current_user.city} | ${current_user.street}`}
                   </Col>
                 </Row>
               </ListGroup.Item>
