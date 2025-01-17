@@ -11727,8 +11727,10 @@ fieldset:disabled .btn {
 @font-face {
   font-display: block;
   font-family: bootstrap-icons;
-  src: url(/static/assets/bootstrap-icons.woff2) format("woff2"),
-    url(/static/assets/bootstrap-icons.woff) format("woff");
+  src: url(/static/assets/bootstrap-icons.woff2?dd67030699838ea613ee6dbda90effa6)
+      format("woff2"),
+    url(/static/assets/bootstrap-icons.woff?dd67030699838ea613ee6dbda90effa6)
+      format("woff");
 }
 .bi:before,
 [class^="bi-"]:before,
