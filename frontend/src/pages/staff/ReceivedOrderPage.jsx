@@ -18,7 +18,7 @@ function ReceivedOrderPage() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllOrders(page, true));
+    dispatch(getAllOrders(page, true, false));
     return () => dispatch(Initial());
   }, [page]);
 
@@ -38,16 +38,34 @@ function ReceivedOrderPage() {
               <Col md={11}>
                 <h1 className="py-3"> Pending Orders</h1>
                 <ListGroup>
-                  <Row>
-                    <Col className="text-center">ID</Col>
-                    <Col className="text-center">User</Col>
-                    <Col className="text-center">Date</Col>
-                    <Col className="text-center">Products</Col>
-                    <Col className="text-center">Items</Col>
-                    <Col className="text-center">Price</Col>
-                    <Col className="text-center">Complete</Col>
-                    <Col className="text-center">Terminate</Col>
-                  </Row>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col as="h6" className="text-center">
+                        ID
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        User
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Date
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Products
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Items
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Price
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Assign Rider
+                      </Col>
+                      <Col as="h6" className="text-center">
+                        Terminate
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
 
                   {orders.map((order) => (
                     <Order key={order.Id} type="staff" order={order} />

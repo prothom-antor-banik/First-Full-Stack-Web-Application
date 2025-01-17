@@ -26,18 +26,19 @@ export const createOrder = (order) => async (dispatch) => {
   }
 };
 
-export const getAllOrders = (page, status) => async (dispatch) => {
-  const url = `${base}/orders/?page=${page}&status=${status}`;
-  try {
-    dispatch(Loading());
-    const res = await axios.get(url);
-    if (res.status === 200) {
-      dispatch(ListOrders(res.data));
+export const getAllOrders =
+  (page, pending, showDelivery) => async (dispatch) => {
+    const url = `${base}/orders/?page=${page}&pending=${pending}&show_delivery=${showDelivery}`;
+    try {
+      dispatch(Loading());
+      const res = await axios.get(url);
+      if (res.status === 200) {
+        dispatch(ListOrders(res.data));
+      }
+    } catch (error) {
+      dispatch(Error());
     }
-  } catch (error) {
-    dispatch(Error());
-  }
-};
+  };
 
 export const getUserOrders = (id, page) => async (dispatch) => {
   const url = `${base}/orders/${id}/?page=${page}`;
@@ -64,15 +65,19 @@ export const getOrderById = (id) => async (dispatch) => {
   }
 };
 
-export const clearPendingOrder = (id) => async (dispatch) => {
+export const handoverToDelivery = (id) => async (dispatch) => {
   const url = `${base}/orders/pending/${id}/`;
   try {
     dispatch(Loading());
-    const res = await axios.patch(url, JSON.stringify({ pending: false }), {
-      headers: {
-        "content-type": "application/json",
-      },
-    });
+    const res = await axios.patch(
+      url,
+      JSON.stringify({ show_delivery: true }),
+      {
+        headers: {
+          "content-type": "application/json",
+        },
+      }
+    );
     if (res.status === 200) {
       dispatch(Delete(id));
     }

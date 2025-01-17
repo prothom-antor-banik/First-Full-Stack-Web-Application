@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getAllUsers,
   getAllUsersWithSearch,
-  updateToStaff,
+  updateUser,
   deleteUser,
 } from "../../redux/thunk/userThunk";
 import AdminHeader from "../../components/AdminHeader";
@@ -29,12 +29,7 @@ function UsersPage() {
   }
 
   function handleChange(user) {
-    dispatch(
-      updateToStaff({
-        Id: user.Id,
-        is_admin: true,
-      })
-    );
+    dispatch(updateUser(user));
     return setToggle(!toggle);
   }
 
@@ -97,6 +92,7 @@ function UsersPage() {
                     <th className="text-center">Zip</th>
                     <th className="text-center">Admin</th>
                     <th className="text-center">Make Staff</th>
+                    <th className="text-center">Make Rider</th>
                     <th className="text-center">Delete</th>
                   </tr>
                 </thead>
@@ -125,7 +121,26 @@ function UsersPage() {
                           <Form.Check
                             type="switch"
                             defaultChecked={user.is_admin}
-                            onChange={() => handleChange(user)}
+                            onChange={() =>
+                              handleChange({
+                                Id: user.Id,
+                                is_admin: true,
+                              })
+                            }
+                          />
+                        </Form>
+                      </td>
+                      <td className="text-center">
+                        <Form className="d-flex flex-row justify-content-center">
+                          <Form.Check
+                            type="switch"
+                            defaultChecked={user.is_staff}
+                            onChange={() =>
+                              handleChange({
+                                Id: user.Id,
+                                is_staff: true,
+                              })
+                            }
                           />
                         </Form>
                       </td>

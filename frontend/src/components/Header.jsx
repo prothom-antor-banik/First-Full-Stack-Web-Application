@@ -104,6 +104,19 @@ function Header() {
                   <i className="bi bi-person-gear px-1" />
                   Staff
                 </NavLink>
+              ) : current_user.is_staff ? (
+                <NavLink
+                  className={"text-decoration-none align-self-center"}
+                  to="/rider"
+                  style={({ isActive }) => {
+                    return {
+                      color: isActive ? "white" : "gray",
+                    };
+                  }}
+                >
+                  <i className="bi bi-person-gear px-1" />
+                  Rider
+                </NavLink>
               ) : (
                 <></>
               )

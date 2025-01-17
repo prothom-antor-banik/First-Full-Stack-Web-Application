@@ -61,6 +61,7 @@ function ProductCarousel() {
           {products.slice(0, 5).map((product) => {
             return (
               <Carousel.Item
+                key={product.Id}
                 onClick={() => navigate(`/product/${product._id}`)}
                 interval={1000}
                 className="d-flex justify-content-center"

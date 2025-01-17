@@ -71,6 +71,8 @@ class Orders(models.Model):
     pending = models.BooleanField(default=True)
     product_list = models.ManyToManyField(Products, through='Orders_Products_Relationship')
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    show_delivery = models.BooleanField(default=False)
+    rider = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name="deliveries")
 
     class Meta:
         verbose_name = "Order"

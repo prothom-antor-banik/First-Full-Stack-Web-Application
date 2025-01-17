@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, ListGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { clearPendingOrder, deleteOrderItem } from "../redux/thunk/orderThunk";
+import { handoverToDelivery, deleteOrderItem } from "../redux/thunk/orderThunk";
 import List from "./List";
 
 function Order({ type, order }) {
@@ -23,11 +23,11 @@ function Order({ type, order }) {
         <Col
           hidden={type !== "staff"}
           onClick={() => {
-            dispatch(clearPendingOrder(order.Id));
+            dispatch(handoverToDelivery(order.Id));
           }}
           className="text-center text-success"
         >
-          Deliver
+          Assign
         </Col>
         <Col
           hidden={type !== "staff"}
@@ -41,15 +41,8 @@ function Order({ type, order }) {
         <Col hidden={type !== "admin"} className="text-center">
           {order.method}
         </Col>
-        <Col
-          hidden={type !== "admin"}
-          className={
-            order.pending
-              ? "text-center text-danger"
-              : "text-center text-success"
-          }
-        >
-          {order.pending ? "True" : "False"}
+        <Col hidden={type !== "admin"} className="text-center">
+          {order.rider}
         </Col>
       </Row>
       <List isShown={toggle} order={order} />

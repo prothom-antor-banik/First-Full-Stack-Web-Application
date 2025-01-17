@@ -18,7 +18,7 @@ function OrdersPage() {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(getAllOrders(page, false));
+    dispatch(getAllOrders(page, false, false));
     return () => dispatch(Initial());
   }, [page]);
 
@@ -62,7 +62,7 @@ function OrdersPage() {
                         Method
                       </Col>
                       <Col as="h5" className="text-center">
-                        Pending
+                        Rider
                       </Col>
                     </Row>
                   </ListGroup.Item>

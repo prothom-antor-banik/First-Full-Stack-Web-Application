@@ -9,7 +9,7 @@ import axios from "axios";
 import base from "../../configure";
 
 export const createComment = (comment, productId) => async (dispatch) => {
-  const url = `${base}/comment/${productId}`;
+  const url = `${base}/comment/${productId}/`;
   try {
     dispatch(Loading());
     const res = await axios.post(url, comment, {
@@ -26,7 +26,7 @@ export const createComment = (comment, productId) => async (dispatch) => {
 };
 
 export const getAllComments = (productId, page) => async (dispatch) => {
-  const url = `${base}/comment/${productId}?page=${page}`;
+  const url = `${base}/comment/${productId}/?page=${page}`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);

@@ -3,8 +3,8 @@ import { Row, Col, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AdminHeader from "../../components/AdminHeader";
-import Footer from "../../components/Footer";
 import ProductCarousel from "../../components/Carousel";
+import Footer from "../../components/Footer";
 
 function AdminPage() {
   const navigate = useNavigate();

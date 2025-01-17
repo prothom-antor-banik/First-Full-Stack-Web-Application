@@ -234,13 +234,25 @@ function UserProfilePage() {
               />
             ) : orders.length ? (
               <ListGroup>
-                <Row>
-                  <Col className="text-center">ID</Col>
-                  <Col className="text-center">Date</Col>
-                  <Col className="text-center">Products</Col>
-                  <Col className="text-center">Items</Col>
-                  <Col className="text-center">Total</Col>
-                </Row>
+                <ListGroup.Item>
+                  <Row>
+                    <Col as="h5" className="text-center">
+                      ID
+                    </Col>
+                    <Col as="h5" className="text-center">
+                      Date
+                    </Col>
+                    <Col as="h5" className="text-center">
+                      Products
+                    </Col>
+                    <Col as="h5" className="text-center">
+                      Items
+                    </Col>
+                    <Col as="h5" className="text-center">
+                      Total
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
 
                 {orders.map((order) => (
                   <Order key={order.Id} type="user" order={order} />

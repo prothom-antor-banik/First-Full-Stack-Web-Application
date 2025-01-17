@@ -20,6 +20,7 @@ import SummaryPage from "./pages/admin/SummaryPage";
 import CreatProductPage from "./pages/admin/CreateProductPage";
 import UpdateProductPage from "./pages/admin/UpdateProductPage";
 import ReceivedOrderPage from "./pages/staff/ReceivedOrderPage";
+import RiderPage from "./pages/rider/RiderPage";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           element={<ReceivedOrderPage />}
           errorElement={<Error />}
         />
+        <Route path="rider" element={<RiderPage />} errorElement={<Error />} />
         <Route path="login" element={<LoginPage />} errorElement={<Error />} />
         <Route
           path="register"

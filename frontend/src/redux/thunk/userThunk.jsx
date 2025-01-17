@@ -86,7 +86,7 @@ export const updateUserDetails = (user) => async (dispatch) => {
   }
 };
 
-export const updateToStaff = (user) => async (dispatch) => {
+export const updateUser = (user) => async (dispatch) => {
   const url = `${base}/users/${user.Id}/`;
   try {
     dispatch(Loading());

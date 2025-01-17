@@ -1,12 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const orderSlice = createSlice({
-  name: "order",
+export const deliverySlice = createSlice({
+  name: "delivery",
   initialState: {
-    orders: [],
+    deliveries: [],
+    rider_deliveries: [],
     pages: 0,
-    order_id: 0,
-    pending: true,
     loading: false,
     success: false,
     error: false,
@@ -14,7 +13,6 @@ export const orderSlice = createSlice({
 
   reducers: {
     Initial: (state) => {
-      state.pending = true;
       state.loading = false;
       state.success = false;
       state.error = false;
@@ -38,31 +36,24 @@ export const orderSlice = createSlice({
       state.error = true;
     },
 
-    CurrentOrder: (state, action) => {
-      state.order_id = action.payload;
-      state.loading = false;
-      state.success = true;
-      state.error = false;
-    },
-
-    CurrentOrderState: (state, action) => {
-      state.pending = action.payload;
-      state.loading = false;
-      state.success = false;
-      state.error = false;
-    },
-
-    ListOrders: (state, action) => {
-      state.orders = action.payload.orders;
+    ListDeliveries: (state, action) => {
+      state.deliveries = action.payload.deliveries;
       state.pages = action.payload.pages;
       state.loading = false;
       state.success = true;
       state.error = false;
     },
 
+    RiderDeliveries: (state, action) => {
+      state.rider_deliveries = action.payload;
+      state.loading = false;
+      state.success = true;
+      state.error = false;
+    },
+
     Delete: (state, action) => {
-      state.orders = state.orders.filter((order) => {
-        if (order.Id === action.payload) return false;
+      state.deliveries = state.deliveries.filter((delivery) => {
+        if (delivery.Id === action.payload) return false;
         else return true;
       });
       state.loading = false;
@@ -77,10 +68,9 @@ export const {
   Loading,
   Success,
   Error,
-  CurrentOrder,
-  CurrentOrderState,
-  ListOrders,
+  ListDeliveries,
+  RiderDeliveries,
   Delete,
-} = orderSlice.actions;
+} = deliverySlice.actions;
 
-export default orderSlice.reducer;
+export default deliverySlice.reducer;

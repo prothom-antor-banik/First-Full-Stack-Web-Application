@@ -106,7 +106,9 @@ function LastPage() {
                       {element.product.name}
                     </Col>
                     <Col md={4} className="text-center">
-                      <strong>${element.product.price * element.items}</strong>
+                      <strong>
+                        {element.product.price * element.items} Tk.
+                      </strong>
                     </Col>
                   </Row>
                   <Row>

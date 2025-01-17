@@ -5,14 +5,15 @@ from rest_framework.response import Response
 from rest_framework import status 
 
 from ..models import Orders
-from ..serializers import OrderSerializer
+from ..serializers import OrderSerializer, OrderDeliverySerializer
 
 class OrderList(APIView):
 	def get(self, request, format=None): 
 		page_size = 10
 		page = request.query_params['page']
-		status = True if request.query_params['status'] == 'true' else False
-		orders = Orders.objects.get_queryset().filter(pending=status).order_by('Id')
+		pending = True if request.query_params['pending'] == 'true' else False
+		show_delivery = True if request.query_params['show_delivery'] == 'true' else False
+		orders = Orders.objects.get_queryset().filter(pending=pending, show_delivery=show_delivery).order_by('Id')
 		paginator = Paginator(orders, page_size)
 		try:
 			orders = paginator.page(page)
@@ -52,7 +53,7 @@ class OrderDetail(APIView):
 			return Response(status=status.HTTP_202_ACCEPTED)
 
 	def patch(self, request, pk, format=None):
-		order = self.get_order(pk) 
+		order = self.get_order(pk)
 		serializer = OrderSerializer(order, data=request.data, partial=True) 
 		if serializer.is_valid():
 			serializer.save()
@@ -89,3 +90,43 @@ class OrderPending(APIView):
 		order = self.get_order(pk)
 		order.delete()
 		return Response(status=status.HTTP_200_OK)
+	
+	
+class OrderDeliveryList(APIView):
+	def get(self, request, format=None): 
+		page_size = 12
+		page = request.query_params['page']
+		city = request.query_params['city']
+		street = request.query_params['street']
+		orders = Orders.objects.get_queryset().filter(show_delivery=True, user__city=city, user__street=street, rider=None).order_by('Id')
+		paginator = Paginator(orders, page_size)
+		try:
+			orders = paginator.page(page)
+		except:
+			Response(status=status.HTTP_400_BAD_REQUEST)
+		serializer = OrderDeliverySerializer(orders, many=True)
+		return Response({'deliveries': serializer.data, 'pages': paginator.num_pages})
+
+
+class OrderDeliveryDetails(APIView):
+	def get_order(self, pk):
+		try: 
+			return Orders.objects.get(Id=pk)
+		except Orders.DoesNotExist:
+			raise Http404
+		
+	def get(self, request, pk, format=None):
+		try:
+			orders = Orders.objects.get_queryset().filter(rider__Id=pk, show_delivery=True).order_by('Id')
+			serializer = OrderDeliverySerializer(orders, many=True)
+			return Response(data=serializer.data, status=status.HTTP_200_OK)
+		except:
+			return Response(status=status.HTTP_400_BAD_REQUEST)
+		
+	def patch(self, request, pk, format=None):
+		order = self.get_order(pk)
+		serializer = OrderSerializer(order, data=request.data, partial=True) 
+		if serializer.is_valid():
+			serializer.save()
+			return Response(status=status.HTTP_200_OK)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

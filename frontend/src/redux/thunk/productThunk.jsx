@@ -54,7 +54,7 @@ export const getAllProductsWithSearch =
   };
 
 export const getProduct = (Id) => async (dispatch) => {
-  const url = `${base}/products/${Id}`;
+  const url = `${base}/products/${Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.get(url);
@@ -84,7 +84,7 @@ export const updateProduct = (id, product) => async (dispatch) => {
 };
 
 export const partialUpdateProduct = (id, product) => async (dispatch) => {
-  const url = `${base}/product-update/${id}`;
+  const url = `${base}/product-update/${id}/`;
   try {
     const res = await axios.patch(url, JSON.stringify(product), {
       headers: {
@@ -100,7 +100,7 @@ export const partialUpdateProduct = (id, product) => async (dispatch) => {
 };
 
 export const deleteProduct = (Id) => async (dispatch) => {
-  const url = `${base}/products/${Id}`;
+  const url = `${base}/products/${Id}/`;
   try {
     dispatch(Loading());
     const res = await axios.delete(url);

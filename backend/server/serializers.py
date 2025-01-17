@@ -10,13 +10,12 @@ class UserSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        password = validated_data['password']
-        validated_data['password'] = make_password(password)
+        password = validated_data["password"]
+        validated_data["password"] = make_password(password)
         return User.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
         super().update(instance=instance, validated_data=validated_data)
-        instance.is_staff = instance.is_admin
         instance.save()
         return instance
     
@@ -57,20 +56,37 @@ class OrderSerializer(serializers.ModelSerializer):
     
     def create(self, validated_data):
         product_list = validated_data["product_list"]
-        user_instance = User.objects.get(Id=validated_data['userId'])
-        validated_data['user'] = user_instance
+        user_instance = User.objects.get(Id=validated_data["userId"])
+        validated_data["user"] = user_instance
         validated_data.pop("product_list")
         order_instance = Orders.objects.create(**validated_data)
         for product in product_list:
             order_instance.product_list.add(Products.objects.get(Id=product[0]), through_defaults={"items": product[1]})
         return order_instance
+    
+    def update(self, instance, validated_data):
+        super().update(instance=instance, validated_data=validated_data)
+        instance.save()
+        return instance
+    
+
+class OrderDeliverySerializer(serializers.ModelSerializer):
+    user_name = serializers.CharField(source="user.name", read_only=True)
+    user_division = serializers.CharField(source="user.division", read_only=True)
+    user_city = serializers.CharField(source="user.city", read_only=True)
+    user_street = serializers.CharField(source="user.street", read_only=True)
+    user_zip = serializers.CharField(source="user.zip_code", read_only=True)
+
+    class Meta:
+        model = Orders
+        fields = ("Id", "products", "price", "user_name", "user_division", "user_city", "user_street", "user_zip")
 
 
 class CartProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ('name', 'image', 'price', 'countInStock', 'rating')
+        fields = ("name", "image", "price", "countInStock", "rating")
 
 
 class CartSerializer(serializers.ModelSerializer):
@@ -81,7 +97,7 @@ class CartSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        product_instance = Products.objects.get(Id=validated_data['productId'])
-        validated_data['product'] = product_instance
+        product_instance = Products.objects.get(Id=validated_data["productId"])
+        validated_data["product"] = product_instance
         cart_instance = Cart.objects.create(**validated_data)
         return cart_instance
