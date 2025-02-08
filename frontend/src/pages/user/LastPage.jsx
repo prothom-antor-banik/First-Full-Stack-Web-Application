@@ -46,10 +46,10 @@ function LastPage() {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col as="h5" md={8}>
+                  <Col as="h5" md={6}>
                     Email
                   </Col>
-                  <Col md={4} className="text-end text-secondary">
+                  <Col md={6} className="text-end text-secondary">
                     {current_user.email}
                   </Col>
                 </Row>

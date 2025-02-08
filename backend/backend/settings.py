@@ -60,7 +60,7 @@ DATABASES = {
         'NAME': 'techstoreee',
         'USER': 'techstoreee_user',
         'PASSWORD': 'Eno6ehBty4AqBrNrPcpcWUrdlbWnejyf',
-        'HOST': 'dpg-cujpsubtq21c73e13ln0-a',
+        'HOST': 'dpg-cujpsubtq21c73e13ln0-a', #'dpg-cujpsubtq21c73e13ln0-a.oregon-postgres.render.com'
         'PORT': '5432'
     }
 }
