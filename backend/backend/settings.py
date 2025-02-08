@@ -4,7 +4,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-q+826ml)b4^!zqy^#h4pw-icn2g$&xd30+-l1k+^lty6tomtp$'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -57,10 +57,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgresql_5i0m',
-        'USER': 'postgresql_5i0m_user',
-        'PASSWORD': 'M4xtMWp7vdx4HuJOV8oTLKiueTkUQumK',
-        'HOST': 'dpg-ctrpaelumphs73ffrorg-a',
+        'NAME': 'techstoreee',
+        'USER': 'techstoreee_user',
+        'PASSWORD': 'Eno6ehBty4AqBrNrPcpcWUrdlbWnejyf',
+        'HOST': 'dpg-cujpsubtq21c73e13ln0-a',
         'PORT': '5432'
     }
 }
