@@ -52,7 +52,7 @@ function RiderPage() {
                     <th className="text-center">Products</th>
                     <th className="text-center">Price</th>
                     <th className="text-center">Street</th>
-                    <th className="text-center">Zip</th>
+                    <th className="text-center">Apartment</th>
                     <th className="text-center">Ride</th>
                   </tr>
                 </thead>
@@ -65,7 +65,9 @@ function RiderPage() {
                         <td className="text-center">{delivery.products}</td>
                         <td className="text-center">{delivery.price}</td>
                         <td className="text-center">{delivery.user_street}</td>
-                        <td className="text-center">{delivery.user_zip}</td>
+                        <td className="text-center">
+                          {delivery.user_apartment}
+                        </td>
                         <td className="text-center">
                           <Button
                             variant="dark"
@@ -98,7 +100,7 @@ function RiderPage() {
                     <th className="text-center">Name</th>
                     <th className="text-center">Products</th>
                     <th className="text-center">Street</th>
-                    <th className="text-center">Zip</th>
+                    <th className="text-center">Apartment</th>
                     <th className="text-center">Deliver</th>
                     <th className="text-center">Reassign</th>
                     <th className="text-center">Cancel</th>
@@ -112,7 +114,9 @@ function RiderPage() {
                         <td className="text-center">{delivery.user_name}</td>
                         <td className="text-center">{delivery.products}</td>
                         <td className="text-center">{delivery.user_street}</td>
-                        <td className="text-center">{delivery.user_zip}</td>
+                        <td className="text-center">
+                          {delivery.user_apartment}
+                        </td>
                         <td className="text-center">
                           <Button
                             variant="success"

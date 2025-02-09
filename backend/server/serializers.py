@@ -31,7 +31,7 @@ class OrderUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("Id", "name", "email", "division", "city", "street", "zip_code")
+        fields = ("Id", "name", "email", "division", "city", "street", "apartment")
 
 
 class OrdersProductsRelationshipSerializer(serializers.ModelSerializer):
@@ -75,11 +75,11 @@ class OrderDeliverySerializer(serializers.ModelSerializer):
     user_division = serializers.CharField(source="user.division", read_only=True)
     user_city = serializers.CharField(source="user.city", read_only=True)
     user_street = serializers.CharField(source="user.street", read_only=True)
-    user_zip = serializers.CharField(source="user.zip_code", read_only=True)
+    user_apartment = serializers.CharField(source="user.apartment", read_only=True)
 
     class Meta:
         model = Orders
-        fields = ("Id", "products", "price", "user_name", "user_division", "user_city", "user_street", "user_zip")
+        fields = ("Id", "products", "price", "user_name", "user_division", "user_city", "user_street", "user_apartment")
 
 
 class CartProductSerializer(serializers.ModelSerializer):

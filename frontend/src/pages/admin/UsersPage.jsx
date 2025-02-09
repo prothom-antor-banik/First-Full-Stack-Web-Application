@@ -89,7 +89,7 @@ function UsersPage() {
                     <th className="text-center">Division</th>
                     <th className="text-center">City</th>
                     <th className="text-center">Street</th>
-                    <th className="text-center">Zip</th>
+                    <th className="text-center">Apartment</th>
                     <th className="text-center">Admin</th>
                     <th className="text-center">Make Staff</th>
                     <th className="text-center">Make Rider</th>
@@ -106,7 +106,7 @@ function UsersPage() {
                       <td className="text-center">{user.division}</td>
                       <td className="text-center">{user.city}</td>
                       <td className="text-center">{user.street}</td>
-                      <td className="text-center">{user.zip_code}</td>
+                      <td className="text-center">{user.apartment}</td>
                       <td
                         className={
                           user.is_superuser

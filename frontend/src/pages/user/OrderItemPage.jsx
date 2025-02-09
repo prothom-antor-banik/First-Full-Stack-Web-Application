@@ -124,7 +124,7 @@ function OrderItemPage() {
                 <p>{"Email : " + current_user.email}</p>
                 <p>
                   {"Address : " +
-                    `${current_user.city} | ${current_user.street} | ${current_user.zip_code}`}
+                    `${current_user.city} | ${current_user.street} | ${current_user.apartment}`}
                 </p>
               </ListGroup.Item>
               <ListGroup.Item>

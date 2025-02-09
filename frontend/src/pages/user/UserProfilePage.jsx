@@ -32,7 +32,7 @@ function UserProfilePage() {
     division: current_user.division,
     city: current_user.city,
     street: current_user.street,
-    zip_code: current_user.zip_code,
+    apartment: current_user.apartment,
   });
 
   const [Password, setPassword] = useState({
@@ -168,14 +168,14 @@ function UserProfilePage() {
                 <Col>
                   <Form.Group className="mb-3">
                     <Form.Label column sm="3" className="fw-bold">
-                      Zip
+                      Apartment
                     </Form.Label>
                     <Form.Control
                       plaintext
                       type="text"
-                      value={state.zip_code}
+                      value={state.apartment}
                       onChange={(e) =>
-                        setState({ ...state, zip_code: e.target.value })
+                        setState({ ...state, apartment: e.target.value })
                       }
                     ></Form.Control>
                   </Form.Group>

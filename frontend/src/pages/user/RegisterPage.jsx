@@ -19,7 +19,7 @@ function RegisterPage() {
     division: "",
     city: "",
     street: "",
-    zip_code: "",
+    apartment: "",
     password: "",
   };
   const [state, setState] = useState(initialState);
@@ -162,13 +162,13 @@ function RegisterPage() {
               </Col>
               <Col>
                 <Form.Group>
-                  <Form.Label className="fw-bold">Zip Code</Form.Label>
+                  <Form.Label className="fw-bold">Apartment</Form.Label>
                   <Form.Control
                     required
-                    placeholder="Zip Code"
-                    value={state.zip_code}
+                    placeholder="Apartment"
+                    value={state.apartment}
                     onChange={(e) =>
-                      setState({ ...state, zip_code: e.target.value })
+                      setState({ ...state, apartment: e.target.value })
                     }
                   />
                 </Form.Group>

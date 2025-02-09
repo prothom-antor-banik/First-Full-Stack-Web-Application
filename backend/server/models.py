@@ -12,7 +12,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     division = models.CharField(max_length=64, default="None")
     city = models.CharField(max_length=64, default="None")
     street = models.CharField(max_length=64, default="None")
-    zip_code = models.CharField(max_length=64, default="None")
+    apartment = models.CharField(max_length=1024, default="None")
     password = models.CharField(max_length=1024)
 
     is_active = models.BooleanField(default=True)
