@@ -251,6 +251,9 @@ function UserProfilePage() {
                     <Col as="h5" className="text-center">
                       Total
                     </Col>
+                    <Col as="h5" className="text-center">
+                      Pending
+                    </Col>
                   </Row>
                 </ListGroup.Item>
 

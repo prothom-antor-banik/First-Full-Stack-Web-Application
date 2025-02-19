@@ -44,6 +44,16 @@ function Order({ type, order }) {
         <Col hidden={type !== "admin"} className="text-center">
           {order.rider}
         </Col>
+        <Col
+          hidden={type === "staff"}
+          className={
+            order.pending
+              ? "text-center text-danger"
+              : "text-center text-success"
+          }
+        >
+          {order.pending ? "Pending" : "Delivered"}
+        </Col>
       </Row>
       <List isShown={toggle} order={order} />
     </ListGroup.Item>

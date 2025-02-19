@@ -64,6 +64,9 @@ function OrdersPage() {
                       <Col as="h5" className="text-center">
                         Rider
                       </Col>
+                      <Col as="h5" className="text-center">
+                        Pending
+                      </Col>
                     </Row>
                   </ListGroup.Item>
 
